@@ -8,6 +8,7 @@ packages/
 *.suo
 *.user
 *.sln.docstates
+*.userprefs
 .vscode/
 
 Appsettings.Development.json
@@ -18,7 +19,7 @@ Appsettings.Development.json
 !webpack.config.js
 
 #Include JS Files in the /scripts/ folder
-!RPGSystem.Website/content/scripts/**.js
+!Elixr.Website/content/scripts/**.js
 
 #.vs Folder
 .vs/
