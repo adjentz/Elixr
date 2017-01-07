@@ -1,0 +1,46 @@
+<div class="creature-flaws">
+    <div class="slideout" ng-if="$ctrl.addingFlaw">
+        <div class="close" ng-click="$ctrl.closeSlideout()">
+            &times;
+        </div>
+        <div>
+            <rpg-flaws for-result="$ctrl.addFlawResultDeferred"></rpg-flaws>
+        </div>
+    </div>
+    <div class="flaws-table-container hidden-print">
+        <table>
+            <tr>
+                <th>Flaw</th>
+            </tr>
+            <tr ng-repeat-start="flawInfo in $ctrl.editor.creature.allFlawInformation">
+                <td>
+                    <i class="fa fa-minus-square-o" ng-click="$ctrl.removeFlaw(flawInfo)"></i>
+                    {{ flawInfo.flaw.name }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" ng-disabled="$ctrl.flawInfoIsFromRace(flawInfo)" placeholder="{{flawInfo.flaw.name}} Notes" ng-change="$ctrl.notifyFlawChanged(flawInfo)" ng-model="flawInfo.notes">
+                </td>
+            </tr>
+            <tr ng-repeat-end=""></tr>
+        </table>
+        <a ng-click="$ctrl.addFlaw()">
+            Add Flaw+
+        </a>
+    </div>
+    <div class="flaws-table-container visible-print">
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-col">
+                    <span>
+                            Flaw
+                        </span>
+                </div>
+            </div>
+            <div class="flex-row" style="height:24px;" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35]">
+                <div class="flex-col">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</div>

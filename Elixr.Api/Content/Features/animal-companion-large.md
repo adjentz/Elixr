@@ -1,0 +1,1 @@
+You gain a large animal companion.

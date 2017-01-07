@@ -1,0 +1,176 @@
+<div>
+
+    <div class="slideout" ng-if="$ctrl.selectingRace">
+
+        <div class="close" ng-click="$ctrl.closeSlideout()">
+            &times;
+        </div>
+
+        <rpg-races for-result="$ctrl.selectRaceResultDeferred"></rpg-races>
+    </div>
+
+    <div class="creature-description">
+        <div class="player-info">
+            <div>
+                <strong>
+                    {{ $ctrl.editor.creature.isPlayerCharacter ? "Character" : "Creature" }} Name
+                </strong>
+                <div>
+                    <input type="text" ng-model="$ctrl.editor.creature.name" ng-change="$ctrl.editor.notifyNameChanged()">
+                </div>
+            </div>
+            <div>
+                <strong>
+                    Age
+                </strong>
+                <div>
+                    <input type="text" ng-model="$ctrl.editor.creature.age" ng-change="$ctrl.editor.notifyAgeChanged()">
+                </div>
+            </div>
+            <div ng-if="$ctrl.editor.creature.isPlayerCharacter">
+                <strong>
+                    Gender
+                </strong>
+                <div>
+                    <input type="text" ng-model="$ctrl.editor.creature.gender" ng-change="$ctrl.editor.notifyGenderChanged()">
+                </div>
+            </div>
+            <div>
+                <strong>
+                    Race
+                </strong>
+                <div class="hidden-print">
+                    <i class="fa fa-minus-square-o" ng-click="$ctrl.removeRace()" ng-show="$ctrl.editor.creature.race"></i>
+                    <a ng-click="$ctrl.selectRace()">
+                        [{{ $ctrl.editor.creature.race.name || "self" }}]
+                    </a>
+                </div>
+                <div class="visible-print">
+                    <input type="text">
+                </div>
+            </div>
+            <div class="hidden-print">
+
+                <strong>
+                <i class="fa fa-arrow-up" ng-click="$ctrl.levelUp()"></i>
+                Level
+                <i class="fa fa-arrow-down" ng-click="$ctrl.levelDown()"></i>
+            </strong>
+                <div>
+                    {{ $ctrl.editor.creature.level }}
+                </div>
+            </div>
+            <div class="hidden-print">
+                <strong>
+                    Speed
+                </strong>
+                <div>
+                    {{ $ctrl.editor.creature.speed }}
+                </div>
+            </div>
+            <div class="visible-print">
+                <div style="display: flex">
+                    <div style="flex: 1;">
+                        <strong>
+                            Level
+                        </strong>
+                    </div>
+                    <div style="flex:1;">
+                        <strong>
+                            Speed
+                        </strong>
+                    </div>
+                </div>
+                <div style="display: flex">
+                    <div style="flex: 1;">
+                        <input type="text">
+                    </div>
+                    <div style="flex:1;">
+                        <input type="text">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="physical">
+            <div>
+                <strong>
+                    <span  ng-if="!$ctrl.editor.creature.isPlayerCharacter">
+                        Typical
+                    </span>
+                    Weight
+                </strong>
+                <div>
+                    <input type="text" ng-model="$ctrl.editor.creature.weight" ng-change="$ctrl.editor.notifyWeightChanged()">
+                </div>
+            </div>
+
+            <div>
+                <strong>
+                    <span  ng-if="!$ctrl.editor.creature.isPlayerCharacter">
+                        Typical
+                    </span>
+                    Height
+                </strong>
+                <div>
+                    <input type="text" ng-model="$ctrl.editor.creature.height" ng-change="$ctrl.editor.notifyHeightChanged()">
+                </div>
+            </div>
+
+            <div>
+                <strong>
+                    <span  ng-if="!$ctrl.editor.creature.isPlayerCharacter">
+                        Typical
+                    </span>
+                    Hair Color
+                </strong>
+                <div>
+                    <input type="text" ng-model="$ctrl.editor.creature.hair" ng-change="$ctrl.editor.notifyHairChanged()">
+                </div>
+            </div>
+
+            <div>
+                <strong>
+                    <span  ng-if="!$ctrl.editor.creature.isPlayerCharacter">
+                        Typical
+                    </span>
+                    Eye Color
+                </strong>
+                <div>
+                    <input type="text" ng-model="$ctrl.editor.creature.eyes" ng-change="$ctrl.editor.notifyEyesChanged()">
+                </div>
+            </div>
+
+            <div>
+                <strong>
+                    <span  ng-if="!$ctrl.editor.creature.isPlayerCharacter">
+                        Typical    
+                    </span>
+                    Skin Color
+                </strong>
+                <div>
+                    <input type="text" ng-model="$ctrl.editor.creature.skin" ng-change="$ctrl.editor.notifySkinChanged()">
+                </div>
+            </div>
+
+        </div>
+        <div class="portrait" ng-click="$ctrl.uploadPhoto()">
+            <strong>
+                <span class="hidden-print">Portrait</span>
+                <span class="visible-print">Description</span> <!--Portrait isn't available on print, so this square takes up that place-->
+            </strong>
+            <input type="file" id="portraitFileInput">
+
+            <div class="image-container" ng-click="$ctrl.uploadPortrait()" style="background-color:{{$ctrl.backgroundColor}}; background-image:url({{$ctrl.imageUri}})"></div>
+        </div>
+    </div>
+    <div class="motivation hidden-print">
+        <div>
+            <strong>
+                Description
+            </strong>
+            <textarea ng-model="$ctrl.editor.creature.description" ng-change="$ctrl.editor.notifyDescriptionChanged()" placeholder="Physical, Personality, Motivation"
+                rows="10"></textarea>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+@import "variables.less";
+
+.creature-wealth{
+
+    height: 100%;
+    .alter-options{
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    display: flex;
+    div.wealth-wrapper{
+        line-height: 30px;
+        padding: 10px 20px;
+        flex: 2;
+        height: 100%;
+    }
+    div.sources{
+        text-align: center;
+        flex:3;
+        border-left:1px solid #333;
+        border-right: 1px solid #333;
+        max-height: 200px;
+        overflow-y: auto;
+        min-height: 100%;
+        td{
+            white-space: normal;
+        }
+        a{
+            font-size: 14px;
+        }
+    }
+}
+
+@media screen and (max-width:@mobileCollapse) {
+    .creature-wealth {
+        div.sources {
+            border-right: none;
+        }
+    }
+}

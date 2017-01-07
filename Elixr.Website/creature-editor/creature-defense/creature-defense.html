@@ -1,0 +1,128 @@
+<div class="creature-defense">
+
+    <div class="slideout" ng-if="$ctrl.addingArmor">
+
+        <div class="close" ng-click="$ctrl.closeSlideout()">
+            &times;
+        </div>
+
+        <div ng-show="!$ctrl.askReduceWealth">
+            <rpg-armor for-result="$ctrl.addArmorResultDeferred"></rpg-armor>
+        </div>
+
+        <div ng-show="$ctrl.askReduceWealth">
+            Reduce wealth by cost of Armor?
+            <ul>
+                <li ng-click="$ctrl.reduceWealthOptionSelected(true)">
+                    Yes, I purchased it.
+                </li>
+                <li ng-click="$ctrl.reduceWealthOptionSelected(false)">
+                    No, I got it some other way (Looted, Given, etc...)
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="shield-wrapper">
+        <div class="shield-header">
+            <h2>
+                DEFENSE
+            </h2>
+        </div>
+        <div class="shield">
+            <span class="hidden-print">
+                {{$ctrl.editor.creature.defense }}
+            </span>
+        </div>
+    </div>
+    <div class="sources hidden-print">
+        <table>
+            <tr>
+                <th>Source</th>
+                <th>Modifier</th>
+            </tr>
+            <tr>
+                <td>
+                    Base
+                </td>
+                <td>
+                    10
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Agility Mod
+                </td>
+                <td>
+                    <span class="hidden-print">
+                        {{ $ctrl.editor.creature.agilityMod }}
+                    </span>
+                </td>
+            </tr>
+            <tr ng-repeat="source in $ctrl.defenseSources">
+                <td>
+                    {{ source.Reason }}
+                </td>
+                <td>
+                    {{ $ctrl.formatModifier(source) }}
+                </td>
+            </tr>
+            <tr ng-repeat="ai in $ctrl.editor.creature.armorInformation">
+                <td>
+                    <i class="fa fa-minus-square-o" ng-click="$ctrl.removeArmor(ai)"></i> {{ ai.armor.name }}
+                </td>
+                <td>
+                    {{ $ctrl.formatBonus(ai.armor.defenseBonus) }}
+                </td>
+            </tr>
+        </table>
+        <a ng-click="$ctrl.addArmor()" class="hidden-print">
+            Add Armor+
+        </a>
+    </div>
+    <div class="sources-printable visible-print">
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-col">
+                    <span class="vertical-align" style="font-weight: bold;">
+                        Source
+                    </span>
+                </div>
+                <div class="flex-col">
+                   <span class="vertical-align" style="font-weight: bold;">
+                        Modifier
+                   </span>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-col">
+                    <span class="vertical-align">
+                        Base
+                    </span>
+                </div>
+                <div class="flex-col">
+                   <span class="vertical-align">
+                        10
+                   </span>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-col">
+                    <span class="vertical-align">
+                        Agility Mod
+                    </span>
+                </div>
+                <div class="flex-col">
+                </div>
+            </div>
+            <div class="flex-row" ng-repeat="i in [0,1,2,3,4,5,6,7]">
+                <div class="flex-col">
+                </div>
+                <div class="flex-col">
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

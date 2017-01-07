@@ -1,0 +1,1 @@
+Choose a specific weapon. Add one to your damage roll when you've successfully hit with that weapon.

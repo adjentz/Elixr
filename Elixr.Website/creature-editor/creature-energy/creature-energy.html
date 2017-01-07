@@ -1,0 +1,45 @@
+<div class="creature-energy">
+    <div class="heart-wrapper">
+        <div class="heart-header">
+            <h2>
+                <span class="visible-print">
+                    MAX
+                </span>
+                ENERGY
+            </h2>
+        </div>
+        <div class="heart">
+            <span class="hidden-print">
+                {{ $ctrl.creature.maxEnergy }}
+            </span>
+        </div>
+    </div>
+    <div class="sources">
+        <table class="hidden-print">
+            <tr>
+                <th>Source</th>
+                <th>Amount</th>
+            </tr>
+            <tr ng-repeat="source in $ctrl.energySources">
+                <td>
+                    {{ source.reason }}
+                </td>
+                <td>
+                    {{ $ctrl.formatModifier(source) }}
+                </td>
+            </tr>
+        </table>
+        <i class="hidden-print">
+            Level up or take Features such as Vitality to increase Energy
+        </i>
+        <h4 class="visible-print" style="text-decoration: underline;margin-top: 2px;">
+            Wounds/Current Energy
+        </h4>
+        <div class="channeled-energy visible-print">
+            <strong>
+                Channeled Energy:
+            </strong>
+
+        </div>
+    </div>
+</div>

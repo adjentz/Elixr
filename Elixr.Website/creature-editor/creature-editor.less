@@ -1,0 +1,160 @@
+@import "creature-description/creature-description.less";
+@import "creature-abilities/creature-abilities.less";
+@import "creature-energy/creature-energy.less";
+@import "creature-defense/creature-defense.less";
+@import "creature-weapons/creature-weapons.less";
+@import "creature-wealth/creature-wealth.less";
+@import "creature-items/creature-items.less";
+@import "creature-spells/creature-spells.less";
+@import "creature-features/creature-features.less";
+@import "creature-flaws/creature-flaws.less";
+@import "creature-oaths/creature-oaths.less";
+.creature-editor{
+    
+    div.description{
+        margin-bottom: 20px;
+    }
+
+    @borderColor:#333; //#C09861;
+    @borderWidth:1px;
+
+    div.stats{
+        margin-bottom: 20px;
+        display: flex;
+        page-break-after: always!important;
+
+        div.abilities,div.primary-stats{
+            flex:1;
+        }
+        div.abilities{
+            border:@borderWidth solid @borderColor;
+            margin-right: 10px;
+        }
+        .primary-stats{
+            display: flex;
+            flex-direction: column;
+            .energy,.defense,.weapons{
+                flex:1;
+            }   
+        }
+    }
+    
+    div.equipment{
+        border: 1px solid #333;
+        margin-bottom: 20px;
+        display: flex;
+        div.wealth{
+            flex:1;
+        }
+        div.items{
+            flex: 1;
+        }
+    }
+    
+    div.special{
+        
+        display: flex;
+
+        .characteristics-wrapper{
+            flex:3;
+            display: initial;
+            h2{
+                margin: 0;
+                text-align: center;
+            }
+            .characteristics{
+                display: flex;
+                margin-right: 5px;
+                .features,.flaws,.oaths{
+                    flex:1;
+                }
+            }
+            .feature-pool-remaining{
+                font-size: 12px;
+                text-align: center;
+            }
+        }
+        
+        .spells{
+            flex:3;
+        }
+    }
+
+    div.energy,div.defense{
+         margin-bottom: 10px;
+        border:1px solid #333;
+        height: 0%;
+    }
+    div.weapons{
+        border: 1px solid #333;
+    }
+}
+
+@media screen and (max-width:@mobileCollapse){
+
+    .abilities {
+        margin-right: 0!important;
+    }
+    .stats,.special{
+        display: initial!important;
+    }
+    .characteristics{
+        display: initial!important;
+    }
+    .energy,.equipment{
+        margin-top: 20px;
+    }
+    .equipment{
+        display: block!important;
+        border: none!important;
+    }
+    .wealth{
+        border: 1px solid #333;
+        margin-bottom: 20px;
+    }
+
+    
+}
+@media print {
+    div.equipment {
+        margin-top: 20px;
+    }
+}
+div.flex-table {
+        display: flex; 
+        flex-direction: column;
+        height: 100%;
+        font-size: 11px;
+
+        div.flex-row {
+            display: flex;
+            flex: 1;
+            &:last-child {
+                div.flex-col {
+                    border-bottom: none;
+                }
+            }
+            &:first-child {
+                div.flex-col {
+                    text-align: center;
+                    span {
+                        font-weight: bold;
+                    }
+                }
+            }
+            div.flex-col {
+                flex:1;
+                border-bottom: 1px solid #333;
+                border-right: 1px solid #333;
+                &:last-child {
+                    border-right: none;
+                }
+                span {
+                    position: relative;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    display: block;
+                }
+            }
+        }
+    }

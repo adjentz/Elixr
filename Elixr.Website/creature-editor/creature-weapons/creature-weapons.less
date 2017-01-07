@@ -1,0 +1,56 @@
+@import "variables.less";
+
+.creature-weapons{
+    display: flex;
+    height: 100%;
+
+    div.sword-wrapper{
+        flex:2;
+        padding: 0 15px;
+        border-right: 1px solid #333;
+        text-align: center;
+
+        div.sword-header{
+        margin-bottom: 10px;
+            h2{
+                margin: 0;
+            }
+        }
+        div.sword{
+            height: 90%;
+            img{
+                max-width: 100px;
+                height: 200px;
+            };
+        }
+    }
+    div.sources{
+        flex:3;
+        overflow-y: auto;
+        text-align: center;
+        a{
+            font-size: 12px;
+        }
+
+        td{
+            .fa{
+                color:maroon;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:@mobileCollapse) {
+    .creature-weapons {
+        display: initial;
+        div.sword-wrapper {
+            padding: 15px;
+            border-right: none;
+        }
+        div.sources {
+            border-top: 1px solid #333;
+            padding-bottom: 5px;
+        }
+    }
+}

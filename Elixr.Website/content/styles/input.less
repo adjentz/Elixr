@@ -1,0 +1,16 @@
+input:not([type="radio"]):not([type="file"]):not([type="checkbox"]){
+    padding: 2px 4px;
+    display: block;
+    border: none;
+    border-bottom:1px solid #333;
+    width:100%;
+    background-color: transparent;
+    box-sizing: border-box;
+    font-size: 1.5em;
+    color:#000;
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+}

@@ -1,0 +1,133 @@
+<div class="creature-weapons">
+
+    <div class="slideout" ng-if="$ctrl.addingWeapon">
+        <div class="close" ng-click="$ctrl.closeSlideouts()">
+            &times;
+        </div>
+        <div ng-show="!$ctrl.askReduceWealth">
+            <rpg-weapons for-result="$ctrl.addWeaponResultDeferred"></rpg-weapons>
+        </div>
+        <div ng-show="$ctrl.askReduceWealth">
+            Reduce Wealth by cost of Weapon?
+            <ul>
+                <li ng-click="$ctrl.reduceWealthOptionSelected(true)">
+                    Yes, I purchased it.
+                </li>
+                <li ng-click="$ctrl.reduceWealthOptionSelected(false)">
+                    No, I got it some other way (Looted, Given, etc...)
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slideout" ng-if="$ctrl.viewingDetailOfWeapon">
+        <div class="close" ng-click="$ctrl.closeSlideouts()">
+            &times;
+        </div>
+        <h2>
+            {{ $ctrl.viewingDetailOfWeapon.weapon.name }}
+        </h2>
+        <div btf-markdown="$ctrl.viewingDetailOfWeapon.weapon.description"></div>
+
+        <h3>
+            Applied Features
+        </h3>
+        <div ng-show="$ctrl.viewingDetailOfWeapon.featuresApplied.length===0">
+            No Features
+        </div>
+        <ul>
+            <li ng-repeat="featureInfo in $ctrl.viewingDetailOfWeapon.featuresApplied track by $index">
+                <i class="fa fa-minus-square-o" ng-click="$ctrl.removeFeatureFromWeapon(featureInfo)"></i>
+                {{ featureInfo.feature.name }}
+            </li>
+        </ul>
+    </div>
+
+    <div class="sword-wrapper">
+        <div class="sword-header">
+            <h2>
+                ATTACK
+            </h2>
+        </div>
+        <div class="sword">
+            <img src="/content/images/sword.png" alt="sword">
+        </div>
+    </div>
+    <div class="sources hidden-print">
+        <table>
+            <tr>
+                <th>
+                    Weapon
+                </th>
+                <th>
+                    Bonus
+                </th>
+                <th>
+                    Damage
+                </th>
+                <th>
+                    Range
+                </th>
+            </tr>
+            <tr ng-repeat="weaponInfo in $ctrl.editor.creature.weaponInformation">
+                <td>
+                    <i class="fa fa-minus-square-o" ng-click="$ctrl.removeWeapon(weaponInfo)"></i>
+                    <a ng-click="$ctrl.viewWeaponDetail(weaponInfo)">
+                        {{ weaponInfo.weapon.name }}
+                    </a>
+                </td>
+                <td>
+                    {{ $ctrl.getWeaponBonus(weaponInfo) }}
+                </td>
+                <td>
+                    {{ $ctrl.getWeaponDamage(weaponInfo) }}
+                </td>
+                <td>
+                    {{ weaponInfo.weapon.range | range }}
+                </td>
+            </tr>
+        </table>
+        <a ng-click="$ctrl.addWeapon()" class="hidden-print">
+            Add Weapon+
+        </a>
+    </div>
+    <div class="sources visible-print">
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-col">
+                    <span>
+                        Weapon
+                    </span>
+                </div>
+                <div class="flex-col">
+                    <span>
+                        Bonus
+                    </span>
+                </div>
+                <div class="flex-col">
+                    <span>
+                        Damage
+                    </span>
+                </div>
+                <div class="flex-col">
+                    <span>
+                        Range
+                    </span>
+                </div>
+            </div>
+            <div class="flex-row" ng-repeat-start="i in [0,1,2,3,4,5]">
+                <div class="flex-col"></div>
+                <div class="flex-col"></div>
+                <div class="flex-col"></div>
+                <div class="flex-col"></div>
+            </div>
+            <div class="flex-row" ng-repeat-end="">
+                <div class="flex-col" style="text-align: left;">
+                    <span style="margin-left: 15px;">
+                        Notes:
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,205 @@
+<section>
+    <article>
+        <h2>
+            Abilities
+        </h2>
+        <p>
+            Your abilities are a representation of your character's physical capabilities. 
+        </p>
+        <p>
+            The abilities are: Strength, Agility, Focus, and Charm. Each are explained in detail below.
+        </p>
+        <p>
+            There are four parts to an Ability: Score, Modifier, Misc., and Bonus
+        </p>
+        <h3>
+            Score
+        </h3>
+        <p>
+            Score is how naturally adapt you are at performing actions related to the Ability. 
+        </p>
+        <p>
+            A commoner would have each Ability score be an average of 10-11. Characters tend to have much higher, heroic, Ability scores.
+        </p>
+        <p>
+            When you first create your character, each score starts at 0. 
+            You then have a pool of 48 Points to distribute between the four scores.
+            To increase a score by one, you reduce the pool by one, until the remaining Ability points is zero.
+        </p>
+        <p>
+            At this point, you cannot increase a score above an 18, though other sources such as Race or magical items may increase an Ability beyond that.
+        </p>
+        <h3>
+            Modifier
+        </h3>
+        <p>
+            When a score is higher than 11, a creature receives a bonus proportional to the score when attempting an action related to that Ability. 
+        </p>
+        <p>
+            When a score is lower than 10, a creature receives a penalty.
+        </p>
+        <p>
+            This bonus or penality is referred to as the Modifier, or "Mod", for short.
+        </p>
+        <p>
+            Modifier is determined by the following table.
+        </p>
+        <table>
+            <tr>
+                <th>
+                    Score
+                </th>
+                <th>
+                    Modifier
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    0
+                </td>
+                <td>
+                    Incapacitated
+                </td>
+            </tr>
+            <tr ng-repeat="score in $ctrl.scores">
+                <td>
+                    {{ score }}
+                </td>
+                <td>
+                    {{ $ctrl.modForScore(score) }}
+                </td>
+            </tr>
+        </table>
+        <p>
+            Modifiers can also be determined by applying this formula:
+            <ol>
+                <li>
+                    Take the Ability score.
+                </li>
+                <li>
+                    If the score is odd, round down to the nearest even number.
+                </li>
+                <li>
+                    Take the result of the previous step and reduce it by 10. 
+                </li>
+                <li>
+                    Take the result of the previous step and divide it by two.
+                </li>
+                <li>
+                    The result of the previous step is the Modifier.
+                </li>
+            </ol>
+        </p>
+        <h3>
+            Misc.
+        </h3>
+        <p>
+            Some magical items or Features give a Miscellaneous bonus to an Ability. 
+        </p>
+        <h3>
+            Bonus
+        </h3>
+        <p>
+            Bonus is the sum of Modifier and Misc. 
+        </p>
+    </article>
+    <article>
+        <h2>
+            Making an Ability check
+        </h2>
+        <p>
+            Occasionally your GM may call for an Ability check to be rolled, such as an Agility check, or a Charm check.
+            This is typically done if a more specific stat isn't available and the action you're attempting to perform relates most to an Ability.
+        </p>
+        <p>
+            To roll an Ability check, take the result of 1d20 + Ability Bonus.
+            Your GM will tell you if the result is high enough to perform the action you were attempting.
+        </p>
+    </article>
+    <article>
+        <h2>
+            Strength
+        </h2>
+        <p>
+            Strength represents your Ability to move things physically with your muscles. 
+            In pounds, you can:
+            <ul>
+                <li>
+                    Carry up to 15 times your Strength Score
+                </li>
+                <li>
+                    Lift objects above your head that are under 20 times your Strength Score
+                </li>
+                <li>
+                    Drag/Push up to 30 times your Strength Score
+                </li>
+            </ul>
+        </p>
+        <p>
+            When carrying more than their capacity (15 times their Strength Score), a character's movement speed is halved.
+        </p>
+        <h2>
+            Agility
+        </h2>
+        <p>
+            Agility represents your Ability to move quickly and quietly.
+            With a high score, you'll be able to:
+            <ul>
+                <li>
+                    Dodge traps
+                </li>
+                <li>
+                    Balance on a ledge
+                </li>
+                <li>
+                    Pick a pocket
+                </li>
+                <li>
+                    Land gracefully from a fall
+                </li>
+            </ul>
+        </p>
+        <h2>
+            Focus
+        </h2>
+        <p>
+            Focus represents your mental abilities.
+            With a high score, you can:
+            <ul>
+                <li>
+                    Effectively retain knowledge
+                </li>
+                <li>
+                    Solve complex puzzles
+                </li>
+                <li>
+                    Notice small details
+                </li>
+                <li>
+                    Defend your mind against spells
+                </li>
+            </ul>
+        </p>
+        <h2>
+            Charm
+        </h2>
+        <p>
+            Charm represents how other people/creatures perceive and respond to you.
+            With a high score, you can:
+            <ul>
+                <li>
+                    Easily befriend others
+                </li>
+                <li>
+                    Bluff your way out of predicaments
+                </li>
+                <li>
+                    Have a compelling stage presence
+                </li>
+                <li>
+                    Cause others to see your point of view
+                </li>
+            </ul>
+        </p>
+    </article>
+</section>

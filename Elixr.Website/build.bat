@@ -1,0 +1,1 @@
+lessc "content/styles/app.less" "content/styles/app.css" & tsc

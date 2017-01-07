@@ -1,0 +1,59 @@
+<div>
+    <div class="search-container">
+        <input type="search" placeholder="Search Creature name" ng-model="$ctrl.searchQuery.name">
+        <div>
+            <label>
+                <input type="radio" name="searchType" ng-value="{{$ctrl.standard}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchCreatures()">
+                Standard
+            </label>
+            <label>
+                <input type="radio" name="searchType"  ng-value="{{$ctrl.community}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchCreatures()">
+                Community
+            </label>
+            <label>
+                <input type="radio" name="searchType" ng-value="{{$ctrl.all}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchCreatures()">
+                All
+            </label>
+
+            <button ng-click="$ctrl.searchCreatures()">
+                Go
+            </button>
+        </div>
+    </div>
+
+    <div class="rpg-bm-15">
+        <a ui-sref="creature-editor">
+            Create Creature+
+        </a>
+    </div>
+    
+    <div class="panel" ng-repeat="creature in $ctrl.creatures">
+        <div class="panel-heading">
+            {{ creature.name }} [Level: {{ creature.level }}]
+        </div>
+        <div class="panel-body">
+            <div btf-markdown="creature.description"></div>
+
+            <div class="rpg-center-text">
+                <a ui-sref="creature-editor-saved({creatureId : creature.creatureId})">
+                    See Details
+                </a>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="author-info">
+                Submitted by {{ creature.author.playerName }} on {{ creature.createdAtMS | date }}
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center;" ng-show="$ctrl.loading">
+        <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+    </div>
+    <button ng-show="$ctrl.shouldShowLoadMore()" ng-click="$ctrl.searchCreatures(true)">
+        More
+    </button>
+
+    <div class="empty-box" ng-show="$ctrl.shouldShowEmptyBox()">
+        No Creatures yet. Why not <a ui-sref="creature-editor">Create your own</a>?
+    </div>
+</div>

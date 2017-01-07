@@ -1,0 +1,376 @@
+<div>
+    <div class="search-container">
+        <input type="search" placeholder="Search Weapon name" ng-model="$ctrl.searchQuery.name">
+        <div>
+            <label>
+                <input type="radio" name="searchType" ng-value="{{$ctrl.standard}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchWeapons()">
+                Standard
+            </label>
+            <label>
+                <input type="radio" name="searchType"  ng-value="{{$ctrl.community}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchWeapons()">
+                Community
+            </label>
+            <label>
+                <input type="radio" name="searchType" ng-value="{{$ctrl.all}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchWeapons()">
+                All
+            </label>
+
+            <button ng-click="$ctrl.searchWeapons()">
+                Go
+            </button>
+        </div>
+    </div>
+
+    <div class="rpg-bm-15">
+        <a id="createWeaponsAnchor"></a>
+        <a ng-click="$ctrl.createWeapon()" ng-hide="$ctrl.newWeapon">
+            Create Weapon+
+        </a>
+        <a ng-click="$ctrl.cancelWeapon()" ng-show="$ctrl.newWeapon">
+            Cancel
+        </a>
+    </div>
+    <div ng-show="$ctrl.forResult" class="rpg-center-text rpg-bm-15">
+        Click a Weapon name to add it to your creature/character.
+    </div>
+    <div ng-show="$ctrl.showThanksForSubmitting" class="rpg-bm-10 thanks-box">
+        Thank you for submitting. Your new Weapon can now be found when searching "Community" Weapons!
+    </div>
+    <div class="rpg-tm-20" ng-show="!$ctrl.rpgPlayerSession.isAuthenticated && $ctrl.newWeapon">
+        <div class="rpg-bm-5">
+            You must be signed in to submit Weapons.
+        </div>
+        <rpg-login></rpg-login>
+    </div>
+    <div class="panel" ng-show="$ctrl.newWeapon && $ctrl.rpgPlayerSession.isAuthenticated">
+        <div class="panel-heading">
+            <input type="text" placeholder="Weapon name" ng-model="$ctrl.newWeapon.name" ng-keydown="$ctrl.newNameKeyDown($event)">
+        </div>
+        <div class="panel-body">
+            <strong>
+                Describe your Weapon here: 
+            </strong>
+            <span ng-show="$ctrl.editingDescription">(Editing uses markdown syntax)</span>
+
+            <div class="markdown-container" ng-click="$ctrl.editDescription()" ng-show="!$ctrl.editingDescription" btf-markdown="$ctrl.newWeapon.description"></div>
+            <textarea ng-model="$ctrl.newWeapon.description" ng-show="$ctrl.editingDescription" ng-blur="$ctrl.editingDescription = false"
+                rpg-focus="$ctrl.editingDescription"></textarea>
+
+            <div>
+                <strong>
+                    Weight: (In Pounds)
+                </strong>
+                <input type="number" ng-model="$ctrl.newWeapon.weightInPounds">
+            </div>
+            <div>
+                <strong>
+                    Damage:
+                </strong>
+                <select ng-options="damage for damage in $ctrl.damageOptions" ng-model="$ctrl.newWeapon.damage"></select>
+            </div>
+            <div>
+                <strong>
+                    Attack Ability:
+                </strong>
+                <select ng-options="$ctrl.formatAttackAndDamageAbility(ability) for ability in $ctrl.attackAndDamageAbilities" ng-model="$ctrl.newWeapon.attackAbility"></select>
+            </div>
+            <div>
+                <strong>
+                    Damage Ability:
+                </strong>
+                <select ng-options="$ctrl.formatAttackAndDamageAbility(ability) for ability in $ctrl.attackAndDamageAbilities" ng-model="$ctrl.newWeapon.damageAbility"></select>
+            </div>
+            <div>
+                <strong>
+                    Range:
+                </strong>
+                <select ng-options="range as (range | range) for range in $ctrl.rangeOptions" ng-model="$ctrl.newWeapon.range"></select>
+            </div>
+
+            <div class="rpg-lm-20">
+                <h3>
+                    Enchantments...
+                    <button ng-show="!$ctrl.newEnchantment" class="rpg-pull-right rpg-tm-5 sm rnd" ng-click="$ctrl.createEnchantment()">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <button ng-show="$ctrl.newEnchantment" class="rpg-pull-right rpg-tm-5 sm rnd" ng-click="$ctrl.cancelEnchantment()">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </h3>
+
+                <ul>
+                    <li ng-repeat="enchantment in $ctrl.newWeapon.enchantments">
+                        {{ enchantment.name}}
+                    </li>
+                </ul>
+
+                <div ng-show="$ctrl.newEnchantment">
+                    <div>
+                        <strong>
+                            Base Spell:
+                        </strong>
+                        <a ng-click="$ctrl.chooseSpell()">[{{ $ctrl.baseSpellName }}]</a>
+                        <div ng-if="$ctrl.choosingSpell">
+                            <rpg-spells for-result="$ctrl.chooseSpellResultDeferred"></rpg-spells>
+                        </div>
+                    </div>
+                    <div>
+                        <strong>
+                            Enchantment name:
+                        </strong>
+                        <input type="text" placeholder="Enchantment name" ng-model="$ctrl.newEnchantment.name" ng-change="$ctrl.clearIssue()">
+                    </div>
+                    <div>
+                        <strong>
+                            Enchantment description:
+                        </strong>
+                        <textarea ng-model="$ctrl.newEnchantment.description" ng-change="$ctrl.clearIssue()"></textarea>
+                    </div>
+                    <div>
+                        <strong>
+                            Magic Damage from Enchantment:
+                        </strong>
+                        <select ng-options="opt for opt in $ctrl.magicDamageFromEnchantment" ng-model="$ctrl.newEnchantment.magicDamage"></select>
+                    </div>
+                    <div ng-show="!$ctrl.newEnchantmentSpellIsAttack">
+                        <div>
+                            <strong>
+                                Energy used in creation: 
+                            </strong>
+                            <input type="number" ng-change="$ctrl.clearIssue()" ng-model="$ctrl.newEnchantment.energyUsedInEnchantment" min="0">
+                        </div>
+                        <div ng-show="$ctrl.newEnchantmentSpellIsConcentration">
+                            <strong>
+                                # of rounds can be used in a day (0 for unlimited; Unlimited Enchantments require permanently sacrificing Energy to create)
+                            </strong>
+                            <input type="number" ng-model="$ctrl.newEnchantment.usesOrRoundsPerDay" max="{{ $ctrl.newEnchantment.energyUsedInEnchantment - 1}}"
+                                min="0">
+                            <div>
+                                <strong>
+                                    Effective Energy: {{ $ctrl.newEnchantment.energyUsedInEnchantment - $ctrl.newEnchantment.usesOrRoundsPerDay }}
+                                </strong>
+                            </div>
+                        </div>
+                        <div ng-show="!$ctrl.newEnchantmentSpellIsConcentration">
+                            <strong>
+                                # of uses per day (0 for unlimited; Unlimited Enchantments require permanently sacrificing Energy to create)
+                            </strong>
+                            <input type="number" ng-model="$ctrl.newEnchantment.usesOrRoundsPerDay" max="{{ $ctrl.newEnchantment.energyUsedInEnchantment - 1}}"
+                                min="0">
+                        </div>
+                    </div>
+                    <div>
+                        <a ng-click="$ctrl.createEnchantment()">
+                            Add another Enchantment+
+                        </a>
+                        <span style="color:red;">
+                            {{ $ctrl.enchantmentIssue }}
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="rpg-tm-20">
+                <div>
+                    <label>
+                        <input type="radio" ng-value="true" ng-model="$ctrl.useRecommendedCost">
+                        Use recommended cost: {{ $ctrl.recommendedCost | wealth }}
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" ng-value="false" ng-model="$ctrl.useRecommendedCost">
+                        Use custom cost...
+                    </label>
+                    <div ng-show="!$ctrl.useRecommendedCost">
+                        <strong>
+                            Gold:
+                        </strong>
+                        <input type="number" placeholder="Gold" ng-model="$ctrl.gold">
+                        <strong>
+                            Silver:
+                        </strong>
+                        <input type="number" placeholder="Silver" ng-model="$ctrl.silver">
+                        <strong>
+                            Copper:
+                        </strong>
+                        <input type="number" placeholder="Copper" ng-model="$ctrl.copper">
+                    </div>
+                </div>
+            </div>
+            <div class="rpg-tm-20">
+                <strong>
+                    I agree that I believe this Weapon...
+                </strong>
+                <ul>
+                    <li>
+                        <label>
+                        <input type="checkbox" ng-model="$ctrl.isFun">
+                        Is Fun,
+                    </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" ng-model="$ctrl.isBalanced">
+                            Is Balanced, 
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" ng-model="$ctrl.abidesTOS">
+                            Abides by the <a href="">Terms of Service</a>.
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="panel-footer">
+            <div class="author-info">
+                <button ng-click="$ctrl.submitWeapon()" ng-disabled="$ctrl.disableSubmitButton">
+                    Submit
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="panel" ng-repeat="weapon in $ctrl.weapons">
+        <div class="panel-heading">
+            <span ng-click="$ctrl.weaponClicked(weapon)">
+                {{ weapon.name }}
+            </span>
+        </div>
+        <div class="panel-body">
+            <div btf-markdown="weapon.description"></div>
+
+            <div class="rpg-center-text" ng-show="!$ctrl.isViewingDetailsOfWeapon(weapon)">
+                <a ng-click="$ctrl.viewDetailsOfWeapon(weapon)">
+                    See details
+                </a>
+            </div>
+            <div ng-show="$ctrl.isViewingDetailsOfWeapon(weapon)">
+                <div>
+                    <strong>
+                        Cost:
+                    </strong> {{ weapon.cost | wealth }}
+                </div>
+                <div>
+                    <strong>
+                        Weight:
+                    </strong> 
+                    {{ weapon.weightInPounds }} lbs.
+                </div>
+                <div>
+                    <strong>
+                        Damage:
+                    </strong>
+                    {{ weapon.damage }}
+                </div>
+                <div>
+                    <strong>
+                        Attack Ability:
+                    </strong>
+                    {{ $ctrl.formatAttackAndDamageAbility(weapon.attackAbility) }}
+                </div>
+                <div>
+                    <strong>
+                    Damage Ability:
+                    </strong>
+                    {{ $ctrl.formatAttackAndDamageAbility(weapon.damageAbility) }}
+                </div>
+                <div>
+                    <strong>
+                        Range:
+                    </strong>
+                    {{ weapon.range | range }}
+                </div>
+                <div>
+                    <strong>
+                        Enchantments:
+                    </strong>
+                    <i ng-show="!$ctrl.enchantmentsByWeaponId[weapon.equipmentId]" class="fa fa-spinner fa-pulse"></i>
+
+                    <span ng-show="$ctrl.enchantmentsByWeaponId[weapon.equipmentId] && $ctrl.enchantmentsByWeaponId[weapon.equipmentId].length === 0">None</span>
+                    <ul>
+                        <li ng-repeat="enchantment in $ctrl.enchantmentsByWeaponId[weapon.equipmentId]">
+                            {{ enchantment.name }}
+                            <div class="rpg-lm-10">
+                                <div>
+                                    <strong>
+                                        Base Spell:
+                                    </strong> {{ enchantment.baseSpell.name }}
+                                </div>
+                                <div ng-show="enchantment.magicDamage !== $ctrl.noneMagicDamage">
+                                    <strong>
+                                        Damage:
+                                    </strong> {{ enchantment.magicDamage }}
+                                </div>
+                                <div ng-show="$ctrl.spellIsConcentration(enchantment.baseSpell)">
+                                    <div>
+                                        <strong>
+                                            Effective Energy:
+                                        </strong> {{ enchantment.energyUsedInEnchantment
+                                        - enchantment.usesOrRoundsPerDay }}
+                                    </div>
+                                    <div ng-show="enchantment.usesOrRoundsPerDay > 0">
+                                        <strong>
+                                            Rounds per day:
+                                        </strong> {{ enchantment.usesOrRoundsPerDay
+                                        }}
+                                    </div>
+                                    <div ng-show="enchantment.usesOrRoundsPerDay === 0">
+                                        <strong>
+                                            <i>
+                                                Permanent
+                                            </i>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div ng-show="!$ctrl.spellIsConcentration(enchantment.baseSpell)">
+                                    <div>
+                                        <strong>
+                                            Effective Energy:
+                                        </strong> {{ enchantment.energyUsedInEnchantment
+                                        }}
+                                    </div>
+                                    <div ng-show="enchantment.usesOrRoundsPerDay > 0">
+                                        <strong>
+                                            Uses per day:
+                                        </strong> {{ enchantment.usesOrRoundsPerDay
+                                        }}
+                                    </div>
+                                    <div ng-show="enchantment.usesOrRoundsPerDay === 0">
+                                        <strong>
+                                            <i>
+                                                Unlimited uses
+                                            </i>
+                                        </strong>
+                                    </div>
+                                </div>
+                                {{ enchantment.description }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="author-info">
+                Submitted by {{ weapon.author.playerName }} on {{ weapon.createdAtMS | date }}
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center;" ng-show="$ctrl.loading">
+        <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+    </div>
+    <button ng-show="$ctrl.shouldShowLoadMore()" ng-click="$ctrl.searchWeapons(true)">
+        More
+    </button>
+
+    <div class="empty-box" ng-show="$ctrl.shouldShowEmptyBox()">
+        No Weapons yet. Why not <a ng-click="$ctrl.createWeapon()">Create your own</a>?
+    </div>
+</div>

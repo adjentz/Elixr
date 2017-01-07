@@ -1,0 +1,72 @@
+@import "variables.less";
+
+.creature-energy{
+   display: flex;
+   height: 100%;
+
+   div.heart-wrapper{
+       border-right:1px solid #333;
+       flex:2;
+       height: 100%;
+       padding: 0 15px;
+       text-align: center;
+       
+       div.heart-header{
+           margin-bottom: 10px;
+            h2{
+                margin: 0;
+            }
+       }
+       
+       div.heart{
+           background-image: url('/content/images/heart.png');
+           background-size: 100% 100%;
+           height: 80%;
+           position: relative;
+           max-width: 200px;
+           margin: 0 auto;
+           span{
+               white-space: nowrap;
+               font-size: 64px;
+               position: absolute;
+               left:0;
+               right:0;
+               top:25%;
+           }
+       }
+   }
+   div.sources{
+       flex:3;
+       overflow-y: auto;
+       text-align: center;
+       position: relative;
+
+       i{
+           font-size: 10px;
+       }
+
+       .channeled-energy {
+           position: absolute;
+           bottom: 10px;
+           left: 15px;
+       }
+   }
+}
+
+@media screen and (max-width:@mobileCollapse) {
+    .creature-energy {
+        display: initial;
+
+        div.heart-wrapper {
+            border-right: none;
+            padding: 15px;
+            div.heart {
+                min-height: 200px;
+            }
+        }
+        div.sources {
+            border-top: 1px solid #333;
+            padding-bottom: 5px;
+        }
+    }
+}

@@ -1,0 +1,1 @@
+You're naturally more strong.

@@ -1,0 +1,215 @@
+<div>
+    <div class="search-container">
+        <input type="search" placeholder="Search Oath name" ng-model="$ctrl.searchQuery.name">
+        <div>
+            <label>
+                <input type="radio" name="searchType" ng-value="{{$ctrl.standard}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchOaths()">
+                Standard
+            </label>
+            <label>
+                <input type="radio" name="searchType"  ng-value="{{$ctrl.community}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchOaths()">
+                Community
+            </label>
+            <label>
+                <input type="radio" name="searchType" ng-value="{{$ctrl.all}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchOaths()">
+                All
+            </label>
+
+            <button ng-click="$ctrl.searchOaths()">
+                Go
+            </button>
+        </div>
+    </div>
+
+    <div class="rpg-bm-15">
+        <a id="createOathsAnchor"></a>
+        <a ng-click="$ctrl.createOath()" ng-hide="$ctrl.newOaths">
+            Create Oath+
+        </a>
+        <a ng-click="$ctrl.cancelOath()" ng-show="$ctrl.newOath">
+            Cancel
+        </a>
+    </div>
+    <div ng-show="$ctrl.forResult" class="rpg-center-text rpg-bm-15">
+        Click an Oath name to add it to your creature/character.
+    </div>
+    <div ng-show="$ctrl.showThanksForSubmitting" class="rpg-bm-10 thanks-box">
+        Thank you for submitting. Your new Oath can now be found when searching "Community" Oaths!
+    </div>
+    <div class="rpg-tm-20" ng-show="!$ctrl.rpgPlayerSession.isAuthenticated && $ctrl.newOath">
+        <div class="rpg-bm-5">
+            You must be signed in to submit Oaths.
+        </div>
+        <rpg-login></rpg-login>
+    </div>
+    <div class="panel" ng-show="$ctrl.newOath && $ctrl.rpgPlayerSession.isAuthenticated">
+        <div class="panel-heading">
+            <input type="text" placeholder="Oath name" ng-model="$ctrl.newOath.name" ng-keydown="$ctrl.newNameKeyDown($event)">
+        </div>
+        <div class="panel-body">
+            <strong>
+                Describe your Oath here: 
+            </strong>
+            <span ng-show="$ctrl.editingDescription">(Editing uses markdown syntax)</span>
+
+            <div class="markdown-container" ng-click="$ctrl.editDescription()" ng-show="!$ctrl.editingDescription" btf-markdown="$ctrl.newOath.description"></div>
+            <textarea ng-model="$ctrl.newOath.description" ng-show="$ctrl.editingDescription" ng-blur="$ctrl.editingDescription = false"
+                rpg-focus="$ctrl.editingDescription"></textarea>
+
+            <div class="rpg-bm-20">
+                <strong>
+                    Stat Mods:
+                </strong>
+                <table class="light">
+                    <tr>
+                        <th>
+                            Stat
+                        </th>
+                        <th>
+                            Mod Type
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                    </tr>
+                    <tr ng-repeat="sm in $ctrl.newOath.mods">
+                        <td>
+                            {{ sm.stat | stat }}
+                        </td>
+                        <td>
+                            {{ sm.modifierType | modType }}
+                        </td>
+                        <td>
+                            <span ng-show="sm.modifierType === $ctrl.normalModifierType">
+                                {{ sm.modifier }}
+                            </span>
+                            <span ng-show="sm.modifierType === $ctrl.doubleModifierType">x2</span>
+                            <span ng-show="sm.modifierType === $ctrl.halveModifierType">½</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select ng-options="stat as (stat | stat) for stat in $ctrl.availableStats" ng-model="$ctrl.currentStat"></select>
+                        </td>
+                        <td>
+                            <select ng-options="mt as (mt | modType) for mt in $ctrl.availableModifierTypes" ng-model="$ctrl.currentModifierType"></select>
+                        </td>
+                        <td>
+                            <input type="number" placeholder="Amount" ng-show="$ctrl.currentModifierType === $ctrl.normalModifierType" ng-model="$ctrl.currentModifier"
+                                ng-disabled="$ctrl.disableAmountInput">
+                            <span ng-show="$ctrl.currentModifierType === $ctrl.doubleModifierType">x2</span>
+                            <span ng-show="$ctrl.currentModifierType === $ctrl.halveModifierType">½</span>
+                        </td>
+                    </tr>
+                </table>
+                <button class="rpg-pull-right rpg-tm-5 sm rnd" ng-click="$ctrl.addMod()">
+                    <i class="fa fa-plus"></i>
+                </button>
+
+            </div>
+
+            <div>
+                <strong>
+                    I agree that I believe this Oath...
+                </strong>
+                <ul>
+                    <li>
+                    <label>
+                        <input type="checkbox" ng-model="$ctrl.isFun">
+                        Is Fun,
+                    </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" ng-model="$ctrl.isBalanced">
+                            Is Balanced, 
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" ng-model="$ctrl.abidesTOS">
+                            Abides by the <a href="">Terms of Service</a>.
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="panel-footer">
+            <div class="author-info">
+                <button ng-click="$ctrl.submitOath()" ng-disabled="$ctrl.disableSubmitButton">
+                    Submit
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="panel" ng-repeat="oath in $ctrl.oaths">
+        <div class="panel-heading">
+            <span ng-click="$ctrl.oathClicked(oath)">
+                {{ oath.name }}
+            </span>
+        </div>
+        <div class="panel-body">
+            <div btf-markdown="oath.description"></div>
+
+            <div class="rpg-center-text" ng-show="!$ctrl.isViewingDetailsOfOath(oath)">
+                <a ng-click="$ctrl.viewDetailsOfOath(oath)">
+                    See details
+                </a>
+            </div>
+            <div ng-show="$ctrl.isViewingDetailsOfOath(oath)">
+                <div ng-show="oath.mods.length">
+                    <strong>
+                        Stat Mods:
+                    </strong>
+                    <table class="light rpg-bm-10">
+                        <tr>
+                            <th>
+                                Stat
+                            </th>
+                            <th>
+                                Mod Type
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                        </tr>
+                        <tr ng-repeat="sm in oath.mods">
+                            <td>
+                                {{ sm.stat | stat }}
+                            </td>
+                            <td>
+                                {{ sm.modifierType | modType }}
+                            </td>
+                            <td>
+                                <span ng-show="sm.modifierType === $ctrl.normalModifierType">
+                                    {{ sm.modifier }}
+                                </span>
+                                <span ng-show="sm.modifierType === $ctrl.doubleModifierType">x2</span>
+                                <span ng-show="sm.modifierType === $ctrl.halveModifierType">½</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="author-info">
+                Submitted by {{ oath.author.playerName }} on {{ oath.createdAtMS | date }}
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center;" ng-show="$ctrl.loading">
+        <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+    </div>
+    <button ng-show="$ctrl.shouldShowLoadMore()" ng-click="$ctrl.searchOaths(true)">
+        More
+    </button>
+
+    <div class="empty-box" ng-show="$ctrl.shouldShowEmptyBox()">
+        No Oaths yet. Why not <a ng-click="$ctrl.createOath()">Create your own</a>?
+    </div>
+</div>

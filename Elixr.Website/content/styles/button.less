@@ -1,0 +1,33 @@
+button {
+
+    @color: darken(lime,10%);
+
+    padding: 5px;
+    background-color: inherit;
+
+    color:#333;
+    border:2px solid @color;
+    border-radius: 3px;
+
+    min-width: 60px;
+    font-size: 1em;
+
+    transition:0.5s all;
+    &:hover{
+        background-color: @color;
+        color:#fff;
+        border:2px solid #ddd;
+    }
+
+    &.sm{
+        min-width: 30px;
+    }
+    &.rnd {
+        border-radius: 100%;
+    }
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transition: none;
+    }
+}

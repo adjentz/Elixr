@@ -1,0 +1,1 @@
+You're naturally more adept at any Ability.

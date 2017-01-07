@@ -1,0 +1,100 @@
+<div class="creature-wealth">
+
+    <div class="slideout" ng-show="$ctrl.editingWealth">
+        <div class="close" ng-click="$ctrl.closeSlideout()">
+            &times;
+        </div>
+        <h2>
+            Edit Wealth
+        </h2>
+        <div>
+            <strong>
+                Gold
+            </strong>
+            <input ng-model="$ctrl.editGold" type="number" min="0">
+        </div>
+        <div>
+            <strong>
+                Silver
+            </strong>
+            <input ng-model="$ctrl.editSilver" type="number" min="0">
+        </div>
+        <div>
+            <strong>
+                Copper
+            </strong>
+            <input ng-model="$ctrl.editCopper" type="number" min="0">
+        </div>
+        <div>
+            <strong>
+                Memo
+            </strong>
+            <input ng-model="$ctrl.editMemo" type="text">
+        </div>
+        <div>
+            <label>
+                <input type="radio" name="alterType" ng-model="$ctrl.increaseWealth" ng-value="true">
+                Increase
+            </label>
+            <label>
+                <input type="radio" name="alterType" ng-value="false" ng-model="$ctrl.increaseWealth">
+                Decrease
+            </label>
+        </div>
+        <button ng-click="$ctrl.updateWealth()">
+            Update
+        </button>
+    </div>
+    <div class="wealth-wrapper">
+        <div>
+            <strong>
+                Gold:
+            </strong>
+            <span class="hidden-print">
+                {{ $ctrl.gold }}
+            </span>
+        </div>
+        <div>
+            <strong>
+                Silver:
+            </strong>
+            <span class="hidden-print">
+                {{ $ctrl.silver }}
+            </span>
+        </div>
+        <div>
+            <strong>
+                Copper:
+            </strong>
+            <span class="hidden-print">
+                {{ $ctrl.copper }}
+            </span>
+        </div>
+    </div>
+    <div class="sources">
+        <table class="hidden-print">
+            <tr>
+                <th>
+                    Source
+                </th>
+                <th>
+                    Amount
+                </th>
+            </tr>
+            <tr ng-repeat="source in $ctrl.wealthSources">
+                <td>
+                    {{ source.reason }}
+                </td>
+                <td>
+                    {{ $ctrl.formatModifier(source) }}
+                </td>
+            </tr>
+        </table>
+        <a class="hidden-print" ng-click="$ctrl.editingWealth = true">
+            Edit Wealth <i class="fa fa-pencil"></i>
+        </a>
+        <h4 class="visible-print" style="text-decoration: underline; margin-top: 2px;">
+            Wealth/Ledger
+        </h4>
+    </div>
+</div>

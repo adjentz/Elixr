@@ -1,0 +1,1 @@
+You are effective at wielding two weapons. Instead of one Attack Roll being used for both weapons, a Separate Attack Roll is used for each weapon. Advantage or Disadvantage still applies individually.

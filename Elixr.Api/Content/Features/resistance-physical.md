@@ -1,0 +1,1 @@
+You become resistant to physical attacks of that type, meaning physical damage made against you is automatically halved.

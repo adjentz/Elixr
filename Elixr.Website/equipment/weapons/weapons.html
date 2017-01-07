@@ -1,0 +1,59 @@
+<section>
+    <article>
+        <h2>
+            Weapons
+        </h2>
+        <p>
+            Weapon's are used to increase a character's effectiveness in combat.
+            Weapon descriptions include:  Attack Ability, Damage Ability, Damage, and Range.
+        </p>
+        <h3>
+            Attack Ability
+        </h3>
+        <p>
+            What physical <a ui-sref="abilities">ability</a> is relevant to the attack roll.
+        </p>
+        <p>
+            When making an attack roll, a character takes the result of 1d20 + The Modifier of the weapon's attack ability + any misc. modifiers. 
+            If the result exceeds the target Defense, the character gets to roll Damage against the target.
+        </p>
+        <h3>
+            Damage Ability
+        </h3>
+        <p>
+            What physical <a ui-sref="abilities">ability</a> is relevant to the damage roll.
+        </p>
+        <h3>
+            Damage
+        </h3>
+        <p>
+            The Damage of a weapon is what is rolled on a successful hit. 
+            When a target is hit, they reduce their Energy by the amount of damage rolled + the Modifier of the Damage Ability.
+        </p>
+        <h3>
+            Range
+        </h3>
+        <p>
+            Some weapons have a Range, which is the distance that a weapon can effectively be aimed and fired at a target.
+            There are four range categories: Short, Medium, Long, and Extreme.
+        </p>
+        <p>
+            Short range is any distance less than or equal to 50ft.
+        </p>
+        <p>
+            Medium range is any distance less than or equal to 100ft, and greater than 50ft.
+        </p>
+        <p>
+            Long range is any distance less than or equal to 200ft, and greater than 100ft. 
+        </p>
+        <p>
+            Extreme range is any distance longer than 200ft.
+        </p>
+        <p>
+            A ranged weapon can be fired one category above its given Range, but attacks are made with Disadvantage.
+        </p>
+    </article>
+    <div>
+        <rpg-weapons></rpg-weapons>
+    </div>
+</section>

@@ -1,0 +1,26 @@
+<div>
+    <div ng-show="!$ctrl.loggedIn">
+        <rpg-login logged-in="$ctrl.getCharacters()"></rpg-login>
+    </div>
+    <div ng-show="$ctrl.loggedIn">
+        <h3>
+            {{ $ctrl.username }}
+        </h3>
+        <i class="fa fa-spinner fa-pulse" ng-show="$ctrl.loading"></i>
+        <ul ng-show="!$ctrl.loading">
+            <li>
+                <a ui-sref="character-editor" ng-show="$ctrl.characters.length < 6">New Character+</a>
+                <span ng-show="$ctrl.characters.length >= 6">
+                    The beta is limited to six characters. Please delete one if you want to create a new one.
+                </span>
+            </li>
+            <li ng-repeat="character in $ctrl.characters">
+                <i class="fa fa-minus-square-o" ng-click="$ctrl.deleteCharacter(character)"></i>
+                <a ui-sref="character-editor-saved({creatureId: character.creatureId})">
+                    {{ character.name }}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>

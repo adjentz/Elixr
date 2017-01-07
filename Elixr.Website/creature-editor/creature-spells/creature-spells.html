@@ -1,0 +1,119 @@
+<div class="creature-spells">
+
+    <div class="slideout" ng-if="$ctrl.learningSpell">
+        <div class="close" ng-click="$ctrl.closeSlideouts()">
+            &times;
+        </div>
+        <div>
+            <rpg-spells for-result="$ctrl.learnSpellResultDeferred"></rpg-spells>
+        </div>
+    </div>
+
+    <div class="slideout" ng-if="$ctrl.viewingDetailOfSpell">
+        <div class="close" ng-click="$ctrl.closeSlideouts()">
+            &times;
+        </div>
+        <h2>
+            {{ $ctrl.viewingDetailOfSpell.spell.name }}
+        </h2>
+        <div btf-markdown="$ctrl.viewingDetailOfSpell.spell.description"></div>
+
+        <h3>
+            Applied Features
+        </h3>
+        <div ng-show="$ctrl.viewingDetailOfSpell.featuresApplied.length===0">
+            No Features
+        </div>
+        <ul>
+            <li ng-repeat="featureInfo in $ctrl.viewingDetailOfSpell.featuresApplied track by $index">
+                <i class="fa fa-minus-square-o" ng-click="$ctrl.removeFeatureFromSpell(featureInfo)"></i> {{ featureInfo.feature.name
+                }}
+            </li>
+        </ul>
+    </div>
+
+    <div class="spells-table-container hidden-print">
+        <h2>
+            Spells
+        </h2>
+        <div class="pool-spacer">
+            &nbsp;
+        </div>
+        <table>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Speed Cost
+                </th>
+                <th>
+                    Energy Cost
+                </th>
+                <th>
+                    Regen Time
+                </th>
+            </tr>
+            <tr ng-repeat-start="spellInfo in $ctrl.editor.creature.spellInformation">
+                <td>
+                    <i class="fa fa-minus-square-o" ng-click="$ctrl.removeSpell(spellInfo)"></i>
+                    <a ng-click="$ctrl.viewDetailOfSpell(spellInfo)">
+                        {{ spellInfo.spell.name}}
+                    </a>
+                </td>
+                <td>
+                    {{ spellInfo.spell.movementCost }}ft
+                </td>
+                <td>
+                    {{ spellInfo.spell.energyCost }}
+                </td>
+                <td>
+                    {{ spellInfo.spell.regenTimeInRounds | regenTime }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <input type="text" placeholder="{{ spellInfo.spell.name }} Notes" ng-change="$ctrl.notifySpellChanged(spellInfo)" ng-model="spellInfo.notes">
+                </td>
+            </tr>
+            <tr ng-repeat-end=""></tr>
+        </table>
+        <a ng-click="$ctrl.learnSpell()">
+            Learn Spell+ (Costs 1 Feature Point)
+        </a>
+    </div>
+
+    <div class="spells-table-container visible-print">
+        <h2>
+            Spells
+        </h2>
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-col">
+                    <span>
+                        Name
+                    </span>
+                </div>
+                <div class="flex-col">
+                    <span>
+                        Speed Cost
+                    </span>
+                </div>
+                <div class="flex-col">
+                    <span>
+                        Energy Cost
+                    </span>
+                </div>
+                <div class="flex-col">
+                    <span>
+                        Regen Time
+                    </span>
+                </div>
+            </div>
+            <div class="flex-row" style="height:24px;" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35]">
+                <div class="flex-col" ng-repeat="j in [0,1,2,3]">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+
+</div>

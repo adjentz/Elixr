@@ -1,0 +1,87 @@
+<div class="creature-items">
+    <div class="slideout" ng-if="$ctrl.addingItem">
+        <div class="close" ng-click="$ctrl.closeSlideout()">
+            &times;
+        </div>
+
+        <div ng-if="!$ctrl.askReduceCost">
+            <rpg-items for-result="$ctrl.addItemResultDeferred"></rpg-items>
+        </div>
+        <div ng-if="$ctrl.askReduceCost">
+            <h2>
+                Reduce wealth by item cost?
+            </h2>
+            <ul>
+                <li ng-click="$ctrl.reduceOptionSelected(true)">
+                    Yes, I purchased it.
+                </li>
+                <li ng-click="$ctrl.reduceOptionSelected(false)">
+                    No, I acquired it freely.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="items-table-container">
+        <table class="hidden-print">
+            <tr>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Weight
+                </th>
+            </tr>
+
+            <tr ng-repeat="itemCount in $ctrl.itemCounts">
+                <td>
+                    {{ itemCount.name }}
+                </td>
+                <td>
+                    {{ itemCount.count }}
+                </td>
+                <td>
+                    {{ itemCount.individualWeight }} lbs/ea.
+                </td>
+            </tr>
+
+        </table>
+        <a class="hidden-print" ng-click="$ctrl.addItem()">
+            Add Item+
+        </a>
+
+        <div class="visible-print">
+            <div class="flex-table">
+                <div class="flex-row">
+                    <div class="flex-col">
+                        <span class="vertical-align" style="font-weight: bold;">
+                            Item
+                        </span>
+                    </div>
+                    <div class="flex-col">
+                    <span class="vertical-align" style="font-weight: bold;">
+                            Quantity
+                    </span>
+                    </div>
+                    <div class="flex-col">
+                    <span class="vertical-align" style="font-weight: bold;">
+                            Weight
+                    </span>
+                    </div>
+                </div>
+                <div class="flex-row" ng-repeat="i in [0,1,2,3,4,5]">
+                    <div class="flex-col">
+                    </div>
+                    <div class="flex-col">
+                    </div>
+                    <div class="flex-col">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

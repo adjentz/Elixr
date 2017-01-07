@@ -1,0 +1,131 @@
+<div class="creature-abilities">
+    <div class="ability-row">
+        <div class="ability-stat">
+            <div class="pool-remaining hidden-print">
+                Ability Points: {{ $ctrl.editor.creature.abilityPoolRemaining }}
+            </div>
+            <div class="pool-remaining hidden-print">
+                Special Ability Points: {{ $ctrl.editor.creature.genericAbilityPoolRemaining }}
+            </div>
+            <div class="pool-remaining hidden-print">
+                Skill Points: {{ $ctrl.editor.creature.skillPoolRemaining }}
+            </div>
+            <div class="pool-remaining">
+                Skill Defense
+                <div class="shield">
+                    =
+                </div>
+                10 + Skill Bonus
+            </div>
+        </div>
+    </div>
+    <div class="ability-row">
+        <div class="ability-name ability-header"></div>
+        <div class="ability-defense"></div>
+        <div class="ability-stat" ng-repeat="header in ['Score', 'Mod', 'Misc.', 'Bonus']">
+
+            <h4>
+                {{ header }}
+            </h4>
+        </div>
+
+    </div>
+    <div class="ability-row" ng-repeat-start="abilityName in $ctrl.abilityNames">
+        <div class="ability-name">
+            <div class="name">
+                <i class="fa fa-arrow-up arrow hidden-print" ng-click="$ctrl.increaseAbility(abilityName)"></i>
+                <h2>
+                    {{ abilityName }}
+                </h2>
+                <i class="fa fa-arrow-down arrow hidden-print" ng-click="$ctrl.decreaseAbility(abilityName)"></i>
+            </div>
+        </div>
+        <div class="ability-defense"></div>
+        <div class="ability-stat" ng-repeat="stat in $ctrl.abilityStatsFor(abilityName) track by $index">
+            <div ng-class="{'plus-sign' : $index < 2, 'equal-sign' : $last, 'box' : $first, 'hexagon' : !$first}">
+                <span class="hidden-print">
+                    {{ stat }}
+                </span>
+                <span class="visible-print">
+                    &nbsp;
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="ability-row" ng-show="$ctrl.shouldShowAbilityRowMessage(abilityName)">
+        <div class="ability-message">
+            <i class="fa fa-times" ng-click="$ctrl.dismissMessages()"></i>
+            <i>
+                {{ $ctrl.abilityRowMessage }}
+            </i>
+        </div>
+    </div>
+    <div class="ability-row">
+        <div class="ability-name">
+            <strong>
+                {{ abilityName }} Skills
+            </strong>
+        </div>
+        <div class="ability-defense"></div>
+        <div class="ability-stat">
+            <h4>
+                Ranks
+            </h4>
+        </div>
+        <div class="ability-stat">
+            <i class="fa fa-angle-double-down"></i>
+        </div>
+        <div class="ability-stat">
+            <h4>
+                 Misc. <span style="font-weight:normal;">+</span> <i class="fa fa-angle-double-down"></i>
+            </h4>
+        </div>
+        <div class="ability-stat">
+            <h4>
+                Bonus
+            </h4>
+        </div>
+    </div>
+    <div class="ability-row" ng-repeat-start="skill in $ctrl.skillsByAbilityName[abilityName] | orderBy:'name'">
+        <div class="ability-name">
+            <div class="name">
+                <i class="fa fa-arrow-up arrow hidden-print" ng-click="$ctrl.increaseSkill(skill)"></i> {{ skill.name }}
+                <i class="fa fa-arrow-down arrow hidden-print" ng-click="$ctrl.decreaseSkill(skill)"></i>
+            </div>
+        </div>
+        <div class="ability-defense">
+            <div class="shield" ng-if="skill.hasDefense">
+                <span class="hidden-print">
+                    {{ $ctrl.skillTotal(skill, abilityName) + 10 }}
+                </span>
+                <span class="visible-print">
+                    &nbsp;
+                </span>
+            </div>
+        </div>
+        <div class="ability-stat" ng-repeat="stat in [skill.ranks, $ctrl.abilityStatsFor(abilityName)[1], $ctrl.getMiscForSkill(skill), $ctrl.skillTotal(skill, abilityName)] track by $index">
+            <div class="underline" ng-class="{'plus-sign' : $index < 2, 'equal-sign' : $last}">
+                <span class="hidden-print">
+                    {{ stat }}
+                </span>
+                <span class="visible-print">
+                    &nbsp;
+                </span>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="ability-row" ng-show="$ctrl.shouldShowSkillRowMessage(skill.name)">
+        <div class="ability-message">
+            <i class="fa fa-times" ng-click="$ctrl.dismissMessages()"></i>
+            <i>
+                {{ $ctrl.skillRowMessage }}
+            </i>
+        </div>
+    </div>
+
+    <div ng-repeat-end=""></div>
+    <div ng-repeat-end=""></div>
+</div>

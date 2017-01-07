@@ -1,0 +1,1 @@
+You gain a medium animal comanion.

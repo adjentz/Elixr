@@ -1,0 +1,1 @@
+You gain 200 Gold Pieces.

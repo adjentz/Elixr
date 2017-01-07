@@ -1,0 +1,206 @@
+<div>
+    <div class="search-container">
+        <input type="search" placeholder="Search Race name" ng-model="$ctrl.searchQuery.name">
+        <div>
+            <label>
+                <input type="radio" ng-checked="$ctrl.searchQuery.searchMode === $ctrl.standard" ng-click="$ctrl.searchQuery.searchMode = $ctrl.standard;$ctrl.searchRaces()">
+                Standard
+            </label>
+            <label>
+                <input type="radio" ng-checked="$ctrl.searchQuery.searchMode === $ctrl.community" ng-click="$ctrl.searchQuery.searchMode = $ctrl.community;$ctrl.searchRaces()">
+                Community
+            </label>
+            <label>
+                <input type="radio" ng-checked="$ctrl.searchQuery.searchMode === $ctrl.all" ng-click="$ctrl.searchQuery.searchMode = $ctrl.all;$ctrl.searchRaces()">
+                All
+            </label>
+
+            <button ng-click="$ctrl.searchRaces()">
+                Go
+            </button>
+        </div>
+    </div>
+
+    <div class="rpg-bm-15">
+        <a id="createRaceAnchor"></a>
+        <a ng-click="$ctrl.createRace()" ng-hide="$ctrl.newRace">
+            Create Race+
+        </a>
+        <a ng-click="$ctrl.cancelRace()" ng-show="$ctrl.newRace">
+            Cancel
+        </a>
+    </div>
+
+    <div ng-show="$ctrl.forResult" class="rpg-center-text rpg-bm-15">
+        Click a Race name to use it for your creature/character.
+    </div>
+    <div ng-show="$ctrl.showThanksForSubmitting" class="rpg-bm-10 thanks-box">
+        Thank you for submitting. Your new Race can now be found when searching "Community" Races!
+    </div>
+
+    <div class="rpg-tm-20" ng-show="!$ctrl.rpgPlayerSession.isAuthenticated && $ctrl.newRace">
+        <div class="rpg-bm-5">
+            You must be signed in to submit Races.
+        </div>
+        <rpg-login></rpg-login>
+    </div>
+    <div class="panel" ng-show="$ctrl.newRace && $ctrl.rpgPlayerSession.isAuthenticated">
+        <div class="panel-heading">
+            <input type="text" placeholder="Race name" ng-model="$ctrl.newRace.name" ng-keydown="$ctrl.newNameKeyDown($event)">
+        </div>
+        <div class="panel-body">
+            <strong>
+                Describe your Race here: 
+            </strong>
+            <span ng-show="$ctrl.editingDescription">(Editing uses markdown syntax)</span>
+
+            <div class="markdown-container" ng-click="$ctrl.editDescription()" ng-show="!$ctrl.editingDescription" btf-markdown="$ctrl.newRace.description"></div>
+            <textarea ng-model="$ctrl.newRace.description" ng-show="$ctrl.editingDescription" ng-blur="$ctrl.editingDescription = false"
+                rpg-focus="$ctrl.editingDescription"></textarea>
+
+            <div>
+                <strong>
+                    Features
+                </strong>
+                <ul>
+                    <li ng-repeat="fi in $ctrl.newRace.featureInformation">
+                        <i class="fa fa-minus-square-o" ng-click="$ctrl.removeFeature(fi)"></i>
+                        {{ fi.feature.name }}
+                        <div>
+                            <i>Notes:</i>
+                            <input type="text" ng-model="fi.notes">
+                        </div>
+                        <div ng-show="fi.feature.mustSacrificeEnergy">
+                            <i>
+                                Sacrificed Energy:
+                            </i>
+                            <input type="number" min="1" ng-model="fi.energySacrificedWhenTaken">
+                        </div>
+                    </li>
+                    <li>
+                        <a ng-click="$ctrl.addFeature()" ng-hide="$ctrl.getFeatureResultDeferred">Add Feature+</a>
+                        <a ng-click="$ctrl.cancelAddFeature()" ng-show="$ctrl.getFeatureResultDeferred">Cancel</a>
+                    </li>
+                </ul>
+                <div ng-show="$ctrl.getFeatureResultDeferred">
+                    <rpg-features for-result="$ctrl.getFeatureResultDeferred"></rpg-features>
+                </div>
+            </div>
+
+            <div>
+                <strong>
+                    Flaws
+                </strong>
+                <ul>
+                    <li ng-repeat="fi in $ctrl.newRace.flawInformation">
+                        <i class="fa fa-minus-square-o" ng-click="$ctrl.removeFlaw(fi)"></i>
+                        {{ fi.flaw.name }}
+                        <div>
+                            <i>Notes:</i>
+                            <input type="text" ng-model="fi.notes">
+                        </div>
+                    </li>
+                    <li>
+                        <a ng-click="$ctrl.addFlaw()" ng-hide="$ctrl.getFlawResultDeferred">Add Flaw+</a>
+                        <a ng-click="$ctrl.cancelAddFlaw()" ng-show="$ctrl.getFlawResultDeferred">Cancel</a>
+                    </li>
+                </ul>
+                <div ng-show="$ctrl.getFlawResultDeferred">
+                    <rpg-flaws for-result="$ctrl.getFlawResultDeferred"></rpg-flaws>
+                </div>
+            </div>
+
+            <div>
+                <strong>
+                    I agree that I believe this Race...
+                </strong>
+                <ul>
+                    <li>
+                        <label>
+                        <input type="checkbox" ng-model="$ctrl.isFun">
+                        Is Fun,
+                    </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" ng-model="$ctrl.isBalanced">
+                            Is Balanced, 
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" ng-model="$ctrl.abidesTOS">
+                            Abides by the <a href="">Terms of Service</a>.
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="panel-footer">
+            <div class="author-info">
+                <button ng-click="$ctrl.submitRace()" ng-disabled="$ctrl.disableSubmitButton">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" ng-repeat="race in $ctrl.races">
+        <div class="panel-heading">
+            <span ng-click="$ctrl.raceClicked(race)">
+                {{ race.name }}
+            </span>
+        </div>
+        <div class="panel-body">
+            <div btf-markdown="race.description"></div>
+
+            <div class="rpg-center-text" ng-show="!$ctrl.isViewingDetailsOfRace(race)">
+                <a ng-click="$ctrl.viewDetailsOfRace(race)">
+                    See details
+                </a>
+            </div>
+            <div ng-show="$ctrl.isViewingDetailsOfRace(race)">
+                <div ng-if="race.featureInformation.length">
+                    <strong>
+                        Features
+                    </strong>
+                    <ul>
+                        <li ng-repeat="fi in race.featureInformation">
+                            {{ fi.feature.name }}
+                            <span ng-if="fi.notes">
+                                ({{fi.notes}})
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-if="race.flawInformation.length">
+                    <strong>
+                        Flaws
+                    </strong>
+                    <ul>
+                        <li ng-repeat="fi in race.flawInformation">
+                            {{ fi.flaw.name }}
+                            <span ng-if="fi.notes">
+                                ({{fi.notes}})
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="text-align:center;" ng-show="$ctrl.loading">
+        <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+    </div>
+    <button ng-show="$ctrl.shouldShowLoadMore()" ng-click="$ctrl.searchRaces(true)">
+        More
+    </button>
+
+    <div class="empty-box" ng-show="$ctrl.shouldShowEmptyBox()">
+        No Races yet. Why not <a ng-click="$ctrl.createRace()">Create your own</a>?
+    </div>
+
+</div>

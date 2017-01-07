@@ -1,0 +1,1 @@
+You gain a +1 'Dodge' bonus to your Defense.

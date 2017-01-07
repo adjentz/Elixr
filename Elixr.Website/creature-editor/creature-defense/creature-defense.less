@@ -1,0 +1,72 @@
+@import "variables.less";
+
+.creature-defense{
+    display: flex;
+    height: 100%;
+
+    div.shield-wrapper{
+        flex:2;
+        padding: 0 15px;
+        border-right: 1px solid #333;
+        text-align: center;
+
+        div.shield-header{
+            margin-bottom: 10px;
+            h2{
+                margin: 0;
+            }
+        }
+        div.shield{
+            background-image: url('/content/images/shield.png');
+            background-size: 100% 100%;
+            height: 80%;
+            position: relative;
+            max-width: 200px;
+            margin: 0 auto;
+            
+            span {
+                font-size: 64px;
+                white-space: nowrap;
+                position: absolute;
+                left:0;
+                right:0;
+                top:25%;
+            }
+        }
+    }
+    div.sources,div.sources-printable{
+        flex:3;
+        overflow-y: auto;
+        text-align: center;
+        a{
+            font-size: 12px;
+        }
+
+        td{
+            .fa{
+                color:maroon;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:@mobileCollapse) {
+    .creature-defense {
+        display: initial;
+
+        div.shield-wrapper {
+            border-right: none;
+            padding: 15px;
+
+            div.shield {
+                min-height: 200px;
+            }
+        }
+
+        div.sources {
+            border-top: 1px solid #333;
+            padding-bottom: 5px;
+        }
+    }
+}

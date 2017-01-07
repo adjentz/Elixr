@@ -1,0 +1,91 @@
+@import "variables.less";
+@import "font-awesome.less";
+
+body{
+    background: url(../images/parchment.jpg) no-repeat center center fixed;
+    background-size: cover;
+
+    padding-bottom:20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+}
+body,html{
+    min-height: 100%;
+}
+
+div.page{
+    display: flex;
+    min-height: 100%;
+    margin: 0 auto;
+    margin-top: @headerHeight;
+    max-width: 992px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color:#333;
+    
+    .main{
+        margin: 20px;
+        width: 100%;
+    }
+}
+
+@import "creature-editor/creature-editor.less";
+@import "directives/rpg-chapters.less";
+@import "arrow.less";
+@import "table.less";
+@import "input.less";
+@import "links.less";
+@import "slideout.less";
+@import "header.less";
+@import "sidebar.less";
+@import "panel.less";
+@import "search-container.less";
+@import "button.less";
+@import "empty-box.less";
+@import "helpers.less";
+@import "select.less";
+@import "lists.less";
+
+.vertical-align {
+    display: block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.visible-print {
+    display: none;
+}
+
+@media print{
+    .visible-print {
+        display: initial;
+    }
+    .sidebar{
+        display: none;
+    }
+    .hidden-print {
+        display: none!important;
+    }
+
+    body {
+        background: initial;
+    }
+    .page{
+        margin-top: 0!important;
+        font-size: 0.8em;
+        font-family: "Georgia",serif;
+    }
+}
+
+.visible-mobile {
+    display: none;
+}
+
+@media (max-width:@mobileCollapse){
+    .hidden-mobile{
+        display: none!important;
+    }
+    .visible-mobile {
+        display: initial!important;
+    }
+}
+

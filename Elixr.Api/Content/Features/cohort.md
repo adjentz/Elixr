@@ -1,0 +1,1 @@
+You gain a loyal follower.

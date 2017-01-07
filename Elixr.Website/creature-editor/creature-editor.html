@@ -1,0 +1,68 @@
+<div class="creature-editor">
+    <i class="fa fa-spinner fa-pulse" ng-show="$ctrl.loading"></i>
+
+    <div ng-if="!$ctrl.loading">
+
+        <div class="hidden-print">
+            <div ng-show="!$ctrl.loggedIn && $ctrl.attemptedSave">
+                <rpg-login></rpg-login>
+            </div>
+            <button ng-click="$ctrl.save()">
+                Save
+                <i class="fa fa-spinner fa-pulse" ng-show="$ctrl.saving"></i>
+            </button>
+        </div>
+        <div class="description">
+            <div creature-description editor="$ctrl"></div>
+        </div>
+        <div class="stats">
+            <div class="abilities">
+                <div creature-abilities editor="$ctrl"></div>
+            </div>
+            <div class="primary-stats">
+                <div class="energy">
+                    <div creature-energy="$ctrl.creature"></div>
+                </div>
+                <div class="defense">
+                    <div creature-defense editor="$ctrl"></div>
+                </div>
+                <div class="weapons">
+                    <div creature-weapons editor="$ctrl"></div>
+                </div>
+            </div>
+        </div>
+        <div class="equipment">
+            <div class="wealth">
+                <div creature-wealth editor="$ctrl"></div>
+            </div>
+            <div class="items">
+                <div creature-items editor="$ctrl"></div>
+            </div>
+        </div>
+        <div class="special">
+            <div class="characteristics-wrapper">
+                <h2>
+                    Characteristics
+                </h2>
+                <div class="feature-pool-remaining hidden-print">
+                    Feature Points Remaining: {{ $ctrl.creature.featurePoolRemaining }}
+                </div>
+                <div class="characteristics">
+                    <div class="features">
+                        <div creature-features="" editor="$ctrl"></div>
+                    </div>
+                    <div class="flaws">
+                        <div creature-flaws editor="$ctrl"></div>
+                    </div>
+                    <div class="oaths" ng-if="$ctrl.creature.isPlayerCharacter">
+                        <div creature-oaths editor="$ctrl"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spells">
+                <div creature-spells editor="$ctrl"></div>
+            </div>
+        </div>
+    </div>
+</div>

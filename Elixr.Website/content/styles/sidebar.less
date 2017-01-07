@@ -1,0 +1,54 @@
+@import "variables.less";
+
+.sidebar{
+    position: fixed;
+    
+    top: @headerHeight;    
+    color: white;
+
+    &.left{
+        left: 0;
+        .sidebar-inner {
+            background-color: maroon;
+            padding: 10px;
+            border: 1px dotted #333;
+            border: 1px dotted #333;
+            margin-bottom: 10px;
+        }
+    }
+    &.right{
+        right: 0;
+        top: 0;
+        bottom: 0;
+        max-width: 182px;
+        background-color: maroon;
+        padding: 10px;
+        border: 1px dotted #333;
+    }
+    &.force-visible{
+        display: initial!important;
+    }
+
+    .ad{
+        height: 100%;
+        img{
+            max-height: 500px;
+        }
+    }
+}
+
+@media (max-height:500px) {
+    .sidebar {
+        .ad {
+            img {
+                max-height: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width:@sidebarCollapse){
+    .sidebar{
+        display: none;
+    }
+}

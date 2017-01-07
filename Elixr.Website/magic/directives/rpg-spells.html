@@ -1,0 +1,139 @@
+<div>
+
+    <div class="search-container">
+        <input type="search" placeholder="Search Spell name" ng-model="$ctrl.searchQuery.name">
+        <div>
+            <label>
+                <input type="radio" name="searchType" ng-value="{{$ctrl.standard}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchSpells()">
+                Standard
+            </label>
+            <label>
+                <input type="radio" name="searchType"  ng-value="{{$ctrl.community}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchSpells()">
+                Community
+            </label>
+            <label>
+                <input type="radio" name="searchType" ng-value="{{$ctrl.all}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchSpells()">
+                All
+            </label>
+
+            <button ng-click="$ctrl.searchSpells()">
+                Go
+            </button>
+        </div>
+    </div>
+
+    <div class="rpg-bm-15">
+        <a id="createSpellAnchor"></a>
+        <a ng-click="$ctrl.createSpell()" ng-hide="$ctrl.newSpell">
+            Create Spell+
+        </a>
+        <a ng-click="$ctrl.cancelSpell()" ng-show="$ctrl.newSpell">
+            Cancel
+        </a>
+    </div>
+
+    <div ng-show="$ctrl.forResult" class="rpg-center-text rpg-bm-15">
+        Click a Spell name to add it to your creature/character.
+    </div>
+     <div ng-show="$ctrl.showThanksForSubmitting" class="rpg-bm-10 thanks-box">
+        Thank you for submitting. Your new Spell can now be found when searching "Community" Features!
+    </div>
+
+    <div class="panel" ng-show="$ctrl.newSpell">
+        <div class="panel-heading">
+            <input type="text" ng-model="$ctrl.newSpell.name" placeholder="Spell name" ng-keydown="$ctrl.newNameKeyDown($event)">
+        </div>
+        <div class="panel-body">
+
+            <strong>
+                Describe your Spell here: 
+            </strong>
+            <span ng-show="$ctrl.editingDescription">(Editing uses markdown syntax)</span>
+
+            <div class="markdown-container" ng-click="$ctrl.editDescription()" ng-show="!$ctrl.editingDescription" btf-markdown="$ctrl.newSpell.description"></div>
+            <textarea ng-model="$ctrl.newSpell.description" ng-show="$ctrl.editingDescription" ng-blur="$ctrl.editingDescription = false"
+                rpg-focus="$ctrl.editingDescription"></textarea>
+
+            <div>
+                <div>
+                    <strong>
+                        Energy Cost:
+                    </strong>
+                    <select ng-options="opt for opt in $ctrl.energyCostOptions" ng-model="$ctrl.newSpell.energyCost"></select>
+                    <input placeholder="Custom Energy cost" type="text" ng-show="$ctrl.newSpell.energyCost === $ctrl.customEnergyOption" ng-model="$ctrl.customEnergy">
+                </div>
+                <div>
+                    <strong>
+                        Regen Time (In Rounds; 10 rounds = 1 minute):
+                    </strong>
+                    <select ng-options="$ctrl.formatRegenTime(opt) for opt in $ctrl.regenTimeOptions" ng-model="$ctrl.newSpell.regenTimeInRounds"></select>
+                    <input ng-show="$ctrl.newSpell.regenTimeInRounds === 1" type="number" ng-model="$ctrl.customRegenTime" placeholder="Regen Time...">
+                </div>
+                <div>
+                    <strong>
+                        Movement Cost (In Feet):
+                    </strong>
+                    <input type="number" ng-model="$ctrl.newSpell.movementCost" step="5">
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="author-info">
+                <button ng-click="$ctrl.submitSpell()">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" ng-repeat="spell in $ctrl.spells">
+        <div class="panel-heading">
+            <span ng-click="$ctrl.spellClicked(spell)">
+                {{ spell.name }}
+            </span>
+        </div>
+        <div class="panel-body">
+            <div btf-markdown="spell.description"></div>
+            <div class="rpg-center-text" ng-show="!$ctrl.isViewingDetailsOfSpell(spell)">
+                <a ng-click="$ctrl.viewDetailsOfSpell(spell)">
+                    See details
+                </a>
+            </div>
+            <div ng-show="$ctrl.isViewingDetailsOfSpell(spell)">
+                <div>
+                    <strong>
+                        Energy Cost:
+                    </strong> {{ spell.energyCost }}
+                </div>
+                <div>
+                    <strong>
+                        Regen Time:
+                    </strong> {{ spell.regenTimeInRounds | regenTime }}
+                </div>
+                <div>
+                    <strong>
+                        Movement Cost:
+                    </strong> {{ spell.movementCost }}ft
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="author-info">
+                Submitted by {{ spell.author.playerName }} on {{ spell.createdAtMS | date }}
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align:center;" ng-show="$ctrl.loading">
+        <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+    </div>
+
+    <button ng-show="$ctrl.shouldShowLoadMore()" ng-click="$ctrl.searchSpells(true)">
+        More
+    </button>
+
+    <div class="empty-box" ng-show="$ctrl.shouldShowEmptyBox()">
+        No Spells yet. Why not <a ng-click="$ctrl.createSpell()">Create your own</a>?
+    </div>
+
+</div>

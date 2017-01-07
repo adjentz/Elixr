@@ -1,0 +1,1 @@
+You emit a sound outside the range of normal human hearing and which then tells you the position and shape of objects and creatures within 20ft of you.

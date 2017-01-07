@@ -1,0 +1,1 @@
+At the beginning of your turn, you regain 5 points of Energy. This works even when incapacitated, unless stated otherwise.

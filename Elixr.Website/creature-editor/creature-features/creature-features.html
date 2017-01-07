@@ -1,0 +1,105 @@
+<div class="creature-features">
+
+    <div class="slideout" ng-if="$ctrl.gettingFeature || $ctrl.inquireOptions">
+        <div class="close" ng-click="$ctrl.closeSlideout()">
+            &times;
+        </div>
+        <div ng-show="!$ctrl.inquireOptions">
+            <rpg-features for-result="$ctrl.getFeatureResultDeferred"></rpg-features>
+        </div>
+        <div ng-show="$ctrl.inquireOptions">
+            <div ng-show="$ctrl.acquiredFeature.mustSacrificeEnergy">
+                <strong>
+                    How much Energy are you willing to sacrifice for this feature?
+                </strong>
+                <input type="number" min="1" max="{{ $ctrl.editor.creature.maxEnergy - 1 }}" ng-model="$ctrl.energySacrificed">
+            </div>
+
+            <div ng-show="$ctrl.acquiredFeature.applyType === $ctrl.weaponApplyType">
+                <strong>
+                    Select which Weapon this Feature applies to.
+                </strong>
+                <ul class="selection">
+                    <li ng-repeat="wi in $ctrl.editor.creature.weaponInformation" ng-class="{'selected' : $ctrl.selectedWeaponInfo === wi}" ng-click="$ctrl.selectedWeaponInfo = wi">
+                        {{ wi.weapon.name }}
+                    </li>
+                </ul>
+            </div>
+            <div ng-show="$ctrl.acquiredFeature.applyType === $ctrl.armorApplyType">
+                <strong>
+                    Select what Armor this Feature applies to.
+                </strong>
+                <ul class="selection">
+                    <li ng-repeat="ai in $ctrl.editor.creature.armorInformation" ng-class="{'selected' : $ctrl.selectedArmorInfo === ai}" ng-click="$ctrl.selectedArmorInfo = ai">
+                        {{ ai.armor.name }}
+                    </li>
+                </ul>
+            </div>
+            <div ng-show="$ctrl.acquiredFeature.applyType === $ctrl.itemApplyType">
+                <strong>
+                    Select which Item this Feature applies to.
+                </strong>
+                <ul class="selection">
+                    <li ng-repeat="ii in $ctrl.editor.creature.itemInformation" ng-class="{'selected' : $ctrl.selectedItemInfo === ii}" ng-click="$ctrl.selectedItemInfo = ii">
+                        {{ ii.item.name }}
+                    </li>
+                </ul>
+            </div>
+            <div ng-show="$ctrl.acquiredFeature.applyType === $ctrl.spellApplyType">
+                <strong>
+                    Select which Spell this Feature applies to.
+                </strong>
+                <ul class="selection">
+                    <li ng-repeat="si in $ctrl.editor.creature.spellInformation" ng-class="{'selected' : $ctrl.selectedSpellInfo === si}" ng-click="$ctrl.selectedSpellInfo = si">
+                        {{ si.spell.name }}
+                    </li>
+                </ul>
+            </div>
+
+            <button ng-click="$ctrl.optionsAccepted()">
+                Done
+            </button>
+        </div>
+
+    </div>
+
+    <div class="features-table-container hidden-print">
+        <table class="">
+            <tr>
+                <th>
+                    Feature
+                </th>
+            </tr>
+            <tr ng-repeat-start="featureInfo in $ctrl.editor.creature.allFeatureInformation">
+                <td>
+                    <i class="fa fa-minus-square-o" ng-click="$ctrl.removeFeature(featureInfo)"></i> {{ featureInfo.feature.name
+                    }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="text" ng-disabled="$ctrl.featureInfoIsFromRace(featureInfo)" placeholder="{{ featureInfo.feature.name }} Notes"
+                        ng-change="$ctrl.notifyFeatureChanged(featureInfo)" ng-model="featureInfo.notes">
+                </td>
+            </tr>
+            <tr ng-repeat-end=""></tr>
+        </table>
+        <a ng-click="$ctrl.getFeature()">
+            Get Feature+
+        </a>
+    </div>
+    <div class="features-table-container visible-print">
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-col">
+                    <span>
+                            Feature
+                        </span>
+                </div>
+            </div>
+            <div class="flex-row" style="height:24px;" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35]">
+                <div class="flex-col">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</div>

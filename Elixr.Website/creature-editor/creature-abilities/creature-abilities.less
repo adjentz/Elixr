@@ -1,0 +1,118 @@
+@import "content/styles/variables.less";
+
+.creature-abilities{
+
+    padding: 5px;
+    font-size: 11px;
+    
+    .ability-row{
+
+        .shield {
+                background-image: url('/content/images/shield.png');
+                display: inline-block;
+                background-size: 100%;
+                padding: 5px;
+                position: relative;
+                width: 20px;
+                height: 20px;
+                text-align: center;
+            }
+
+        .pool-remaining{
+                white-space: nowrap;
+                text-align: left;
+            }
+
+        display: flex;
+        
+        .ability-name{
+            flex:4;
+            display: flex;
+            margin: 5px 0;
+            &.ability-header{
+              flex-direction: column;  
+            }
+            .alter-arrow{
+                flex:0;
+                display: inline-block;
+            }
+            .name{
+                flex: 2;
+                -webkit-user-select: none; /* Chrome/Safari */        
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* IE10+ */
+                user-select: none;
+                h2,h3,h4{
+                    margin: 0;
+                    display: inline-block;
+                }
+            }
+        }
+        .ability-stat{
+            flex:2;
+            text-align: center;
+            h2,h3,h4{
+                margin: 0;
+            }
+            @size:32px;
+
+            .box{
+                border: 1px solid #333;
+                width:@size;
+                height: @size;
+                line-height: @size;
+                margin: 0 auto;
+            }
+            .hexagon{
+                background-image: url('/content/images/hexagon.png');
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                width:@size;
+                height: @size;
+                line-height: @size;
+                vertical-align: middle;
+                margin: 0 auto;
+            }
+            .underline{
+                border-bottom: 1px solid #000;
+                width:@size;
+                margin: 5px auto;
+                display: inline-block;
+            }
+            .hexagon,.underline{
+                text-align: center;
+                position: relative;
+                
+                &.plus-sign:after{
+                    content: "+";
+                    position: absolute;
+                    right:-2em;
+                }
+                &.equal-sign:before{
+                    content: "=";
+                    position: absolute;
+                    left:-2em;
+                }
+            }
+        }
+        .ability-defense {
+            flex: 1;
+        }
+    }
+}
+
+@media print{
+    .alter-arrow{
+        display: none!important;
+    }
+    .plus-sign {
+        &:after {
+            right: -1.5em!important;
+        }
+    }
+    .equal-sign {
+        &:before {
+            left: -1.5em!important;
+        }
+    }
+}

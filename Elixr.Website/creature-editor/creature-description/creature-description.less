@@ -1,0 +1,81 @@
+@import "content/styles/variables.less";
+
+.creature-description{
+    display: flex;
+    .player-info,.physical,.portrait{
+        flex:1;
+        padding: 5px;
+        overflow-x: hidden;
+        input{
+            width: 100%;
+        }
+    }
+
+    .initiative-explanation {
+        white-space: nowrap;
+        font-size: 12px;
+    }
+    
+    
+    div.portrait{
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        label{
+            flex:0.25;
+        }
+        input[type=file]{
+            display: none;
+        }
+        .image-container{
+            border: 1px solid darkcyan;
+            flex:10;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+
+            .upload-instructions {
+                border: 1px dotted black;
+                padding: 10px 5px;
+                position: relative;
+                top: 50%;
+                margin: 0 5px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+    .motivation{
+        display: flex;
+        flex-direction: column;
+        div{
+            flex:1;
+            display: flex;
+            flex-direction: column;
+            
+            label{
+                flex:1;
+            }
+            textarea{
+                flex:9;
+                resize: vertical;
+            }
+        }
+    }
+
+@media screen and (max-width:@mobileCollapse){
+    .creature-description{
+        display: initial;
+    }
+}
+@media print {
+    .image-container {
+        border-color: #333!important;
+    }
+}

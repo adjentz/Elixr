@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Elixr</title>
+
+    <link rel="stylesheet" href="content/styles/app.css">
+
+    <script src="content/scripts/lodash.min.js"></script>
+    <script src="content/scripts/require.js"></script>
+    <script src="content/scripts/angular.min.js"></script>
+    <script src="content/scripts/showdown.js"></script>
+    <script src="content/scripts/showdown-table-extension.js"></script>
+    <script src="content/scripts/markdown.js"></script>
+    <script src="content/scripts/angular-sanitize.min.js"></script>
+    <script src="content/scripts/angular-ui-router.min.js"></script>
+
+    <script>
+        require(["app"], function(main) {
+                var app = new main.App();
+                app.start();
+            });
+    </script>
+
+</head>
+
+<body ng-controller="main as mainCtrl" ng-class="{'remove-scroll' : mainCtrl.shouldRemoveScrollFromBody()}">
+    
+    <div class="header hidden-print" rpg-hide-on-scroll-down>
+        <h2>
+            <i class="fa fa-bars" ng-click="mainCtrl.toggleSidebar()"></i>
+            Elixr 
+        </h2>
+        <span>beta</span>
+
+        <div class="user-info pull-right visible-mobile" ng-cloak="">
+            <i class="fa fa-user"></i>
+            <a ui-sref="profile">{{ mainCtrl.usernameText }}</a>
+        </div>
+    </div>
+    <div class="sidebar left" ng-class="{'force-visible' : mainCtrl.forceSidebar}">
+        <div class="sidebar-inner">
+            <rpg-chapters></rpg-chapters>
+        </div>
+        <div class="user-info hidden-mobile" ng-cloak="">
+            <i class="fa fa-user"></i>
+            <a ui-sref="profile">{{ mainCtrl.usernameText }}</a>
+        </div>
+    </div>
+    <div class="page">
+        <div class="main">
+            <div ui-view></div>
+        </div>
+    </div>
+    
+    <div class="sidebar right">
+        <div class="ad">
+            <img src="http://www.d20pfsrd.com/_/rsrc/1443212706447/images/ad_ItCo_dragons.jpg" alt="pf">
+        </div>
+    </div>
+
+</body>
+</html>

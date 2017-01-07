@@ -1,0 +1,372 @@
+<div>
+    <div class="search-container">
+        <input type="search" placeholder="Search Feature name" ng-model="$ctrl.searchQuery.name">
+        <div>
+            <label>
+                <input type="radio" name="searchType" ng-value="{{$ctrl.standard}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchFeatures()">
+                Standard
+            </label>
+            <label>
+                <input type="radio" name="searchType"  ng-value="{{$ctrl.community}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchFeatures()">
+                Community
+            </label>
+            <label>
+                <input type="radio" name="searchType" ng-value="{{$ctrl.all}}" ng-model="$ctrl.searchQuery.searchMode" ng-change="$ctrl.searchFeatures()">
+                All
+            </label>
+
+            <button ng-click="$ctrl.searchFeatures()">
+                Go
+            </button>
+        </div>
+    </div>
+
+    <div class="rpg-bm-15">
+        <a id="createFeatureAnchor"></a>
+        <a ng-click="$ctrl.createFeature()" ng-hide="$ctrl.newFeature">
+            Create Feature+
+        </a>
+        <a ng-click="$ctrl.cancelFeature()" ng-show="$ctrl.newFeature">
+            Cancel
+        </a>
+    </div>
+    <div ng-show="$ctrl.forResult" class="rpg-center-text rpg-bm-15">
+        Click a Feature name to add it to your creature/character.
+    </div>
+    <div ng-show="$ctrl.showThanksForSubmitting" class="rpg-bm-10 thanks-box">
+        Thank you for submitting. Your new Feature can now be found when searching "Community" Features!
+    </div>
+    <div class="rpg-tm-20" ng-show="!$ctrl.rpgPlayerSession.isAuthenticated && $ctrl.newFeature">
+        <div class="rpg-bm-5">
+            You must be signed in to submit features.
+        </div>
+        <rpg-login></rpg-login>
+    </div>
+    <div class="panel" ng-show="$ctrl.newFeature && $ctrl.rpgPlayerSession.isAuthenticated">
+        <div class="panel-heading">
+            <input type="text" placeholder="Feature name" ng-model="$ctrl.newFeature.name" ng-keydown="$ctrl.newNameKeyDown($event)">
+        </div>
+        <div class="panel-body">
+            <strong>
+                Describe your Feature here: 
+            </strong>
+            <span ng-show="$ctrl.editingDescription">(Editing uses markdown syntax)</span>
+
+            <div class="markdown-container" ng-click="$ctrl.editDescription()" ng-show="!$ctrl.editingDescription" btf-markdown="$ctrl.newFeature.description"></div>
+            <textarea ng-model="$ctrl.newFeature.description" ng-show="$ctrl.editingDescription" ng-blur="$ctrl.editingDescription = false"
+                rpg-focus="$ctrl.editingDescription"></textarea>
+
+            <div class="rpg-bm-20">
+                <strong>
+                    Stat Mods:
+                </strong>
+                <table class="light">
+                    <tr>
+                        <th>
+                            Stat
+                        </th>
+                        <th>
+                            Mod Type
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                    </tr>
+                    <tr ng-repeat="sm in $ctrl.newFeature.mods">
+                        <td>
+                            {{ sm.stat | stat }}
+                        </td>
+                        <td>
+                            {{ sm.modifierType | modType }}
+                        </td>
+                        <td>
+                            <span ng-show="sm.modifierType === $ctrl.normalModifierType">
+                                {{ sm.modifier }}
+                            </span>
+                            <span ng-show="sm.modifierType === $ctrl.doubleModifierType">x2</span>
+                            <span ng-show="sm.modifierType === $ctrl.halveModifierType">½</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select ng-options="stat as (stat | stat) for stat in $ctrl.availableStats" ng-model="$ctrl.currentStat"></select>
+                        </td>
+                        <td>
+                            <select ng-options="mt as (mt | modType) for mt in $ctrl.availableModifierTypes" ng-model="$ctrl.currentModifierType"></select>
+                        </td>
+                        <td>
+                            <input type="number" placeholder="Amount" ng-show="$ctrl.currentModifierType === $ctrl.normalModifierType" ng-model="$ctrl.currentModifier"
+                                ng-disabled="$ctrl.disableAmountInput">
+                            <span ng-show="$ctrl.currentModifierType === $ctrl.doubleModifierType">x2</span>
+                            <span ng-show="$ctrl.currentModifierType === $ctrl.halveModifierType">½</span>
+                        </td>
+                    </tr>
+                </table>
+                <button class="rpg-pull-right rpg-tm-5 sm rnd" ng-click="$ctrl.addMod()">
+                    <i class="fa fa-plus"></i>
+                </button>
+
+            </div>
+            <div>
+                <strong>
+                Feature can be taken...
+            </strong>
+                <ul>
+                    <li>
+                        <label>
+                        <input type="radio" ng-value="false" ng-model="$ctrl.newFeature.canBeTakenEachLevel">
+                        Once
+                    </label>
+                    </li>
+                    <li>
+                        <label>
+                        <input type="radio" ng-value="true" ng-model="$ctrl.newFeature.canBeTakenEachLevel">
+                        Once per level
+                    </label>
+                    </li>
+                </ul>
+
+            </div>
+            <div>
+                <strong>
+                    Feature requires Energy sacrifice...
+                </strong>
+                <ul>
+                    <li>
+                        <label>
+                        <input type="radio" ng-value="false" ng-model="$ctrl.newFeature.mustSacrificeEnergy">
+                         No
+                    </label>
+                    </li>
+                    <li>
+                        <label>
+                        <input type="radio" ng-value="true" ng-model="$ctrl.newFeature.mustSacrificeEnergy">
+                        Yes
+                    </label>
+                    </li>
+                </ul>
+
+            </div>
+            <div>
+                <strong>
+                    Feature applies towards...
+                </strong>
+                <ul>
+                    <li>
+                        <label>
+                        <input type="radio" ng-model="$ctrl.newFeature.applyType" ng-value="$ctrl.selfApplyType">
+                        Creature
+                    </label>
+                    </li>
+                    <li>
+                        <label>
+                        <input type="radio" ng-model="$ctrl.newFeature.applyType" ng-value="$ctrl.spellApplyType">
+                        Spell 
+                    </label>
+                    </li>
+                    <li>
+                        <label>
+                        <input type="radio" ng-model="$ctrl.newFeature.applyType" ng-value="$ctrl.weaponApplyType">
+                        Weapon 
+                    </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <strong>
+                    Required Flaws
+                </strong>
+                <ul>
+                    <li ng-repeat="flaw in $ctrl.newFeature.requiredFlaws">
+                        <i class="fa fa-minus-square-o" ng-click="$ctrl.removeRequiredFlaw(flaw)"></i> {{ flaw.name }}
+                    </li>
+                    <li>
+                        <a ng-click="$ctrl.addRequiredFlaw()" ng-hide="$ctrl.getFlawResultDeferred">Add Required Flaw+</a>
+                        <a ng-click="$ctrl.cancelAddRequiredFlaw()" ng-show="$ctrl.getFlawResultDeferred">Cancel</a>
+                    </li>
+                </ul>
+                <div ng-if="$ctrl.getFlawResultDeferred">
+                    <rpg-flaws for-result="$ctrl.getFlawResultDeferred"></rpg-flaws>
+                </div>
+            </div>
+            <div>
+                <strong>
+                    Required Oaths
+                </strong>
+                <ul>
+                    <li ng-repeat="oath in $ctrl.newFeature.requiredOaths">
+                        <i class="fa fa-minus-square-o" ng-click="$ctrl.removeRequiredOath(oath)"></i> {{ oath.name }}
+                    </li>
+                    <li>
+                        <a ng-click="$ctrl.addRequiredOath()" ng-hide="$ctrl.getOathResultDeferred">Add Required Flaw+</a>
+                        <a ng-click="$ctrl.cancelAddRequiredOath()" ng-show="$ctrl.getOathResultDeferred">Cancel</a>
+                    </li>
+                </ul>
+                <div ng-if="$ctrl.getOathResultDeferred">
+                    <rpg-oaths for-result="$ctrl.getOathResultDeferred"></rpg-oaths>
+                </div>
+            </div>
+
+            <div>
+                <strong>
+                    Feature cost should be...
+                </strong>
+                <ul>
+                    <li>
+                        <label>
+                        <input type="radio" ng-model="$ctrl.useRecommendedCost" ng-value="true">
+                        Recommended cost: {{ $ctrl.recommendedCost }}
+                    </label>
+                    </li>
+                    <li>
+                        <label>
+                        <input type="radio" ng-model="$ctrl.useRecommendedCost" ng-value="false">
+                        Custom cost: 
+                    </label>
+                        <input type="number" placeholder="Custom Cost">
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <strong>
+                    I agree that I believe this Feature...
+                </strong>
+                <ul>
+                    <li>
+                        <label>
+                        <input type="checkbox" ng-model="$ctrl.isFun">
+                        Is Fun,
+                    </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" ng-model="$ctrl.isBalanced">
+                            Is Balanced, 
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" ng-model="$ctrl.abidesTOS">
+                            Abides by the <a href="">Terms of Service</a>.
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="panel-footer">
+            <div class="author-info">
+                <button ng-click="$ctrl.submitFeature()" ng-disabled="$ctrl.disableSubmitButton">
+                    Submit
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="panel" ng-repeat="feature in $ctrl.features">
+        <div class="panel-heading">
+            <span ng-click="$ctrl.featureClicked(feature)">
+                {{ feature.name }} [Cost: {{feature.cost}}]
+            </span>
+        </div>
+        <div class="panel-body">
+            <div btf-markdown="feature.description"></div>
+
+            <div class="rpg-center-text" ng-show="!$ctrl.isViewingDetailsOfFeature(feature)">
+                <a ng-click="$ctrl.viewDetailsOfFeature(feature)">
+                    See details
+                </a>
+            </div>
+            <div ng-show="$ctrl.isViewingDetailsOfFeature(feature)">
+                <div ng-show="feature.mods.length">
+                    <strong>
+                        Stat Mods:
+                    </strong>
+                    <table class="light rpg-bm-10">
+                        <tr>
+                            <th>
+                                Stat
+                            </th>
+                            <th>
+                                Mod Type
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                        </tr>
+                        <tr ng-repeat="sm in feature.mods">
+                            <td>
+                                {{ sm.stat | stat }}
+                            </td>
+                            <td>
+                                {{ sm.modifierType | modType }}
+                            </td>
+                            <td>
+                                <span ng-show="sm.modifierType === $ctrl.normalModifierType">
+                                    {{ sm.modifier }}
+                                </span>
+                                <span ng-show="sm.modifierType === $ctrl.doubleModifierType">x2</span>
+                                <span ng-show="sm.modifierType === $ctrl.halveModifierType">½</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <strong>
+                        Applies to: 
+                    </strong> {{ feature.applyType | applyType }}
+                </div>
+                <div ng-show="feature.canBeTakenEachLevel">
+                    <strong>
+                        Can be taken once per level
+                    </strong>
+                </div>
+                <div ng-show="feature.mustSacrificeEnergy">
+                    <strong>
+                        Requires Energy sacrifice
+                    </strong>
+                </div>
+                <div ng-show="feature.requiredFlaws.length">
+                    <strong>
+                        Required Flaws
+                    </strong>
+                    <ul>
+                        <li ng-repeat="flaw in feature.requiredFlaws">
+                            {{ flaw.name }}
+                        </li>
+                    </ul>
+                </div>
+                <div ng-show="feature.requiredOaths.length">
+                    <strong>
+                        Required Oaths
+                    </strong>
+                    <ul>
+                        <li ng-repeat="oath in feature.requiredOaths">
+                            {{ oath.name }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-footer">
+            <div class="author-info">
+                Submitted by {{ feature.author.playerName }} on {{ feature.createdAtMS | date }}
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center;" ng-show="$ctrl.loading">
+        <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+    </div>
+    <button ng-show="$ctrl.shouldShowLoadMore()" ng-click="$ctrl.searchFeatures(true)">
+        More
+    </button>
+
+    <div class="empty-box" ng-show="$ctrl.shouldShowEmptyBox()">
+        No Features yet. Why not <a ng-click="$ctrl.createFeature()">Create your own</a>?
+    </div>
+</div>

@@ -1,0 +1,24 @@
+table{
+    width: 100%;
+    font-size: 11px;
+    border-collapse: collapse;
+    text-align: center;
+    td,th{
+        padding: 5px;
+        @borderColor:#333;
+        border-bottom: 1px solid @borderColor;
+        border-right: 1px solid @borderColor;
+
+        &:last-child{
+            border-right: none;
+        }
+    }
+
+    &.light{
+        td,th{
+            @borderColor:#aaa;
+            border-bottom: 1px solid @borderColor;
+            border-right: 1px solid @borderColor;
+        }
+    }
+}
