@@ -82,7 +82,8 @@ class RPGFlawsController {
             description: "",
             flawId: -1,
             mods: [],
-            name: ""
+            name: "",
+            author:null
         };
     }
     editDescription(): void {

@@ -82,7 +82,8 @@ class RPGOathsController {
             description: "",
             oathId: -1,
             name: "",
-            mods: []
+            mods: [],
+            author:null
         };
     }
     editDescription(): void {

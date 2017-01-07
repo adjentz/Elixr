@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{57550851-131B-46D0-8427-B163A4A5B93C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Elixr.TypeLite</RootNamespace>
+    <AssemblyName>Elixr.TypeLite</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="TypeLite">
+      <HintPath>packages\TypeLite.Lib.1.8.1\lib\net4\TypeLite.dll</HintPath>
+    </Reference>
+    <Reference Include="TypeLite.Net4">
+      <HintPath>packages\TypeLite.Lib.1.8.1\lib\net4\TypeLite.Net4.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Elixr.Api\ViewModels\ArmorInfoViewModel.cs">
+      <Link>ArmorInfoViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\ArmorViewModel.cs">
+      <Link>ArmorViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\CommunitySearchMode.cs">
+      <Link>CommunitySearchMode.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\CreatureViewModel.cs">
+      <Link>CreatureViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\EnchantmentViewModel.cs">
+      <Link>EnchantmentViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\EquipmentViewModel.cs">
+      <Link>EquipmentViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\FeatureInfoViewModel.cs">
+      <Link>FeatureInfoViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\FeatureViewModel.cs">
+      <Link>FeatureViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\FlawInfoViewModel.cs">
+      <Link>FlawInfoViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\FlawViewModel.cs">
+      <Link>FlawViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\ItemInfoViewModel.cs">
+      <Link>ItemInfoViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\ItemViewModel.cs">
+      <Link>ItemViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\OathInfoViewModel.cs">
+      <Link>OathInfoViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\OathViewModel.cs">
+      <Link>OathViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\PlayerViewModel.cs">
+      <Link>PlayerViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\RaceViewModel.cs">
+      <Link>RaceViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\SearchFeaturesInputModel.cs">
+      <Link>SearchFeaturesInputModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\SkillViewModel.cs">
+      <Link>SkillViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\SpellInfoViewModel.cs">
+      <Link>SpellInfoViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\SpellViewModel.cs">
+      <Link>SpellViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\StatModViewModel.cs">
+      <Link>StatModViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\WeaponInfoViewModel.cs">
+      <Link>WeaponInfoViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ViewModels\WeaponViewModel.cs">
+      <Link>WeaponViewModel.cs</Link>
+    </Compile>
+    <Compile Include="FeatureApplyingType.cs" />
+    <Compile Include="Stat.cs" />
+    <Compile Include="..\Elixr.Api\Models\ModifierType.cs">
+      <Link>ModifierType.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\Models\Range.cs">
+      <Link>Range.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ApiModels\AuthToken.cs">
+      <Link>AuthToken.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ApiModels\CreateResult.cs">
+      <Link>CreateResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ApiModels\CreatureEditInput.cs">
+      <Link>CreatureEditInput.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ApiModels\EquipmentSearchInput.cs">
+      <Link>EquipmentSearchInput.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ApiModels\LoginInputModel.cs">
+      <Link>LoginInputModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ApiModels\SearchInput.cs">
+      <Link>SearchInput.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ApiModels\SeedInfo.cs">
+      <Link>SeedInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Elixr.Api\ApiModels\SignupInputModel.cs">
+      <Link>SignupInputModel.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

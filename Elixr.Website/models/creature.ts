@@ -1,5 +1,8 @@
 class Creature implements Elixr.Api.ViewModels.CreatureViewModel {
 
+    author:Elixr.Api.ViewModels.PlayerViewModel;
+    createdAtMS:number;
+    
     creatureId: number;
     name: string;
     gender: string;
