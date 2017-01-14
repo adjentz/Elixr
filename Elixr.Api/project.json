@@ -4,7 +4,7 @@
     "debugType": "portable",
     "emitEntryPoint": true,
     "copyToOutput": {
-      "include": "Content"
+      "include": ["Content", "AppSettings.json"]
     }
   },
   "dependencies": {
@@ -12,7 +12,8 @@
     "Microsoft.EntityFrameworkCore.Design":{
       "version" : "1.0.0-preview2-final",
       "type" : "build"
-    }
+    },
+    "Microsoft.Extensions.Configuration.Json": "1.1.0"
   },
   "frameworks": {
     "netcoreapp1.0": {

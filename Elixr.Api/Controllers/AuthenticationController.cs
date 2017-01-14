@@ -4,11 +4,9 @@ using Elixr.Api.Models;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
 
 namespace Elixr.Api.Controllers
 {
-    [EnableCors("AllowAll")]
     public class AuthenticationController : Controller
     {
         private readonly ElixrDbContext dbContext;

@@ -7,13 +7,11 @@ using Elixr.Api.ViewModels.Extensions;
 using Elixr.Api.Services;
 using Elixr.Api.ApiModels;
 using Elixr.Api.Models;
-using Microsoft.AspNetCore.Cors;
 using System;
 using Microsoft.EntityFrameworkCore;
 
 namespace Elixr.Api.Controllers
 {
-    [EnableCors("AllowAll")]
     public class ItemsController
     {
         ElixrDbContext dbCtx;
