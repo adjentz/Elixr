@@ -44,11 +44,12 @@ namespace Elixr.Api.Services
         private long now = 1473303913983;
         private IHostingEnvironment hostingEnvironment;
         private ElixrDbContext dbCtx;
-
-        public Seeder(ElixrDbContext dbCtx, IHostingEnvironment hostingEnvironment)
+        private readonly ElixrSettings elixrSettings;
+        public Seeder(ElixrDbContext dbCtx, IHostingEnvironment hostingEnvironment, ElixrSettings elixrSettings)
         {
             this.dbCtx = dbCtx;
             this.hostingEnvironment = hostingEnvironment;
+            this.elixrSettings = elixrSettings;
         }
 
         public void Seed()
@@ -84,7 +85,8 @@ namespace Elixr.Api.Services
         {
             Player player = new Player();
             player.Name = "The Game Master";
-            dbCtx.Players.Add(player);
+            player.Email = "elixrrpg@gmail.com";
+            player.SecurityHash = Utilities.HashText(elixrSettings.GameMasterPassword);
             dbCtx.Players.Add(player);
 
             return player;

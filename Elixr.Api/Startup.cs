@@ -42,7 +42,7 @@ namespace Elixr.Api
                 options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
             });
 
-
+            services.AddSingleton<ElixrSettings>(sp => new ElixrSettings(configuration["GameMasterPassword"]));
             services.AddScoped<UserSession>();
             services.AddTransient<Seeder>();
             services.AddDbContext<ElixrDbContext>(options => options.UseNpgsql(configuration["ConnectionString"]));
