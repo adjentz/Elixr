@@ -36,7 +36,7 @@
 
         <div class="user-info pull-right visible-mobile" ng-cloak="">
             <i class="fa fa-user"></i>
-            <a ui-sref="profile">{{ mainCtrl.usernameText }}</a>
+            <a ui-sref="profile" ng-bind="mainCtrl.usernameText">Sign In</a>
         </div>
     </div>
     <div class="sidebar left" ng-class="{'force-visible' : mainCtrl.forceSidebar}">

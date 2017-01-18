@@ -5,7 +5,7 @@ class RPGLoginController {
     passwordConfirmation = "";
     errorMessage = "";
 
-    private serviceUrl = "http://localhost:5000";
+    private serviceUrl = "/api";
     loggedIn: () => void;
     static $inject = ["$http"];
     constructor(private $http: angular.IHttpService) {
