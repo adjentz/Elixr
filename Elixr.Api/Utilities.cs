@@ -4,14 +4,21 @@ using System.Security.Cryptography;
 
 namespace Elixr.Api
 {
-    static class Utilities
+    public class Utilities
     {
-        public static string HashText(string plaintext)
+        private ElixrSettings settings;
+        public Utilities(ElixrSettings settings)
+        {
+            this.settings = settings;
+        }
+
+        public string HashText(string plaintext)
         {
             using(var hasher = SHA256.Create())
             {
-                byte[] hashed = hasher.ComputeHash(Encoding.UTF8.GetBytes(plaintext));
-                return Convert.ToBase64String(hashed);
+                byte[] hashed = hasher.ComputeHash(Encoding.UTF8.GetBytes(plaintext + settings.HashingSecret));
+                string result = Convert.ToBase64String(hashed);
+                return result;
             }            
         }
     }

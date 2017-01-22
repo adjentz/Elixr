@@ -10,15 +10,17 @@ namespace Elixr.Api.Controllers
     public class AuthenticationController : Controller
     {
         private readonly ElixrDbContext dbContext;
-        public AuthenticationController(ElixrDbContext dbContext)
+        private readonly Utilities utilities;
+        public AuthenticationController(ElixrDbContext dbContext, Utilities utilities)
         {
             this.dbContext = dbContext;
+            this.utilities = utilities;
         }
 
         [HttpPost("~/authentication/login")]
         public async Task<AuthToken> Login([FromBody]LoginInputModel inputModel)
         {
-            var player = await dbContext.Players.FirstOrDefaultAsync(p => p.Name.ToLower() == inputModel.PlayerName.ToLower() && p.SecurityHash == Utilities.HashText(inputModel.Password));
+            var player = await dbContext.Players.FirstOrDefaultAsync(p => p.Name.ToLower() == inputModel.PlayerName.ToLower() && p.SecurityHash == utilities.HashText(inputModel.Password));
             if (player == null)
             {
                 return null;
@@ -42,7 +44,7 @@ namespace Elixr.Api.Controllers
             Player player = new Player()
             {
                 Name = inputModel.PlayerName,
-                SecurityHash = Utilities.HashText(inputModel.InitialPassword)
+                SecurityHash = utilities.HashText(inputModel.InitialPassword)
             };
             dbContext.Players.Add(player);
 
@@ -56,9 +58,9 @@ namespace Elixr.Api.Controllers
             };
         }
 
-        private static string CreateSignature(Player player)
+        private string CreateSignature(Player player)
         {
-            return Utilities.HashText(player.StrToHash);
+            return utilities.HashText(player.StrToHash);
         }
     }
 }

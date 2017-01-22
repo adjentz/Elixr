@@ -11,9 +11,11 @@ namespace Elixr.Api.Filters
     public class TokenFilter : IActionFilter
     {
         private readonly UserSession userSession;
-        public TokenFilter(UserSession session)
+        private readonly Utilities utilities;
+        public TokenFilter(UserSession session, Utilities utilities)
         {
             userSession = session;
+            this.utilities = utilities;
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
@@ -40,7 +42,7 @@ namespace Elixr.Api.Filters
                         Name = token.PlayerName,
                         Id = token.PlayerId
                     };
-                    if (token.Signature != Utilities.HashText(userSession.Player.StrToHash))
+                    if (token.Signature != utilities.HashText(userSession.Player.StrToHash))
                     {
                         context.HttpContext.Response.StatusCode = 401;
                         throw new Exception();
