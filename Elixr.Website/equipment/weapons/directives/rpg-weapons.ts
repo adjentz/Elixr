@@ -70,6 +70,19 @@ class RPGWeaponsController {
             return "Agility";
         }
     }
+
+    shouldShowEdit(weapon: Elixr.Api.ViewModels.WeaponViewModel): boolean {
+        return weapon.author.playerId === this.rpgPlayerSession.playerId;
+    }
+    editWeapon(weapon: Elixr.Api.ViewModels.WeaponViewModel) {
+        this.newWeapon = weapon;
+        this.scrollToAnchor();
+    }
+    private scrollToAnchor(): void {
+        let anchorElement = document.getElementById("createWeaponsAnchor");
+        window.scrollTo(window.scrollX, anchorElement.offsetTop);
+    }
+
     cancelWeapon(): void {
         this.newWeapon = null;
     }
@@ -178,7 +191,6 @@ class RPGWeaponsController {
     isViewingDetailsOfWeapon(weapon: Elixr.Api.ViewModels.WeaponViewModel) {
         return this.viewingDetailsOfWeaponIds.indexOf(weapon.equipmentId) !== -1;
     }
-
     submitWeapon($element: angular.IAugmentedJQueryStatic): void {
         if (!this.newWeapon)
             return;
@@ -207,10 +219,7 @@ class RPGWeaponsController {
             this.showThanksForSubmitting = true;
 
             this.isFun = this.isBalanced = this.abidesTOS = false;
-
-            let myAnchor = document.getElementById("createWeaponsAnchor");
-
-            window.scrollTo(0, myAnchor.offsetTop - 50);
+            this.scrollToAnchor();
 
         });
     }

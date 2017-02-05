@@ -22,6 +22,7 @@ namespace Elixr.Api.ViewModels.Extensions
             return new Enchantment
             {
                 Id = enchantment.EnchantmentId,
+                BaseSpellId = enchantment.BaseSpell.SpellId,
                 BaseSpell = enchantment.BaseSpell.ToDomainModel(),
                 Description = enchantment.Description,
                 EnergyUsedInEnchantment = enchantment.EnergyUsedInEnchantment,

@@ -142,7 +142,7 @@ export class App {
                     return "Agility Misc.";
                 case Elixr.Api.Models.Stat.NaturalAgilityScore:
                 case Elixr.Api.Models.Stat.SpecialAgilityScore:
-                    return "Ability Score";
+                    return "Agility Score";
                 case Elixr.Api.Models.Stat.AnimalHandling:
                     return "Animal Handling";
                 case Elixr.Api.Models.Stat.Athletics:

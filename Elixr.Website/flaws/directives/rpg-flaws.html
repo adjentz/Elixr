@@ -74,6 +74,7 @@
                     </tr>
                     <tr ng-repeat="sm in $ctrl.newFlaw.mods">
                         <td>
+                            <i class="fa fa-minus-square-o" ng-click="$ctrl.removeMod(sm)"></i>
                             {{ sm.stat | stat }}
                         </td>
                         <td>
@@ -151,6 +152,7 @@
             <span ng-click="$ctrl.flawClicked(flaw)">
                 {{ flaw.name }}
             </span>
+            <a class="fa fa-pencil pull-right" style="color:white;" ng-if="$ctrl.shouldShowEdit(flaw)" ng-click="$ctrl.editFlaw(flaw)"></a>
         </div>
         <div class="panel-body">
             <div btf-markdown="flaw.description"></div>

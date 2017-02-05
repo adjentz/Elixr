@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int BaseSpellId { get; set; }
         public Spell BaseSpell { get; set; }
         public string MagicDamage { get; set; }
         public int EnergyUsedInEnchantment { get; set; }

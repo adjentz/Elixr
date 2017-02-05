@@ -241,7 +241,7 @@
         <div class="panel-heading">
             <span ng-click="$ctrl.weaponClicked(weapon)">
                 {{ weapon.name }}
-            </span>
+                <a ng-click="$ctrl.editWeapon(weapon)" ng-if="$ctrl.shouldShowEdit(weapon)" class="fa fa-pencil pull-right" style="color:white;"></a>            </span>
         </div>
         <div class="panel-body">
             <div btf-markdown="weapon.description"></div>

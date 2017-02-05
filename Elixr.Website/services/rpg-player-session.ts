@@ -1,9 +1,11 @@
 export class RPGPlayerSession {
 
     private _authToken;
+    private _dirty = true;
 
     private get authToken(): any {
-        if (!this._authToken) {
+        if (!this._authToken || this._dirty) {
+            this._dirty = false;
             let atJSON = localStorage.getItem("authToken");
             if (atJSON) {
                 this._authToken = JSON.parse(atJSON);
@@ -11,6 +13,10 @@ export class RPGPlayerSession {
         }
 
         return this._authToken;
+    }
+
+    markDirty():void {
+        this._dirty = true;
     }
 
     get isAuthenticated(): boolean {

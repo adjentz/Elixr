@@ -236,6 +236,19 @@ class RPGRacesController {
 
         return false;
     }
+
+    shouldShowEdit(race:Elixr.Api.ViewModels.RaceViewModel):boolean {
+        return true;
+        //return race.author.playerId === this.rpgPlayerSession.playerId;
+    }
+    editRace(race:Elixr.Api.ViewModels.RaceViewModel) {
+        this.newRace = race;
+        this.scrollToAnchor();
+    }
+    private scrollToAnchor():void {
+        let anchorElement = document.getElementById("createRaceAnchor");
+        window.scrollTo(window.scrollX, anchorElement.offsetTop);
+    }
 }
 
 

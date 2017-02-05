@@ -165,6 +165,23 @@ class RPGSpellsController {
     editDescription(): void {
         this.editingDescription = true;
     }
+
+    shouldShowEdit(spell: Elixr.Api.ViewModels.SpellViewModel): boolean {
+        return spell.author.playerId === this.rpgPlayerSession.playerId;
+    }
+    editSpell(spell: Elixr.Api.ViewModels.SpellViewModel) {
+        this.newSpell = spell;
+        
+        this.customEnergy = spell.energyCost;
+        this.newSpell.energyCost = this.customEnergyOption;
+        
+        this.customRegenTime = spell.regenTimeInRounds;
+        this.scrollToAnchor();
+    }
+    private scrollToAnchor(): void {
+        let anchorElement = document.getElementById("createSpellAnchor");
+        window.scrollTo(window.scrollX, anchorElement.offsetTop);
+    }
 }
 
 

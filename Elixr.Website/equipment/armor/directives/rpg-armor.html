@@ -242,6 +242,7 @@
             <span ng-click="$ctrl.armorClicked(armor)">
                 {{ armor.name }}
             </span>
+            <a ng-click="$ctrl.editArmor(armor)" ng-if="$ctrl.shouldShowEdit(armor)" class="fa fa-pencil pull-right" style="color:white;"></a>
         </div>
         <div class="panel-body">
             <div btf-markdown="armor.description"></div>

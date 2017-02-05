@@ -74,6 +74,18 @@ class RPGItemsController {
         };
     }
 
+    shouldShowEdit(item: Elixr.Api.ViewModels.ItemViewModel): boolean {
+        return item.author.playerId === this.rpgPlayerSession.playerId;
+    }
+    editItem(item: Elixr.Api.ViewModels.ItemViewModel) {
+        this.newItem = item;
+        this.scrollToAnchor();
+    }
+    private scrollToAnchor(): void {
+        let anchorElement = document.getElementById("createItemsAnchor");
+        window.scrollTo(window.scrollX, anchorElement.offsetTop);
+    }
+
     cancelEnchantment(): void {
         this.newEnchantment = null;
     }

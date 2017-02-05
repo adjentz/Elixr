@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Elixr.Api.Models
 {
-    public class Race : IGameElement, IVotable
+    public class Race : IGameElement, IVotable, IDelistable
     {
         public Race()
         {
@@ -25,5 +25,7 @@ namespace Elixr.Api.Models
         public int UpVotes { get; set; }
 
         public int DownVotes { get; set; }
+
+        public bool Delisted { get; set; }
     }
 }

@@ -28,6 +28,10 @@ export default class ProfileController {
             .then(r => this.characters = r.data)
             .finally(() => this.loading = false);
     }
+    logout():void {
+        window.localStorage.removeItem("authToken");
+        this.rpgPlayerSession.markDirty();
+    }
 
     get loggedIn(): boolean {
         return this.rpgPlayerSession.isAuthenticated;

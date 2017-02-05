@@ -91,6 +91,7 @@
             <span ng-click="$ctrl.spellClicked(spell)">
                 {{ spell.name }}
             </span>
+            <a ng-click="$ctrl.editSpell(spell)" ng-if="$ctrl.shouldShowEdit(spell)" class="fa fa-pencil pull-right" style="color:white;"></a>
         </div>
         <div class="panel-body">
             <div btf-markdown="spell.description"></div>

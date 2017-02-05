@@ -27,6 +27,14 @@ namespace Elixr.Api.Controllers
         public async Task<ItemViewModel> CreateItem([FromBody]ItemViewModel itemVM)
         {
             var domainModel = itemVM.ToDomainModel();
+            domainModel.CreatedAtMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            dbCtx.Attach(userSession.Player);
+            domainModel.Player = userSession.Player;
+            domainModel.Id = 0;
+
+            var originalSpellsById = domainModel.Enchantments.ToDictionary(e => e.BaseSpellId, e => e.BaseSpell);
+            domainModel.Enchantments.ForEach(e => e.BaseSpell = null);
+
             if (itemVM.EquipmentId > 0) // editing an existing feature
             {
                 //make sure they're the author of this feature
@@ -35,42 +43,15 @@ namespace Elixr.Api.Controllers
                 {
                     //yep, it's theirs
                     existingItem.Delisted = true;
+
+                    domainModel.Enchantments.ForEach(e => e.Id = 0);
                 }
             }
-            domainModel.Id = 0;
 
-            dbCtx.Attach(userSession.Player);
-            domainModel.Player = userSession.Player;
-            domainModel.CreatedAtMS = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
-            Dictionary<int, Spell> realSpellsById = new Dictionary<int, Spell>();
-
-            foreach (var enchantment in domainModel.Enchantments)
-            {
-                if (!realSpellsById.ContainsKey(enchantment.BaseSpell.Id))
-                {
-                    realSpellsById.Add(enchantment.BaseSpell.Id, enchantment.BaseSpell);
-                }
-
-                enchantment.Id = 0;
-                Spell dummySpell = new Spell
-                {
-                    Id = enchantment.BaseSpell.Id
-                };
-                dbCtx.Attach(dummySpell);
-                enchantment.BaseSpell = dummySpell;
-            }
             dbCtx.Items.Add(domainModel);
-
             await dbCtx.SaveChangesAsync();
 
-            domainModel.Player = userSession.Player;
-            foreach (var enchantment in domainModel.Enchantments)
-            {
-                enchantment.BaseSpell = realSpellsById[enchantment.BaseSpell.Id];
-                enchantment.BaseSpell.Player = userSession.Player;
-            }
-
+            domainModel.Enchantments.ForEach(e => e.BaseSpell = originalSpellsById[e.BaseSpellId]);
             return domainModel.ToViewModel();
         }
 

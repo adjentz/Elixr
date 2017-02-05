@@ -21,6 +21,7 @@ export class RPGFeaturesController {
     currentModifier = 0;
 
     useRecommendedCost = true;
+    customCost = 0;
 
     selfApplyType = Elixr.Api.Models.FeatureApplyingType.Self;
     spellApplyType = Elixr.Api.Models.FeatureApplyingType.Spell;
@@ -77,6 +78,18 @@ export class RPGFeaturesController {
         return Elixr.Api.Models.ModifierType.Halve;
     }
 
+    shouldShowEdit(feature:Elixr.Api.ViewModels.FeatureViewModel):boolean {
+        return feature.author.playerId === this.rpgPlayerSession.playerId;
+    }
+    editFeature(feature:Elixr.Api.ViewModels.FeatureViewModel) {
+        this.newFeature = feature;
+        this.scrollToAnchor();
+    }
+    private scrollToAnchor():void {
+        let anchorElement = document.getElementById("createFeatureAnchor");
+        window.scrollTo(window.scrollX, anchorElement.offsetTop);
+    }
+
     addMod(): void {
         this.newFeature.mods.push({
             modifier: this.currentModifier,
@@ -86,6 +99,13 @@ export class RPGFeaturesController {
             statModId: 0
         });
     }
+    removeMod(mod:Elixr.Api.ViewModels.StatModViewModel):void {
+        let modIndex = _.findIndex(this.newFeature.mods, m => m === mod || (m.statModId > 0 && m.statModId === mod.statModId));
+        if(modIndex > -1) {
+            this.newFeature.mods.splice(modIndex, 1);
+        }
+    }
+
     cancelFeature(): void {
         this.newFeature = null;
     }
@@ -124,7 +144,7 @@ export class RPGFeaturesController {
             return;
 
         if(this.newFeature.mods.filter(mod => mod.modifierType === Elixr.Api.Models.ModifierType.Normal && mod.modifier < 1).length > 0
-            || (this.currentModifierType === Elixr.Api.Models.ModifierType.Normal && this.currentModifier < 1)) {
+            || (this.currentModifierType === Elixr.Api.Models.ModifierType.Normal && this.currentModifier < 0)) {
             alert("Feature modifiers must be positive. Consider making a corresponding Flaw with the negative modifiers and adding it as a Required Flaw to this Feature.");
             return;
         }
@@ -132,7 +152,10 @@ export class RPGFeaturesController {
         if (this.useRecommendedCost) {
             this.newFeature.cost = this.recommendedCost;
         }
-        
+        else {
+            this.newFeature.cost = this.customCost;
+        }
+
         if (this.currentModifierType !== Elixr.Api.Models.ModifierType.Normal || this.currentModifier !== 0) {
             this.addMod();
         }
@@ -156,9 +179,7 @@ export class RPGFeaturesController {
 
             this.isFun = this.isBalanced = this.abidesTOS = false;
 
-            let myAnchor = document.getElementById("createFeatureAnchor");
-
-            window.scrollTo(0, myAnchor.offsetTop - 50);
+            this.scrollToAnchor();
 
         });
     }

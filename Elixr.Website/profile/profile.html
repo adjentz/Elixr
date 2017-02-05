@@ -5,6 +5,7 @@
     <div ng-show="$ctrl.loggedIn">
         <h3>
             {{ $ctrl.username }}
+            <a ng-click="$ctrl.logout()">[logout]</a>
         </h3>
         <i class="fa fa-spinner fa-pulse" ng-show="$ctrl.loading"></i>
         <ul ng-show="!$ctrl.loading">

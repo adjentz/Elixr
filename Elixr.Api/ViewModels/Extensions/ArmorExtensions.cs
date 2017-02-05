@@ -28,7 +28,6 @@ namespace Elixr.Api.ViewModels.Extensions
             return new Armor
             {
                 Cost = armorVM.Cost,
-                Id = armorVM.EquipmentId,
                 Name = armorVM.Name,
                 Description = armorVM.Description,
                 ImageUrl = armorVM.ImageUrl,

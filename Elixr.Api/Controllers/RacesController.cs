@@ -31,7 +31,21 @@ namespace Elixr.Api.Controllers
             var originalFeaturesById = domainModel.FeatureInformation.ToDictionary(fi => fi.FeatureId, fi => fi.Feature);
             domainModel.FeatureInformation.ForEach(fi => fi.Feature = null);
             domainModel.FlawInformation.ForEach(fi => fi.Flaw = null);
+
             domainModel.Id = 0;
+
+            if (raceVM.RaceId > 0)
+            {
+                //make sure they're the author of this race
+                var existingRace = await this.dbCtx.Races.FirstOrDefaultAsync(r => r.AuthorId == userSession.Player.Id && r.Id == raceVM.RaceId);
+                if (existingRace != null)
+                {
+                    //yep, it's theirs
+                    existingRace.Delisted = true;
+                    domainModel.FeatureInformation.ForEach(fi => fi.Id = 0);
+                    domainModel.FlawInformation.ForEach(fi => fi.Id = 0);
+                }
+            }
 
             dbCtx.Attach(userSession.Player);
             domainModel.Author = userSession.Player;
@@ -55,7 +69,8 @@ namespace Elixr.Api.Controllers
                 return null;
             }
 
-            var query = dbCtx.Races.Include(r => r.Author)
+            var query = dbCtx.Races.Where(r => !r.Delisted)
+                                    .Include(r => r.Author)
                                     .Include(r => r.FeatureInformation).ThenInclude(fi => fi.Feature).ThenInclude(f => f.Mods)
                                     .Include(r => r.FeatureInformation).ThenInclude(fi => fi.Feature).ThenInclude(f => f.RequiredFlaws)
                                     .Include(r => r.FeatureInformation).ThenInclude(fi => fi.Feature).ThenInclude(f => f.RequiredOaths)
@@ -63,7 +78,7 @@ namespace Elixr.Api.Controllers
                                     .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(input.Name))
-            { 
+            {
                 query = query.Where(r => r.Name.ToLower() == input.Name.ToLower());
             }
 

@@ -45,7 +45,8 @@ namespace Elixr.Api.Filters
                     if (token.Signature != utilities.HashText(userSession.Player.StrToHash))
                     {
                         context.HttpContext.Response.StatusCode = 401;
-                        throw new Exception();
+                        userSession.Player = null;
+                        throw new InvalidTokenException();
                     }
                     return; //we have a valid token.
                 }

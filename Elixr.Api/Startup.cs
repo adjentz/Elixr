@@ -39,6 +39,7 @@ namespace Elixr.Api
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(Filters.TokenFilter));
+                options.Filters.Add(typeof(Filters.ExceptionFilter));
                 options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
             });
 

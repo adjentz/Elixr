@@ -64,6 +64,13 @@ class RPGOathsController {
         return this.currentModifierType !== Elixr.Api.Models.ModifierType.Normal;
     }
 
+    removeMod(mod: Elixr.Api.ViewModels.StatModViewModel): void {
+        let modIndex = _.findIndex(this.newOath.mods, m => m === mod || (m.statModId > 0 && m.statModId === mod.statModId));
+        if (modIndex > -1) {
+            this.newOath.mods.splice(modIndex, 1);
+        }
+    }
+
     addMod(): void {
         this.newOath.mods.push({
             modifier: this.currentModifier,
@@ -72,6 +79,7 @@ class RPGOathsController {
             reason: "",
             statModId: 0
         });
+        this.currentModifier = 0;
     }
     cancelOath(): void {
         this.newOath = null;
@@ -83,7 +91,7 @@ class RPGOathsController {
             oathId: -1,
             name: "",
             mods: [],
-            author:null
+            author: null
         };
     }
     editDescription(): void {
@@ -181,6 +189,18 @@ class RPGOathsController {
             $evt.preventDefault();
             this.editDescription();
         }
+    }
+
+    shouldShowEdit(oath: Elixr.Api.ViewModels.OathViewModel): boolean {
+        return oath.author.playerId === this.rpgPlayerSession.playerId;
+    }
+    editOath(oath: Elixr.Api.ViewModels.OathViewModel) {
+        this.newOath = oath;
+        this.scrollToAnchor();
+    }
+    private scrollToAnchor(): void {
+        let anchorElement = document.getElementById("createOathsAnchor");
+        window.scrollTo(window.scrollX, anchorElement.offsetTop);
     }
 
 

@@ -143,6 +143,18 @@ class RPGArmorController {
     editDescription(): void {
         this.editingDescription = true;
     }
+    
+    shouldShowEdit(spell: Elixr.Api.ViewModels.SpellViewModel): boolean {
+        return spell.author.playerId === this.rpgPlayerSession.playerId;
+    }
+    editArmor(armor: Elixr.Api.ViewModels.ArmorViewModel) {
+        this.newArmor = armor;
+        this.scrollToAnchor();
+    }
+    private scrollToAnchor(): void {
+        let anchorElement = document.getElementById("createArmorAnchor");
+        window.scrollTo(window.scrollX, anchorElement.offsetTop);
+    }
 
     enchantmentsByArmorId: { [id: number]: Elixr.Api.ViewModels.EnchantmentViewModel[] } = {};
 
@@ -186,11 +198,7 @@ class RPGArmorController {
             this.showThanksForSubmitting = true;
 
             this.isFun = this.isBalanced = this.abidesTOS = false;
-
-            let myAnchor = document.getElementById("createArmorAnchor");
-
-            window.scrollTo(0, myAnchor.offsetTop - 50);
-
+            this.scrollToAnchor();
         });
     }
     searchArmor(append = false): void {

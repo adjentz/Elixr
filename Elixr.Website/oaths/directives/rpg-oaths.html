@@ -74,6 +74,7 @@
                     </tr>
                     <tr ng-repeat="sm in $ctrl.newOath.mods">
                         <td>
+                            <i class="fa fa-minus-square-o" ng-click="$ctrl.removeMod(sm)"></i>
                             {{ sm.stat | stat }}
                         </td>
                         <td>
@@ -151,6 +152,7 @@
             <span ng-click="$ctrl.oathClicked(oath)">
                 {{ oath.name }}
             </span>
+            <a ng-click="$ctrl.editOath(oath)" ng-if="$ctrl.shouldShowEdit(oath)" class="fa fa-pencil pull-right" style="color:white;"></a>
         </div>
         <div class="panel-body">
             <div btf-markdown="oath.description"></div>

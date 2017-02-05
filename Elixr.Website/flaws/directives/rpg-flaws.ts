@@ -72,7 +72,15 @@ class RPGFlawsController {
             reason: "",
             statModId: 0
         });
+        this.currentModifier = 0;
     }
+    removeMod(mod:Elixr.Api.ViewModels.StatModViewModel):void {
+        let modIndex = _.findIndex(this.newFlaw.mods, m => m === mod || (m.statModId > 0 && m.statModId === mod.statModId));
+        if(modIndex > -1) {
+            this.newFlaw.mods.splice(modIndex, 1);
+        }
+    }
+
     cancelFlaw(): void {
         this.newFlaw = null;
     }
@@ -90,6 +98,18 @@ class RPGFlawsController {
         this.editingDescription = true;
     }
 
+    shouldShowEdit(flaw:Elixr.Api.ViewModels.FlawViewModel):boolean {
+        return flaw.author.playerId === this.rpgPlayerSession.playerId;
+    }
+    editFlaw(flaw:Elixr.Api.ViewModels.FlawViewModel) {
+        this.newFlaw = flaw;
+        this.scrollToAnchor();
+    }
+    private scrollToAnchor():void {
+        let anchorElement = document.getElementById("createFlawsAnchor");
+        window.scrollTo(window.scrollX, anchorElement.offsetTop);
+    }
+
     viewDetailsOfFlaw(flaw: Elixr.Api.ViewModels.FlawViewModel) {
         this.viewingDetailsOfFlawIds.push(flaw.flawId);
     }
@@ -101,8 +121,8 @@ class RPGFlawsController {
         if (!this.newFlaw)
             return;
 
-        if (this.newFlaw.mods.filter(mod => mod.modifierType === Elixr.Api.Models.ModifierType.Normal && mod.modifier >= 0).length > 0
-            || (this.currentModifierType === Elixr.Api.Models.ModifierType.Normal && this.currentModifier >= 0)) {
+        if (this.newFlaw.mods.filter(mod => mod.modifierType === Elixr.Api.Models.ModifierType.Normal && mod.modifier > 0).length > 0
+            || (this.currentModifierType === Elixr.Api.Models.ModifierType.Normal && this.currentModifier > 0)) {
             alert("Flaw modifiers must be negative. Consider making a corresponding Feature with the positive modifiers and adding this Flaw(with the positive modifiers removed) as a Required Flaw.");
             return;
         }
@@ -129,9 +149,7 @@ class RPGFlawsController {
 
             this.isFun = this.isBalanced = this.abidesTOS = false;
 
-            let myAnchor = document.getElementById("createFlawsAnchor");
-
-            window.scrollTo(0, myAnchor.offsetTop - 50);
+            this.scrollToAnchor();
 
         });
     }
@@ -191,7 +209,6 @@ class RPGFlawsController {
     }
 
 
-
     get disableSubmitButton(): boolean {
         if (!this.newFlaw) {
             return false;
@@ -206,7 +223,6 @@ class RPGFlawsController {
 
         return false;
     }
-
 }
 
 

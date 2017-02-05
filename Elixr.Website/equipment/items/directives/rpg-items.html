@@ -218,6 +218,7 @@
             <span ng-click="$ctrl.itemClicked(item)">
                 {{ item.name }}
             </span>
+            <a ng-click="$ctrl.editItem(item)" ng-if="$ctrl.shouldShowEdit(item)" class="fa fa-pencil pull-right" style="color:white;"></a>
         </div>
         <div class="panel-body">
             <div btf-markdown="item.description"></div>
