@@ -9,36 +9,39 @@
             Signup
         </label>
     </div>
-    <div>
-        <strong>
+    <form ng-submit="$ctrl.go()">
+        <div>
+            <strong>
             Player Name
         </strong>
-        <div>
-            <input type="text" ng-model="$ctrl.playerName">
+            <div>
+                <input type="text" ng-model="$ctrl.playerName">
+            </div>
         </div>
-    </div>
-    <div>
-        <strong>
+        <div>
+            <strong>
             Password
         </strong>
-        <div>
-            <input type="password" ng-model="$ctrl.password">
+            <div>
+                <input type="password" ng-model="$ctrl.password">
+            </div>
         </div>
-    </div>
-    <div ng-show="$ctrl.signingUp">
-        <strong>
+        <div ng-show="$ctrl.signingUp">
+            <strong>
             Confirm Password
         </strong>
-        <div>
-            <input type="password" ng-model="$ctrl.passwordConfirmation">
+            <div>
+                <input type="password" ng-model="$ctrl.passwordConfirmation">
+            </div>
         </div>
-    </div>
-    <div ng-show="$ctrl.errorMessage">
-        {{ $ctrl.errorMessage }}
-    </div>
-    <div class="rpg-tm-10">
-        <button ng-click="$ctrl.go()">
-            Go
-        </button>
-    </div>
+        <div ng-show="$ctrl.errorMessage">
+            {{ $ctrl.errorMessage }}
+        </div>
+
+        <div class="rpg-tm-10">
+            <button>
+                Go
+            </button>
+        </div>
+    </form>
 </div>
