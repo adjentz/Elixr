@@ -1,4 +1,4 @@
-import playerSession = require("services/rpg-player-session");
+import playerSession = require("../services/rpg-player-session");
 
 class PlayersController {
 

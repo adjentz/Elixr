@@ -1,7 +1,7 @@
 import CreatureEditor from "../creature-editor";
-import ModalService from "services/modal-service";
+import ModalService from "../../services/modal-service";
 
-class CreatureSpellsController {
+export default class CreatureSpellsController {
     learningSpell = false;
     learnSpellResultDeferred: angular.IDeferred<Elixr.Api.ViewModels.SpellViewModel>;
     editor: CreatureEditor;
@@ -78,17 +78,16 @@ class CreatureSpellsController {
         }
         this.editor.removeFeatureInfoFromSpellInfo(featureInfo, this.viewingDetailOfSpell);
     }
-
+    static directive: angular.IDirective = {
+        bindToController: {
+            editor: "="
+        },
+        scope: {},
+        controller: CreatureSpellsController,
+        controllerAs: "$ctrl",
+        name: "creatureSpells",
+        replace: true,
+        templateUrl: "creature-editor/creature-spells/creature-spells.html"
+    };
 }
 
-export = <angular.IDirective>{
-    bindToController: {
-        editor: "="
-    },
-    scope: {},
-    controller: CreatureSpellsController,
-    controllerAs: "$ctrl",
-    name: "creatureSpells",
-    replace: true,
-    templateUrl: "creature-editor/creature-spells/creature-spells.html"
-};

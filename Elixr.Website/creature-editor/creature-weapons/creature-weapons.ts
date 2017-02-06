@@ -1,7 +1,7 @@
 import CreatureEditor from "../creature-editor";
-import ModalService from 'services/modal-service';
+import ModalService from '../../services/modal-service';
 
-class CreatureWeaponsController {
+export default class CreatureWeaponsController {
 
     editor: CreatureEditor;
     addingWeapon = false;
@@ -174,16 +174,17 @@ class CreatureWeaponsController {
 
         return `${damage} ${sign} ${totalExtraDamage}`;
     }
+
+    static directive: angular.IDirective = {
+        bindToController: {
+            editor: "="
+        },
+        scope: {},
+        controller: CreatureWeaponsController,
+        controllerAs: "$ctrl",
+        name: "creatureWeapons",
+        replace: true,
+        templateUrl: "creature-editor/creature-weapons/creature-weapons.html"
+    };
 }
 
-export = <angular.IDirective>{
-    bindToController: {
-        editor: "="
-    },
-    scope: {},
-    controller: CreatureWeaponsController,
-    controllerAs: "$ctrl",
-    name: "creatureWeapons",
-    replace: true,
-    templateUrl: "creature-editor/creature-weapons/creature-weapons.html"
-};

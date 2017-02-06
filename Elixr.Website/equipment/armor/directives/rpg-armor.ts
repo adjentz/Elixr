@@ -1,9 +1,9 @@
-import ApiService from "services/api-service";
+import ApiService from "../../../services/api-service";
 import Stat = Elixr.Api.Models.Stat;
-import playerSession = require("services/rpg-player-session");
-import Armor from "models/armor";
+import playerSession = require("../../../services/rpg-player-session");
+import Armor from "../../../models/armor";
 
-class RPGArmorController {
+export default class RPGArmorController {
 
     forResult: angular.IDeferred<Elixr.Api.ViewModels.ArmorViewModel>;
     armor: Elixr.Api.ViewModels.ArmorViewModel[];
@@ -143,7 +143,7 @@ class RPGArmorController {
     editDescription(): void {
         this.editingDescription = true;
     }
-    
+
     shouldShowEdit(spell: Elixr.Api.ViewModels.SpellViewModel): boolean {
         return spell.author.playerId === this.rpgPlayerSession.playerId;
     }
@@ -356,19 +356,15 @@ class RPGArmorController {
 
         return Math.round(totalCost * 100) / 100;
     }
+    static directive: angular.IDirective = {
+        bindToController: {
+            forResult: "=?"
+        },
+        scope: {},
+        controller: RPGArmorController,
+        controllerAs: "$ctrl",
+        name: "rpgArmor",
+        replace: true,
+        templateUrl: "/equipment/armor/directives/rpg-armor.html"
+    };
 }
-
-
-let directive: angular.IDirective = {
-    bindToController: {
-        forResult: "=?"
-    },
-    scope: {},
-    controller: RPGArmorController,
-    controllerAs: "$ctrl",
-    name: "rpgArmor",
-    replace: true,
-    templateUrl: "/equipment/armor/directives/rpg-armor.html"
-};
-
-export = directive;

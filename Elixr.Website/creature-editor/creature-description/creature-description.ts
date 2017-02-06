@@ -1,9 +1,9 @@
 
 import CreatureEditor from "../creature-editor";
-import Creature = require("models/creature");
-import ModalService from "services/modal-service";
+import Creature = require("../../models/creature");
+import ModalService from "../../services/modal-service";
 
-class CreatureDescriptionController {
+export default class CreatureDescriptionController {
 
     editor: CreatureEditor;
     selectRaceResultDeferred: angular.IDeferred<Elixr.Api.ViewModels.RaceViewModel>;
@@ -169,16 +169,15 @@ class CreatureDescriptionController {
         return "transparent";
     }
 
+    static directive = <angular.IDirective>{
+        bindToController: {
+            editor: "="
+        },
+        scope: {},
+        controller: CreatureDescriptionController,
+        controllerAs: "$ctrl",
+        name: "creatureDescription",
+        replace: true,
+        templateUrl: "creature-editor/creature-description/creature-description.html"
+    };
 }
-
-export = <angular.IDirective>{
-    bindToController: {
-        editor: "="
-    },
-    scope: {},
-    controller: CreatureDescriptionController,
-    controllerAs: "$ctrl",
-    name: "creatureDescription",
-    replace: true,
-    templateUrl: "creature-editor/creature-description/creature-description.html"
-};

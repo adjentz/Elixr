@@ -1,6 +1,6 @@
-import Creature = require("models/creature");
-import ApiService from "services/api-service";
-import { RPGPlayerSession } from "services/rpg-player-session";
+import Creature = require("../models/creature");
+import ApiService from "../services/api-service";
+import { RPGPlayerSession } from "../services/rpg-player-session";
 
 export default class CreatureEditorController {
     creature: Creature

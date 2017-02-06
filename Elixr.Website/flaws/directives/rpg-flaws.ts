@@ -1,6 +1,6 @@
-import ApiService from "services/api-service";
+import ApiService from "../../services/api-service";
 import Stat = Elixr.Api.Models.Stat;
-import playerSession = require("services/rpg-player-session");
+import playerSession = require("../../services/rpg-player-session");
 
 class RPGFlawsController {
 

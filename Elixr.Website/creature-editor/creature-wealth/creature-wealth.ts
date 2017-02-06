@@ -1,6 +1,6 @@
 import CreatureEdtor from "../creature-editor";
 
-class CreatureWealthController {
+export default class CreatureWealthController {
     editor: CreatureEdtor;
     editingWealth = false;
     increaseWealth = true;
@@ -24,7 +24,7 @@ class CreatureWealthController {
             statModId: 0
         };
         this.editor.addBaseStat(wealthMod);
-        
+
         this.editingWealth = false;
         this.editGold = this.editSilver = this.editCopper = 0;
         this.editMemo = "";
@@ -87,16 +87,17 @@ class CreatureWealthController {
     closeSlideout(): void {
         this.editingWealth = false;
     }
+
+    static directive: angular.IDirective = {
+        bindToController: {
+            editor: "="
+        },
+        scope: {},
+        controller: CreatureWealthController,
+        controllerAs: "$ctrl",
+        name: "creatureWealth",
+        replace: true,
+        templateUrl: "creature-editor/creature-wealth/creature-wealth.html"
+    };
 }
 
-export = <angular.IDirective>{
-    bindToController: {
-        editor: "="
-    },
-    scope: {},
-    controller: CreatureWealthController,
-    controllerAs: "$ctrl",
-    name: "creatureWealth",
-    replace: true,
-    templateUrl: "creature-editor/creature-wealth/creature-wealth.html"
-};

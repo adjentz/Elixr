@@ -1,7 +1,7 @@
 import CreatureEditor from "../creature-editor";
-import ModalService from "services/modal-service";
+import ModalService from "../../services/modal-service";
 
-class CreatureDefenseController {
+export default class CreatureDefenseController {
     editor: CreatureEditor;
     addingArmor: boolean;
     addArmorResultDeferred: angular.IDeferred<Elixr.Api.ViewModels.ArmorViewModel>;
@@ -83,16 +83,17 @@ class CreatureDefenseController {
         this.addingArmor = false;
         this.modalService.modalActive = false;
     }
+
+    static directive: angular.IDirective = {
+        bindToController: {
+            editor: "="
+        },
+        scope: {},
+        controller: CreatureDefenseController,
+        controllerAs: "$ctrl",
+        name: "creatureDefense",
+        replace: true,
+        templateUrl: "creature-editor/creature-defense/creature-defense.html"
+    };
 }
 
-export = <angular.IDirective>{
-    bindToController: {
-        editor: "="
-    },
-    scope: {},
-    controller: CreatureDefenseController,
-    controllerAs: "$ctrl",
-    name: "creatureDefense",
-    replace: true,
-    templateUrl: "creature-editor/creature-defense/creature-defense.html"
-};

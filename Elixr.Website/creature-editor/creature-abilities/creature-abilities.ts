@@ -1,10 +1,9 @@
-import Creature = require("models/creature");
 import CreatureEditor from "../creature-editor";
 
-class CreatureAbilitiesController {
+export default class CreatureAbilitiesController {
     editor: CreatureEditor;
     abilityNames: string[];
-    skillsByAbilityName: { [key: string]: Elixr.Api.ViewModels.SkillViewModel[] };
+    skillsByAbilityName:any;// { [key: string]: Elixr.Api.ViewModels.SkillViewModel[] };
 
     editStats: Elixr.Api.ViewModels.StatModViewModel[];
 
@@ -293,16 +292,17 @@ class CreatureAbilitiesController {
         this.skillRowMessage = "";
         this.skillRowWithMessage = "";
     }
+
+    static directive = <angular.IDirective>{
+        bindToController: {
+            editor: "="
+        },
+        scope: {},
+        controller: CreatureAbilitiesController,
+        controllerAs: "$ctrl",
+        name: "creatureAbilities",
+        replace: true,
+        templateUrl: "creature-editor/creature-abilities/creature-abilities.html"
+    };
 }
 
-export = <angular.IDirective>{
-    bindToController: {
-        editor: "="
-    },
-    scope: {},
-    controller: CreatureAbilitiesController,
-    controllerAs: "$ctrl",
-    name: "creatureAbilities",
-    replace: true,
-    templateUrl: "creature-editor/creature-abilities/creature-abilities.html"
-};

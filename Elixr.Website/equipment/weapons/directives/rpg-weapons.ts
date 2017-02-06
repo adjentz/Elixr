@@ -1,8 +1,8 @@
-import ApiService from "services/api-service";
+import ApiService from "../../../services/api-service";
 import Stat = Elixr.Api.Models.Stat;
-import playerSession = require("services/rpg-player-session");
+import playerSession = require("../../../services/rpg-player-session");
 
-class RPGWeaponsController {
+export default class RPGWeaponsController {
 
     forResult: angular.IDeferred<Elixr.Api.ViewModels.WeaponViewModel>;
     weapons: Elixr.Api.ViewModels.WeaponViewModel[];
@@ -211,10 +211,10 @@ class RPGWeaponsController {
         }
 
         this.newEnchantment = null;
-        
+
         this.apiService.post<Elixr.Api.ViewModels.WeaponViewModel, Elixr.Api.ViewModels.WeaponViewModel>("weapons/create", this.newWeapon).then(result => {
             this.weapons = [result.data].concat(this.weapons);
-            
+
             this.newWeapon = null;
             this.showThanksForSubmitting = true;
 
@@ -382,19 +382,19 @@ class RPGWeaponsController {
         }
         return Math.round(totalCost * 100) / 100;
     }
+
+    static directive: angular.IDirective = {
+        bindToController: {
+            forResult: "=?"
+        },
+        scope: {},
+        controller: RPGWeaponsController,
+        controllerAs: "$ctrl",
+        name: "rpgWeapons",
+        replace: true,
+        templateUrl: "/equipment/weapons/directives/rpg-weapons.html"
+    };
+
 }
 
 
-let directive: angular.IDirective = {
-    bindToController: {
-        forResult: "=?"
-    },
-    scope: {},
-    controller: RPGWeaponsController,
-    controllerAs: "$ctrl",
-    name: "rpgWeapons",
-    replace: true,
-    templateUrl: "/equipment/weapons/directives/rpg-weapons.html"
-};
-
-export = directive;

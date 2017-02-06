@@ -1,7 +1,7 @@
-import ApiService from "services/api-service";
-import { RPGPlayerSession } from "services/rpg-player-session";
+import ApiService from "../../services/api-service";
+import { RPGPlayerSession } from "../../services/rpg-player-session";
 
-class RPGSpellsController {
+export default class RPGSpellsController {
 
     forResult: angular.IDeferred<Elixr.Api.ViewModels.SpellViewModel>;
     spells: Elixr.Api.ViewModels.SpellViewModel[];
@@ -171,10 +171,10 @@ class RPGSpellsController {
     }
     editSpell(spell: Elixr.Api.ViewModels.SpellViewModel) {
         this.newSpell = spell;
-        
+
         this.customEnergy = spell.energyCost;
         this.newSpell.energyCost = this.customEnergyOption;
-        
+
         this.customRegenTime = spell.regenTimeInRounds;
         this.scrollToAnchor();
     }
@@ -182,19 +182,17 @@ class RPGSpellsController {
         let anchorElement = document.getElementById("createSpellAnchor");
         window.scrollTo(window.scrollX, anchorElement.offsetTop);
     }
+
+    static directive: angular.IDirective = {
+        bindToController: {
+            forResult: "=?"
+        },
+        scope: {},
+        controller: RPGSpellsController,
+        controllerAs: "$ctrl",
+        name: "rpgSpells",
+        replace: true,
+        templateUrl: "/magic/directives/rpg-spells.html"
+    };
+
 }
-
-
-let directive: angular.IDirective = {
-    bindToController: {
-        forResult: "=?"
-    },
-    scope: {},
-    controller: RPGSpellsController,
-    controllerAs: "$ctrl",
-    name: "rpgSpells",
-    replace: true,
-    templateUrl: "/magic/directives/rpg-spells.html"
-};
-
-export = directive;

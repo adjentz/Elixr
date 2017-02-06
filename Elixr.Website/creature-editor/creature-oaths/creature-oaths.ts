@@ -1,7 +1,7 @@
 import CreatureEditor from "../creature-editor";
-import ModalService from "services/modal-service";
+import ModalService from "../../services/modal-service";
 
-class CreatureOathsController {
+export default class CreatureOathsController {
     editor: CreatureEditor;
     addingOath = false;
     addOathResultDeferred: angular.IDeferred<Elixr.Api.ViewModels.OathViewModel>;
@@ -31,10 +31,10 @@ class CreatureOathsController {
 
     removeOath(oathInfo: Elixr.Api.ViewModels.OathInfoViewModel) {
 
-        let featureInformationRequiringThisOath:Elixr.Api.ViewModels.FeatureInfoViewModel[] = [];
-        for(let fi of this.editor.creature.allFeatureInformation) {
-            for(let requiredOath of fi.feature.requiredOaths) {
-                if(requiredOath.oathId === oathInfo.oath.oathId) {
+        let featureInformationRequiringThisOath: Elixr.Api.ViewModels.FeatureInfoViewModel[] = [];
+        for (let fi of this.editor.creature.allFeatureInformation) {
+            for (let requiredOath of fi.feature.requiredOaths) {
+                if (requiredOath.oathId === oathInfo.oath.oathId) {
                     featureInformationRequiringThisOath.push(fi);
                 }
             }
@@ -44,7 +44,7 @@ class CreatureOathsController {
             if (!confirm("This will remove Features that require this Oath. Are you sure?")) {
                 return;
             }
-            
+
             for (let fi of featureInformationRequiringThisOath) {
                 switch (fi.feature.applyType) {
                     case Elixr.Api.Models.FeatureApplyingType.Self:
@@ -87,16 +87,18 @@ class CreatureOathsController {
         this.addingOath = false;
         this.modalService.modalActive = false;
     }
+
+    static directive: angular.IDirective = {
+        bindToController: {
+            editor: "="
+        },
+        scope: {},
+        controller: CreatureOathsController,
+        controllerAs: "$ctrl",
+        name: "creatureOaths",
+        replace: true,
+        templateUrl: "creature-editor/creature-oaths/creature-oaths.html"
+    };
+
 }
 
-export = <angular.IDirective>{
-    bindToController: {
-        editor: "="
-    },
-    scope: {},
-    controller: CreatureOathsController,
-    controllerAs: "$ctrl",
-    name: "creatureOaths",
-    replace: true,
-    templateUrl: "creature-editor/creature-oaths/creature-oaths.html"
-};

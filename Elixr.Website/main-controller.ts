@@ -1,5 +1,5 @@
-import ModalService from "services/modal-service";
-import { RPGPlayerSession } from "services/rpg-player-session"
+import ModalService from "./services/modal-service";
+import { RPGPlayerSession } from "./services/rpg-player-session"
 
 export class MainController{
 

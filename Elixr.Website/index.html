@@ -1,27 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app.rpg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Elixr</title>
 
     <link rel="stylesheet" href="content/styles/app.css">
-
-    <script src="content/scripts/lodash.min.js"></script>
-    <script src="content/scripts/require.js"></script>
-    <script src="content/scripts/angular.min.js"></script>
     <script src="content/scripts/showdown.js"></script>
-    <script src="content/scripts/showdown-table-extension.js"></script>
-    <script src="content/scripts/markdown.js"></script>
-    <script src="content/scripts/angular-sanitize.min.js"></script>
-    <script src="content/scripts/angular-ui-router.min.js"></script>
-
-    <script>
-        require(["app"], function(main) {
-                var app = new main.App();
-                app.start();
-            });
-    </script>
+    <script src="dist/vendor/bundle.js"></script>
+    <script src="dist/app/bundle.js"></script>
 
 </head>
 

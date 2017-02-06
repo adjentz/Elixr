@@ -1,5 +1,5 @@
-import ApiService from "services/api-service";
-import { RPGPlayerSession } from "services/rpg-player-session";
+import ApiService from "../../../services/api-service";
+import { RPGPlayerSession } from "../../../services/rpg-player-session";
 
 class RPGRacesController {
 

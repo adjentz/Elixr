@@ -1,4 +1,4 @@
-import ApiService from "services/api-service";
+import ApiService from "../../services/api-service";
 
 class RPGCreaturesController {
     searchQuery: Elixr.Api.ApiModels.SearchInput;

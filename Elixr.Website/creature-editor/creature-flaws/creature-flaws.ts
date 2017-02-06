@@ -1,7 +1,7 @@
 import CreatureEditor from "../creature-editor";
-import ModalService from "services/modal-service";
+import ModalService from "../../services/modal-service";
 
-class CreatureFlawsController {
+export default class CreatureFlawsController {
     editor: CreatureEditor;
     addingFlaw = false;
     addFlawResultDeferred: angular.IDeferred<Elixr.Api.ViewModels.FlawViewModel>;
@@ -95,16 +95,18 @@ class CreatureFlawsController {
     notifyFlawChanged(flawInfo: Elixr.Api.ViewModels.FlawInfoViewModel): void {
         this.editor.addFlawInfo(flawInfo, true);
     }
+
+    static directive:angular.IDirective = {
+        bindToController: {
+            editor: "="
+        },
+        scope: {},
+        controller: CreatureFlawsController,
+        controllerAs: "$ctrl",
+        name: "creatureFlaws",
+        replace: true,
+        templateUrl: "creature-editor/creature-flaws/creature-flaws.html"
+    };
+
 }
 
-export = <angular.IDirective>{
-    bindToController: {
-        editor: "="
-    },
-    scope: {},
-    controller: CreatureFlawsController,
-    controllerAs: "$ctrl",
-    name: "creatureFlaws",
-    replace: true,
-    templateUrl: "creature-editor/creature-flaws/creature-flaws.html"
-};

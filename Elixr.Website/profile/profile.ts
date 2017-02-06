@@ -1,5 +1,5 @@
-import { RPGPlayerSession } from "services/rpg-player-session";
-import ApiService from "services/api-service";
+import { RPGPlayerSession } from "../services/rpg-player-session";
+import ApiService from "../services/api-service";
 
 export default class ProfileController {
     characters: Elixr.Api.ViewModels.CreatureViewModel[];

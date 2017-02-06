@@ -1,7 +1,7 @@
 import CreatureEditor from "../creature-editor";
-import ModalService from "services/modal-service";
+import ModalService from "../../services/modal-service";
 
-class CreatureFeaturesController {
+export default class CreatureFeaturesController {
 
     editor: CreatureEditor;
     gettingFeature = false;
@@ -113,7 +113,7 @@ class CreatureFeaturesController {
     }
 
     removeFeature(featureInfo: Elixr.Api.ViewModels.FeatureInfoViewModel): void {
-        if(this.featureInfoIsFromRace(featureInfo)) {
+        if (this.featureInfoIsFromRace(featureInfo)) {
             alert("Features from Race cannot be removed without removing/changing Race");
             return;
         }
@@ -225,16 +225,18 @@ class CreatureFeaturesController {
         this.inquireOptions = false;
         this.modalService.modalActive = false;
     }
+
+    static directive: angular.IDirective = {
+        bindToController: {
+            editor: "=editor"
+        },
+        scope: {},
+        controller: CreatureFeaturesController,
+        controllerAs: "$ctrl",
+        name: "creatureFeatures",
+        replace: true,
+        templateUrl: "creature-editor/creature-features/creature-features.html"
+    };
+
 }
 
-export = <angular.IDirective>{
-    bindToController: {
-        editor: "=editor"
-    },
-    scope: {},
-    controller: CreatureFeaturesController,
-    controllerAs: "$ctrl",
-    name: "creatureFeatures",
-    replace: true,
-    templateUrl: "creature-editor/creature-features/creature-features.html"
-};
