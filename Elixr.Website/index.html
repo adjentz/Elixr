@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="sidebar left" ng-class="{'force-visible' : mainCtrl.forceSidebar}">
-        <div class="sidebar-inner">
+        <div class="sidebar-inner" ng-click="mainCtrl.toggleSidebar()">
             <rpg-chapters></rpg-chapters>
         </div>
         <div class="user-info hidden-mobile" ng-cloak="">
