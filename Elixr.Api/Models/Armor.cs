@@ -4,26 +4,8 @@ namespace Elixr.Api.Models
 {
     public class Armor : Equipment, IVotable
     {
-        public int DefenseBonus
-        {
-            get
-            {
-                return Math.Max(1, (int)WeightInPounds / 5 - 1);
-            }
-        }
-        public int SpeedPenalty
-        {
-            get
-            {
-                int penaltyFactor = 50;
-                if (BestowsDisadvantage)
-                {
-                    penaltyFactor -= 10;
-                }
-
-                return Math.Max((int)WeightInPounds - penaltyFactor, 0);
-            }
-        }
+        public int DefenseBonus {get;set;}
+        public int SpeedPenalty { get; set;}
         public int RoundsToDon
         {
             get

@@ -32,6 +32,8 @@ namespace Elixr.Api.ViewModels.Extensions
                 Description = armorVM.Description,
                 ImageUrl = armorVM.ImageUrl,
                 WeightInPounds = armorVM.WeightInPounds,
+                SpeedPenalty = armorVM.SpeedPenalty,
+                DefenseBonus = armorVM.DefenseBonus,
                 Enchantments = armorVM.Enchantments.Select(e => e.ToDomainModel()).ToList()
             };
         }

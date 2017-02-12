@@ -55,7 +55,12 @@
             <div class="markdown-container" ng-click="$ctrl.editDescription()" ng-show="!$ctrl.editingDescription" btf-markdown="$ctrl.newArmor.description"></div>
             <textarea ng-model="$ctrl.newArmor.description" ng-show="$ctrl.editingDescription" ng-blur="$ctrl.editingDescription = false"
                 rpg-focus="$ctrl.editingDescription"></textarea>
-
+            <div>
+                <strong>
+                    Defense Bonus:
+                </strong>
+                <input type="number" ng-model="$ctrl.newArmor.defenseBonus">
+            </div>
             <div>
                 <strong>
                     Weight: (In Pounds)
@@ -64,21 +69,15 @@
             </div>
             <div>
                 <strong>
+                    Speed Penalty
+                </strong>
+                <input type="number" step="5" min="0" max="10" ng-model="$ctrl.newArmor.speedPenalty">
+            </div>
+            <div>
+                <strong>
                     Bestows Disadvantage:
                 </strong>
                 {{ $ctrl.newArmor.bestowsDisadvantage ? 'Yes' : 'No' }}
-            </div>
-            <div>
-                <strong>
-                    Defense Bonus:
-                </strong>
-                {{ $ctrl.newArmor.defenseBonus }}
-            </div>
-            <div>
-                <strong>
-                    Speed Penalty
-                </strong>
-                {{ $ctrl.newArmor.speedPenalty }}
             </div>
             <div>
                 <strong>

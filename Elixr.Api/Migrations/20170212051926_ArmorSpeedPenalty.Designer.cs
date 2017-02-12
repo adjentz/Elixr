@@ -9,9 +9,10 @@ using Elixr.Api.Models;
 namespace Elixr.Api.Migrations
 {
     [DbContext(typeof(ElixrDbContext))]
-    partial class ElixrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170212051926_ArmorSpeedPenalty")]
+    partial class ArmorSpeedPenalty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
