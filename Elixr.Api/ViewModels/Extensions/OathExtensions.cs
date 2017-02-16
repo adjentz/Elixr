@@ -13,7 +13,7 @@ namespace Elixr.Api.ViewModels.Extensions
                 Description = oath.Description,
                 Mods = oath.Mods.Select(sm => sm.ToViewModel()).ToList(),
                 OathId = oath.Id,
-                Author = oath.Player.ToViewModel()
+                Author = oath.Player?.ToViewModel()
             };
         }
         public static Oath ToDomainModel(this OathViewModel oathVM)

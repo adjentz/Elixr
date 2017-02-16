@@ -8,6 +8,8 @@ namespace Elixr.Api.Models
         public Feature()
         {
             Mods = new List<StatMod>();
+            RequiredOaths = new List<Oath>();
+            RequiredFlaws = new List<Flaw>();
         }
         public int Id { get; set; }
         public bool CanBeTakenEachLevel { get; set; }
