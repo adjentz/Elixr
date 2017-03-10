@@ -134,8 +134,7 @@ export default class CreatureDescriptionController {
         });
     }
     removeRace(): void {
-        this.editor.creature.race = null;
-        this.clearGenericAbilities();
+        this.editor.removeRace();
     }
 
     closeSlideout(): void {

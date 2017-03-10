@@ -662,6 +662,52 @@ export default class CreatureEditorController {
         }
     }
 
+    removeRace():void {
+        this.creature.race = null;
+        this.updateInput.raceIdChangedTo = -1; //indicates to API to remove the Race
+    }
+     private clearGenericAbilities(): void {
+        // NB: right now the only way generic abilities exist is from Races. This might change in the future and this method will need to be re-evaluated.
+        if (this.creature.genericStrengthScore > 0) {
+            this.addBaseStat({
+                modifier: -this.creature.genericStrengthScore,
+                modifierType: Elixr.Api.Models.ModifierType.Normal,
+                reason: "Changed Race",
+                stat: Elixr.Api.Models.Stat.GenericStrengthScore,
+                statModId: 0
+            });
+        }
+        if (this.creature.genericAgilityScore > 0) {
+            this.addBaseStat({
+                modifier: -this.creature.genericAgilityScore,
+                modifierType: Elixr.Api.Models.ModifierType.Normal,
+                reason: "Changed Race",
+                stat: Elixr.Api.Models.Stat.GenericAgilityScore,
+                statModId: 0
+            });
+        }
+        if (this.creature.genericFocusScore > 0) {
+            this.addBaseStat({
+                modifier: -this.creature.genericFocusScore,
+                modifierType: Elixr.Api.Models.ModifierType.Normal,
+                reason: "Changed Race",
+                stat: Elixr.Api.Models.Stat.GenericFocusScore,
+                statModId: 0
+            });
+        }
+
+        if (this.creature.genericCharmScore > 0) {
+            this.addBaseStat({
+                modifier: -this.creature.genericCharmScore,
+                modifierType: Elixr.Api.Models.ModifierType.Normal,
+                reason: "Changed Race",
+                stat: Elixr.Api.Models.Stat.GenericCharmScore,
+                statModId: 0
+            });
+        }
+    }
+
+
     static states: angular.ui.IState[] = [{
         name: "creature-editor-saved",
         templateUrl: "creature-editor/creature-editor.html",

@@ -191,6 +191,10 @@ namespace Elixr.Api.Controllers
             {
                 creature.Race = await dbContext.Races.SingleOrDefaultAsync(r => r.Id == input.RaceIdChangedTo);
             }
+            else if(input.RaceIdChangedTo < 0) //-1 means remove Race
+            {
+                creature.Race = null;
+            }
 
             creature.CurrentEnergyLedger = input.CurrentEnergyLedgerIs;
             creature.Level = input.LevelIs;
