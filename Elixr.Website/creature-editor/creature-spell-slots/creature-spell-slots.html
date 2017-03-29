@@ -55,7 +55,7 @@
             </div>
         </div>
         <i>
-            Regen Remaining
+            Regen Rounds Remaining
         </i>
     </div>
     <div class="sources hidden-print">
@@ -63,7 +63,7 @@
             <tr>
                 <th>Spell Name</th>
                 <th>Channeled Energy</th>
-                <th>Regen Remaining</th>
+                <th>Regen Left</th>
             </tr>
             <tr ng-repeat="activeSpell in $ctrl.activeSpells">
                 <td>
@@ -106,12 +106,12 @@
                 </div>
                 <div class="flex-col">
                     <span class="vertical-align" style="font-weight: bold;">
-                        Channeled Energy
+                        Channeled<span class="hidden-print">Energy</span>
                    </span>
                 </div>
                 <div class="flex-col">
                     <span class="vertical-align" style="font-weight: bold;">
-                        Regen Time
+                        Regen Left
                    </span>
                 </div>
             </div>

@@ -36,6 +36,9 @@
                 <div class="current-spells" ng-show="$ctrl.currentMode === $ctrl.playing">
                     <div creature-spell-slots editor="$ctrl"></div>
                 </div>
+                <div class="current-spells visible-print" ng-show="$ctrl.currentMode !== $ctrl.viewing">
+                    <div creature-spell-slots editor="$ctrl"></div>
+                </div>
                 <div class="defense">
                     <div creature-defense editor="$ctrl"></div>
                 </div>
