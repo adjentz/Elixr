@@ -1,13 +1,13 @@
 <div class="creature-abilities">
     <div class="ability-row">
         <div class="ability-stat">
-            <div class="pool-remaining hidden-print">
+            <div ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" class="pool-remaining hidden-print">
                 Ability Points: {{ $ctrl.editor.creature.abilityPoolRemaining }}
             </div>
-            <div class="pool-remaining hidden-print">
+            <div ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" class="pool-remaining hidden-print">
                 Special Ability Points: {{ $ctrl.editor.creature.genericAbilityPoolRemaining }}
             </div>
-            <div class="pool-remaining hidden-print">
+            <div ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" class="pool-remaining hidden-print">
                 Skill Points: {{ $ctrl.editor.creature.skillPoolRemaining }}
             </div>
             <div class="pool-remaining">
@@ -33,11 +33,11 @@
     <div class="ability-row" ng-repeat-start="abilityName in $ctrl.abilityNames">
         <div class="ability-name">
             <div class="name">
-                <i class="fa fa-arrow-up arrow hidden-print" ng-click="$ctrl.increaseAbility(abilityName)"></i>
+                <i ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" class="fa fa-arrow-up arrow hidden-print" ng-click="$ctrl.increaseAbility(abilityName)"></i>
                 <h2>
                     {{ abilityName }}
                 </h2>
-                <i class="fa fa-arrow-down arrow hidden-print" ng-click="$ctrl.decreaseAbility(abilityName)"></i>
+                <i ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" class="fa fa-arrow-down arrow hidden-print" ng-click="$ctrl.decreaseAbility(abilityName)"></i>
             </div>
         </div>
         <div class="ability-defense"></div>
@@ -89,8 +89,8 @@
     <div class="ability-row" ng-repeat-start="skill in $ctrl.skillsByAbilityName[abilityName] | orderBy:'name'">
         <div class="ability-name">
             <div class="name">
-                <i class="fa fa-arrow-up arrow hidden-print" ng-click="$ctrl.increaseSkill(skill)"></i> {{ skill.name }}
-                <i class="fa fa-arrow-down arrow hidden-print" ng-click="$ctrl.decreaseSkill(skill)"></i>
+                <i ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" class="fa fa-arrow-up arrow hidden-print" ng-click="$ctrl.increaseSkill(skill)"></i> {{ skill.name }}
+                <i ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" class="fa fa-arrow-down arrow hidden-print" ng-click="$ctrl.decreaseSkill(skill)"></i>
             </div>
         </div>
         <div class="ability-defense">

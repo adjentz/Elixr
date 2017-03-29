@@ -43,6 +43,7 @@ namespace Elixr.Api.Controllers
                                                  .Include(c => c.ArmorInformation).ThenInclude(ai => ai.FeaturesApplied).ThenInclude(fi => fi.Feature)
                                                  .Include(c => c.Skills)
                                                  .Include(c => c.BaseStats)
+                                                 .Include(c => c.Author)
                                                  .AsQueryable();
             }
         }

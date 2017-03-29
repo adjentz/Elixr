@@ -87,7 +87,7 @@
                 </td>
             </tr>
         </table>
-        <a ng-click="$ctrl.addWeapon()" class="hidden-print">
+        <a ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" ng-click="$ctrl.addWeapon()" class="hidden-print">
             Add Weapon+
         </a>
     </div>

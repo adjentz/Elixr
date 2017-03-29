@@ -1,0 +1,91 @@
+@import "variables.less";
+
+.creature-spell-slots{
+    display: flex;
+    height: 100%;
+    position: relative;
+
+    div.overlay {
+        position: absolute;
+        left:0;
+        right: 0;
+        top:0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.6);
+        text-align: center;
+        color:white;
+    }
+
+    div.hourglass-wrapper{
+        flex:2;
+        padding: 0 15px;
+        border-right: 1px solid #333;
+        text-align: center;
+
+        div.hourglass-header{
+            margin-bottom: 5px;
+            h2{
+                margin: 0;
+                font-size: 1em;
+            }
+        }
+        div.hourglass{
+            background-image: url('/content/images/hour-glass.png');
+            background-size: 100% 100%;
+            height: 65%;
+            position: relative;
+            max-width: 200px;
+            margin: 0 auto;
+            
+            div.upper, div.lower {
+                height: 50%;
+
+                span {
+                    white-space: nowrap;
+                    left:0;
+                    right:0;
+                    display: inline-block;
+                    position: relative;
+                    top:60%;
+                    transform: translateY(-50%);
+                }
+            }
+            
+        }
+    }
+    div.sources,div.sources-printable{
+        flex:3;
+        overflow-y: auto;
+        text-align: center;
+        a,span{
+            font-size: 12px;
+        }
+
+        td{
+            .fa{
+                color:maroon;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:@mobileCollapse) {
+    .creature-spell-slots {
+        display: initial;
+
+        div.hourglass-wrapper {
+            border-right: none;
+            padding: 15px;
+
+            div.hourglass {
+                height: 200px;
+            }
+        }
+
+        div.sources {
+            border-top: 1px solid #333;
+            padding-bottom: 5px;
+        }
+    }
+}

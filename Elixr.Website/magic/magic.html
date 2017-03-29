@@ -42,69 +42,71 @@
             Casting a spell
         </h3>
         <p>
-            All spells require the caster to say specific, arcane, words, and move their hands to direct the Energy. Spells have the
-            following components: <strong>Speed Cost</strong>, <strong>Energy Cost</strong>, <strong>Regen Time</strong>.
+            You have a number of spell slots equal to your Focus Modifier. If your Focus Modifier is 0 or less, you cannot cast spells.
+        </p>
+        <p>
+            You cast a spell by placing it in a free spell slot on your turn. If no spell slots are free, you cannot cast any additional spells.
+            These Spell Slots are noted in the Spell Slots section of your Character Sheet.
+        </p>
+        <p>
+            To place a spell in a spell slot, follow these steps:
+        </p>
+        <ol>
+            <li>
+                Choose a free spell slot and write down the name of a spell that you have learned in the "Spell Name" column. This causes the slot to no longer be free.
+            </li>
+            <li>
+                Choose how much Energy you want to channel for the spell, record this number in the "Channeled Energy" column, then add the number to the Total Channeled section of your Character Sheet. See notes about Channeled Energy below.
+            </li>
+            <li>
+                Record how many rounds it will take to regain this Channeled Energy, as noted by the "Regen Time" of the spell description, in the "Regen Remaining" column.
+                If the Regen Time listed is "Concentration", simply mark an <i class="fa fa-times"></i> in this spot instead.
+            </li>
+        </ol>
+        <p>
+            At the start of each of your turns, do the following:
+        </p>
+        <ol>
+            <li>
+                Subtract 1 from the "Regen Remaining" column for each spell that is not Concentration based. 
+            </li>
+            <li>
+                If the number in the "Regen Remaining" column becomes 0 after performing the previous step, decrease the Total Channeled by the number in the Channeled Energy column.
+                Then, erase the row, thus freeing the spell slot.
+            </li>
+        </ol>
+        <p>
+            For concentration spells, at any point on your turn you may decide to stop concentrating on the spell. 
+            In which case, decrease the Total Channeled by the number in the Channeled Energy column, then erase the row, thus freeing the spell slot.
+            Any effects from the spell immediately cease.
         </p>
         <h4>
-            Speed Cost
+            Channeled Energy
         </h4>
         <p>
-            Speed Cost is how much of your turn's movement Speed is consumed in order to cast the spell. If a spell has a Speed Cost
-            higher than your character's Speed, this means it will take more than 1 round to cast the spell.
-        </p>
-        <h4>
-            Energy Cost
-        </h4>
-        <p>
-            When casting a spell, you must declare how much Energy you are using to cast it. This is referred to as your "Channeled Energy",
-            which cannot exceed your character's Current Energy. Channeled Energy is recorded on your character sheet.
+            All spells have a description for "Energy Cost", which indicates how much Energy must be channeled in order to produce an effect. 
+            Typically, the more Energy channeled, the more powerful the spell becomes.
         </p>
         <p>
-            The Energy Cost of a spell indicates how much Energy must be channeled in order to produce an effect. Typically, the more Energy channeled,
-            the more powerful the spell becomes.
+            When you place a spell in a spell slot, you determine how much of your own Energy you are willing risk on this spell, and record it in the "Channeled Energy" column.
         </p>
         <p>
-            Having Channeled Energy carries a certain risk. If a character with Channeled Energy takes damage, the following occurs:
-            <ul>
-                <li>
-                    The character loses Energy from the damage as normal.
-                </li>
-                <li>
-                    Additionally, the character loses Energy equal to the amount of Channeled Energy.
-                </li>
-                <li>
-                    Any spells still in effect from the Channeled Energy immediately stop.
-                </li>
-                <li>
-                    The character's Channeled Energy is reset to 0.
-                </li>
-            </ul>
+            The sum of the "Channeled Energy" column of every spell, in other words, the "Total Channeled" in the Spell Slots section, cannot exceed your Current Energy.
         </p>
         <p>
-            For these reasons, it is recommended for spell casters to stay away from melee combat when possible.
+            If your Current Energy goes down, such as for taking damage from an attack, the following happens:
         </p>
-        <h4>
-            Regen Time
-        </h4>
-        <p>
-            Regen Time is how long it takes for Channeled Energy to return to 0.
-        </p>
-        <p>
-            For example, a character might cast Energy Blast by Channeling four points of Energy, which they record on their character
-            sheet. Energy Blast has a Regen Time of 1 round, so at the start of the character's next turn, their Channeled
-            Energy returns to 0.
-        </p>
-        <p>
-            If a spell has a Regen Time of 2 rounds, it won't be at the start of the character's next turn, but instead the start of
-            their turn after that, in which their Channeled Energy returns to 0.
-        </p>
-        <p>
-            Some spells have a Regen Time of "Concentration". 
-            This means the spell will stay in effect until a character stops concentrating on it, either by becoming a distracted and failing a Concentration check, or by declaring that they want the spell to end.
-        </p>
-        <p>
-            In this case, Channeled Energy resets to 0 at the start of the character's next turn.
-        </p>
+        <ol>
+            <li>
+                Your Current Energy is decreased by the Total Channeled in the Spell Slots section.
+            </li>
+            <li>
+                All spells are erased from the Spell Slots, freeing all of them. Any effects still in play from those spells cease immediately.
+            </li>
+            <li>
+                As a result, Total Channeled is set to 0.
+            </li>
+        </ol>
     </article>
     <div>
         <rpg-spells></rpg-spells>

@@ -84,7 +84,7 @@
             </tr>
             <tr ng-repeat-end=""></tr>
         </table>
-        <a ng-click="$ctrl.getFeature()">
+        <a ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" ng-click="$ctrl.getFeature()">
             Get Feature+
         </a>
     </div>

@@ -9,12 +9,12 @@
             </h2>
         </div>
         <div class="heart">
-            <span class="hidden-print">
-                {{ $ctrl.creature.maxEnergy }}
+            <span class="energy-values" class="hidden-print">
+                <span ng-show="$ctrl.editor.playing">{{ $ctrl.creature.currentEnergy }}/</span>{{ $ctrl.creature.maxEnergy }}
             </span>
         </div>
     </div>
-    <div class="sources">
+    <div class="sources" ng-show="$ctrl.editor.currentMode !== $ctrl.editor.playing">
         <table class="hidden-print">
             <tr>
                 <th>Source</th>
@@ -35,11 +35,8 @@
         <h4 class="visible-print" style="text-decoration: underline;margin-top: 2px;">
             Wounds/Current Energy
         </h4>
-        <div class="channeled-energy visible-print">
-            <strong>
-                Channeled Energy:
-            </strong>
-
-        </div>
+    </div>
+    <div class="ledger" ng-show="$ctrl.editor.currentMode === $ctrl.editor.playing">
+        <textarea placeholder="e.g.: -3 + 7 - 2" ng-model="$ctrl.editor.creature.currentEnergyLedger"></textarea>
     </div>
 </div>

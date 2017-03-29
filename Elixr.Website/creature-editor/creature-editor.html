@@ -11,6 +11,16 @@
                 Save
                 <i class="fa fa-spinner fa-pulse" ng-show="$ctrl.saving"></i>
             </button>
+            <div style="display: inline-block" ng-if="$ctrl.shouldShowModeOptions">
+                <label>
+                    <input type="radio" ng-model="$ctrl.currentMode" ng-value="$ctrl.editing">
+                    Edit
+                </label>
+                <label>
+                    <input type="radio" ng-model="$ctrl.currentMode" ng-value="$ctrl.playing">
+                    Play
+                </label>
+            </div>
         </div>
         <div class="description">
             <div creature-description editor="$ctrl"></div>
@@ -21,7 +31,10 @@
             </div>
             <div class="primary-stats">
                 <div class="energy">
-                    <div creature-energy="$ctrl.creature"></div>
+                    <div creature-energy editor="$ctrl"></div>
+                </div>
+                <div class="current-spells" ng-show="$ctrl.currentMode === $ctrl.playing">
+                    <div creature-spell-slots editor="$ctrl"></div>
                 </div>
                 <div class="defense">
                     <div creature-defense editor="$ctrl"></div>

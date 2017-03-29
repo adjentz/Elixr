@@ -10,6 +10,7 @@ import CreatureFeaturesController from "./creature-editor/creature-features/crea
 import CreatureFlawsController from "./creature-editor/creature-flaws/creature-flaws";
 import CreatureOathsController from "./creature-editor/creature-oaths/creature-oaths";
 import CreatureSpellsController from "./creature-editor/creature-spells/creature-spells";
+import { CreatureActiveSpellsController } from './creature-editor/creature-spell-slots/creature-spell-slots';
 import RPGArmorController from "./equipment/armor/directives/rpg-armor";
 import RPGWeaponsController from "./equipment/weapons/directives/rpg-weapons";
 import RPGItemsController from "./equipment/items/directives/rpg-items";
@@ -70,6 +71,7 @@ rpgModule.directive(CreatureFeaturesController.directive.name, () => CreatureFea
 rpgModule.directive(CreatureFlawsController.directive.name, () => CreatureFlawsController.directive);
 rpgModule.directive(CreatureOathsController.directive.name, () => CreatureOathsController.directive);
 rpgModule.directive(CreatureSpellsController.directive.name, () => CreatureSpellsController.directive);
+rpgModule.directive(CreatureActiveSpellsController.directive.name, () => CreatureActiveSpellsController.directive);
 rpgModule.directive(RPGArmorController.directive.name, () => RPGArmorController.directive);
 rpgModule.directive(RPGWeaponsController.directive.name, () => RPGWeaponsController.directive);
 rpgModule.directive(RPGItemsController.directive.name, () => RPGItemsController.directive);

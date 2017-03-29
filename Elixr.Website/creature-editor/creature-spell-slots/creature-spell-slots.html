@@ -1,0 +1,129 @@
+<div class="creature-spell-slots">
+
+    <div class="slideout" ng-if="$ctrl.newActiveSpell">
+
+        <div class="close" ng-click="$ctrl.closeSlideout()">
+            &times;
+        </div>
+
+        <ul class="selection" ng-if="$ctrl.newActiveSpell.spellId < 1">
+            <li ng-repeat="spell in $ctrl.availableSpells" ng-click="$ctrl.spellSelected(spell)">
+                {{ spell.name }}
+            </li>
+        </ul>
+        <div ng-if="$ctrl.newActiveSpell.spellId > 0">
+            <p>
+                {{ $ctrl.getSpellById($ctrl.newActiveSpell.spellId).description }}
+            </p>
+            <p>
+                Energy Cost: {{ $ctrl.getSpellById($ctrl.newActiveSpell.spellId).energyCost }}
+            </p>
+            <div>
+                Energy You Channel:
+                <input type="number" ng-model="$ctrl.newActiveSpell.energyChanneled">
+            </div>
+            <div style="margin-top: 5px;">
+                <button ng-click="$ctrl.spellCast()">
+                    Cast
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="hourglass-wrapper">
+        <div class="hourglass-header">
+            <h2>
+                SPELL SLOTS
+            </h2>
+        </div>
+
+        <i>
+            Total Channeled
+        </i>
+        <div class="hourglass">
+            <div class="upper">
+                <span class="hidden-print total-channeled">
+                    {{ $ctrl.totalEnergyChanneled }}
+                </span>
+            </div>
+            <div class="lower">
+                <span class="hidden-print total-regen">
+                    {{ $ctrl.totalRegenTime }}
+                </span>
+            </div>
+        </div>
+        <i>
+            Regen Remaining
+        </i>
+    </div>
+    <div class="sources hidden-print">
+        <table>
+            <tr>
+                <th>Spell Name</th>
+                <th>Channeled Energy</th>
+                <th>Regen Remaining</th>
+            </tr>
+            <tr ng-repeat="activeSpell in $ctrl.activeSpells">
+                <td>
+                    {{ $ctrl.getSpellById(activeSpell.spellId).name }}
+                </td>
+                <td>
+                    {{ activeSpell.energyChanneled }}
+                </td>
+                <td>
+                    <span ng-if="!$ctrl.activeSpellIsConcentration(activeSpell)">
+                        {{ activeSpell.regenRemaining }}
+                    </span>
+                    <span ng-if="$ctrl.activeSpellIsConcentration(activeSpell)">
+                        <i class="fa fa-minus-square-o" ng-click="$ctrl.stopConcentratingOn(activeSpell)"></i>
+                        Con
+                    </span>
+                </td>
+            </tr>
+        </table>
+        <span ng-show="!$ctrl.canCastSpell">
+            {{ $ctrl.castSpellMessage }}
+        </span>
+        <a ng-show="$ctrl.canCastSpell" ng-click="$ctrl.castSpell()">
+            {{ $ctrl.castSpellMessage }}
+        </a>
+        <div ng-show="$ctrl.showPumpTurn">
+            <a ng-click="$ctrl.pumpTurn()">
+                <i class="fa fa-clock-o"></i>
+            Click on start of turn.
+            </a>
+        </div>
+    </div>
+    <div class="sources-printable visible-print">
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-col">
+                    <span class="vertical-align" style="font-weight: bold;">
+                        Spell Name
+                    </span>
+                </div>
+                <div class="flex-col">
+                    <span class="vertical-align" style="font-weight: bold;">
+                        Channeled Energy
+                   </span>
+                </div>
+                <div class="flex-col">
+                    <span class="vertical-align" style="font-weight: bold;">
+                        Regen Time
+                   </span>
+                </div>
+            </div>
+            <div class="flex-row" ng-repeat="i in [0,1,2,3,4,5,6,7]">
+                <div class="flex-col">
+                </div>
+                <div class="flex-col">
+                </div>
+                <div class="flex-col">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

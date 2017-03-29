@@ -49,7 +49,7 @@
             </tr>
 
         </table>
-        <a class="hidden-print" ng-click="$ctrl.addItem()">
+        <a ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" class="hidden-print" ng-click="$ctrl.addItem()">
             Add Item+
         </a>
 

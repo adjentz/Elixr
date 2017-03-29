@@ -78,7 +78,7 @@
             </tr>
             <tr ng-repeat-end=""></tr>
         </table>
-        <a ng-click="$ctrl.learnSpell()">
+        <a ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" ng-click="$ctrl.learnSpell()">
             Learn Spell+ (Costs 1 Feature Point)
         </a>
     </div>

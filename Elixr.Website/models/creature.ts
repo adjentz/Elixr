@@ -1,8 +1,8 @@
 class Creature implements Elixr.Api.ViewModels.CreatureViewModel {
 
-    author:Elixr.Api.ViewModels.PlayerViewModel;
-    createdAtMS:number;
-    
+    author: Elixr.Api.ViewModels.PlayerViewModel;
+    createdAtMS: number;
+
     creatureId: number;
     name: string;
     gender: string;
@@ -14,7 +14,11 @@ class Creature implements Elixr.Api.ViewModels.CreatureViewModel {
     age: string;
     description: string;
     portraitUrl: string;
-    isPlayerCharacter:boolean;
+    isPlayerCharacter: boolean;
+
+    private cachedCurrentEnergyInvalid = true;
+    private cachedCurrentEnergy = 0;
+    private _currentEnergyLedger = "";
 
     race: Elixr.Api.ViewModels.RaceViewModel;
 
@@ -30,7 +34,7 @@ class Creature implements Elixr.Api.ViewModels.CreatureViewModel {
     baseStats: Elixr.Api.ViewModels.StatModViewModel[];
 
     level: number;
-    currentEnergyLedger: string;
+
 
     constructor() {
         this.baseStats = [];
@@ -280,7 +284,7 @@ class Creature implements Elixr.Api.ViewModels.CreatureViewModel {
         score /= 2;
         return score;
     }
-    private sumStat(stat: Elixr.Api.Models.Stat): number {    
+    private sumStat(stat: Elixr.Api.Models.Stat): number {
         let result = 0;
         let statMods = this.allStatMods.filter(sm => sm.stat === stat);
         for (let sm of statMods) {
@@ -318,10 +322,80 @@ class Creature implements Elixr.Api.ViewModels.CreatureViewModel {
         let spellFeatures = _.flatten(this.spellInformation.map(s => s.featuresApplied));
 
         let results = creatureFeatures.concat(weaponFeatures).concat(spellFeatures);
-        if(this.race) {
+        if (this.race) {
             results = results.concat(this.race.featureInformation);
         }
         return results;
+    }
+
+    get currentEnergyLedger(): string {
+        return this._currentEnergyLedger;
+    }
+    set currentEnergyLedger(value: string) {
+        if (this._currentEnergyLedger !== value) {
+            this.cachedCurrentEnergyInvalid = true;
+            this._currentEnergyLedger = value;
+        }
+    }
+
+    get currentEnergyLedgerIsValid(): boolean {
+        if (!this.currentEnergyLedger) {
+            return false;
+        }
+        let firstChar = this.currentEnergyLedger[0];
+        if (firstChar !== "-") {
+            return false;
+        }
+
+        let validCharacters = ["-", "+", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " "];
+        for (let char of this.currentEnergyLedger) {
+            if (validCharacters.indexOf(char) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    get currentEnergy(): number {
+        if (!this.cachedCurrentEnergyInvalid) {
+            return this.cachedCurrentEnergy;
+        }
+        if (!this.currentEnergyLedgerIsValid) {
+            return this.maxEnergy;
+        }
+
+        let opIsMinus = true;
+        let currentValueStr = "";
+        this.cachedCurrentEnergy = this.maxEnergy;
+
+        let ledger = this.currentEnergyLedger.replace(" ", "");
+
+        for (let i = 1; i < ledger.length; i++) {
+            let char = ledger[i];
+            if (!isNaN(Number(char))) {
+                currentValueStr += char;
+            }
+            else {
+                if (opIsMinus) {
+                    this.cachedCurrentEnergy -= Number(currentValueStr);
+                }
+                else {
+                    this.cachedCurrentEnergy += Number(currentValueStr);
+                }
+                currentValueStr = "";
+                opIsMinus = char === "-";
+            }
+        }
+
+        if (opIsMinus) {
+            this.cachedCurrentEnergy -= Number(currentValueStr);
+        }
+        else {
+            this.cachedCurrentEnergy += Number(currentValueStr);
+        }
+        
+        this.cachedCurrentEnergyInvalid = false;
+        return this.cachedCurrentEnergy;
     }
 
     get allFlawInformation(): Elixr.Api.ViewModels.FlawInfoViewModel[] {

@@ -26,7 +26,7 @@
             </tr>
             <tr ng-repeat-end=""></tr>
         </table>
-        <a  ng-click="$ctrl.addOath()">
+        <a ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" ng-click="$ctrl.addOath()">
             Add Oath+
         </a>
     </div>

@@ -9,6 +9,8 @@
 @import "creature-features/creature-features.less";
 @import "creature-flaws/creature-flaws.less";
 @import "creature-oaths/creature-oaths.less";
+@import "creature-spell-slots/creature-spell-slots.less";
+
 .creature-editor{
     
     div.description{
@@ -33,7 +35,7 @@
         .primary-stats{
             display: flex;
             flex-direction: column;
-            .energy,.defense,.weapons{
+            .energy,.defense,.weapons, .current-spells{
                 flex:1;
             }   
         }
@@ -80,13 +82,14 @@
         }
     }
 
-    div.energy,div.defense{
+    div.energy,div.defense,div.current-spells{
          margin-bottom: 10px;
         border:1px solid #333;
         height: 0%;
     }
     div.weapons{
         border: 1px solid #333;
+        height: 0%;
     }
 }
 

@@ -2,11 +2,21 @@ import Creature = require("../models/creature");
 import ApiService from "../services/api-service";
 import { RPGPlayerSession } from "../services/rpg-player-session";
 
+enum EditorMode {
+    Editing, 
+    Playing,
+    Viewing
+}
+
 export default class CreatureEditorController {
     creature: Creature
     loading = false;
     saving = false;
     attemptedSave = false;
+    currentMode = EditorMode.Editing;
+    playing = EditorMode.Playing;
+    editing = EditorMode.Editing;
+    viewing = EditorMode.Viewing;
 
     private updateInput: Elixr.Api.ApiModels.CreatureEditInput;
 
@@ -63,12 +73,23 @@ export default class CreatureEditorController {
             this.loading = true;
             this.apiService.get<Elixr.Api.ViewModels.CreatureViewModel>(`creatures/${creatureId}`).then(result => {
                 this.creature = Creature.fromViewModel(result.data);
+                if(this.creature.author.playerId === this.rpgPlayerSession.playerId) {
+                    this.currentMode = this.editing;
+                }
+                else {
+                    this.currentMode = this.viewing;
+                }
                 document.title = `Elixr | ${this.creature.name}`;
             }).finally(() => this.loading = false);
         }
         else {
+            this.currentMode = this.editing;
             this.creature = new Creature();
-            
+            this.creature.author = {
+                playerId: this.rpgPlayerSession.playerId,
+                playerName: this.rpgPlayerSession.playerName
+            };
+
             this.creature.isPlayerCharacter = isPlayerCharacter;
             this.creature.level = 1;
             //handle skills
@@ -273,6 +294,13 @@ export default class CreatureEditorController {
                 }
             }
         }
+    }
+
+    get shouldShowModeOptions(): boolean {
+        if(!this.creature || !this.creature.author) {
+            return false;
+        }
+        return this.creature.author.playerId === this.rpgPlayerSession.playerId;
     }
 
     addFeatureInfo(featureInfo: Elixr.Api.ViewModels.FeatureInfoViewModel, updateOnly = false) {

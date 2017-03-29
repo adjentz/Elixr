@@ -21,11 +21,11 @@
        div.heart{
            background-image: url('/content/images/heart.png');
            background-size: 100% 100%;
-           height: 80%;
+           height: 75%;
            position: relative;
            max-width: 200px;
            margin: 0 auto;
-           span{
+           span.energy-values {
                white-space: nowrap;
                font-size: 64px;
                position: absolute;
@@ -35,7 +35,7 @@
            }
        }
    }
-   div.sources{
+   div.sources, div.ledger{
        flex:3;
        overflow-y: auto;
        text-align: center;
@@ -44,12 +44,18 @@
        i{
            font-size: 10px;
        }
-
-       .channeled-energy {
+       textarea {
+           box-sizing: border-box;
            position: absolute;
-           bottom: 10px;
-           left: 15px;
-       }
+           left:0;
+           right: 0;
+           top: 0;
+           bottom: 0;
+           width:100%;
+           border:none;
+           resize: none;
+           padding: 10px;
+       };
    }
 }
 
@@ -64,7 +70,7 @@
                 min-height: 200px;
             }
         }
-        div.sources {
+        div.sources, div.ledger {
             border-top: 1px solid #333;
             padding-bottom: 5px;
         }

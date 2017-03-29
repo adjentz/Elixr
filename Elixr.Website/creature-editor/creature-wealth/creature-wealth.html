@@ -90,7 +90,7 @@
                 </td>
             </tr>
         </table>
-        <a class="hidden-print" ng-click="$ctrl.editingWealth = true">
+        <a ng-show="$ctrl.editor.currentMode !== $ctrl.editor.viewing" class="hidden-print" ng-click="$ctrl.editingWealth = true">
             Edit Wealth <i class="fa fa-pencil"></i>
         </a>
         <h4 class="visible-print" style="text-decoration: underline; margin-top: 2px;">

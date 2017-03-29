@@ -1,9 +1,45 @@
 import Creature = require("../../models/creature");
+import CreatureEditorController from '../creature-editor';
+
+interface IActiveSpell {
+    regenTime: number;
+    energyChanneled: number;
+    spell: Elixr.Api.ViewModels.SpellViewModel;
+}
 
 export default class CreatureEnergyController {
-    creature: Creature;
 
+    activeSpells: IActiveSpell[];
+    editor:CreatureEditorController;
 
+    constructor() {
+
+        let myCoolSpell: Elixr.Api.ViewModels.SpellViewModel = {
+            author: null,
+            createdAtMS: 0,
+            description: "",
+            energyCost: "1 per something",
+            movementCost: 5,
+            name: "My Cool Spell",
+            regenTimeInRounds: 9,
+            spellId: 0
+        };
+
+        this.activeSpells = [{
+            energyChanneled: 7,
+            regenTime: 3,
+            spell: myCoolSpell
+        },
+        {
+            energyChanneled: 1,
+            regenTime: 2,
+            spell: myCoolSpell
+        }];
+    }
+
+    get creature(): Creature {
+        return this.editor.creature;
+    }
     get energySources(): Elixr.Api.ViewModels.StatModViewModel[] {
         return _.filter(this.creature.allStatMods, sm => sm.stat === Elixr.Api.Models.Stat.MaxEnergy);
     }
@@ -27,7 +63,7 @@ export default class CreatureEnergyController {
 
     static directive: angular.IDirective = {
         bindToController: {
-            creature: "=creatureEnergy"
+            editor: "="
         },
         scope: {},
         controller: CreatureEnergyController,
