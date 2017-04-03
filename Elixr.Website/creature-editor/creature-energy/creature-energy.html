@@ -10,7 +10,7 @@
         </div>
         <div class="heart">
             <span class="energy-values hidden-print">
-                <span ng-show="$ctrl.editor.playing">{{ $ctrl.creature.currentEnergy }}/</span>{{ $ctrl.creature.maxEnergy }}
+                <span ng-show="$ctrl.editor.currentMode === $ctrl.editor.playing">{{ $ctrl.creature.currentEnergy }}/</span>{{ $ctrl.creature.maxEnergy }}
             </span>
         </div>
     </div>

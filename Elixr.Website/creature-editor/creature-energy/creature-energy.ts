@@ -10,7 +10,7 @@ interface IActiveSpell {
 export default class CreatureEnergyController {
 
     activeSpells: IActiveSpell[];
-    editor:CreatureEditorController;
+    editor: CreatureEditorController;
 
     constructor() {
 
@@ -47,7 +47,7 @@ export default class CreatureEnergyController {
     formatModifier(statMod: Elixr.Api.ViewModels.StatModViewModel): string {
         if (statMod.modifierType === Elixr.Api.Models.ModifierType.Normal) {
             if (statMod.modifier < 0) {
-                return `-${statMod.modifier}`;
+                return `${statMod.modifier}`;
             }
             return `+${statMod.modifier}`;
         }

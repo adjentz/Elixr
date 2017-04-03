@@ -73,7 +73,7 @@ export default class CreatureFeaturesController {
         }
         else {
             let existingFeature = _(this.editor.creature.allFeatureInformation)
-                .filter(fi => fi.feature.featureId === this.acquiredFeature.featureId)
+                .filter(fi => fi.feature.featureId === feature.featureId)
                 .first();
 
             if (existingFeature) {
