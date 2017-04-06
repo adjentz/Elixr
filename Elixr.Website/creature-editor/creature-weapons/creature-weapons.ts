@@ -71,7 +71,7 @@ export default class CreatureWeaponsController {
     getWeaponBonus(weaponInfo: Elixr.Api.ViewModels.WeaponInfoViewModel): string {
         let bonus = 0;
 
-        switch (weaponInfo.weapon.damageAbility) {
+        switch (weaponInfo.weapon.attackAbility) {
             case Elixr.Api.Models.Stat.StrengthMisc:
             case Elixr.Api.Models.Stat.NaturalStrengthScore:
                 bonus += this.editor.creature.strengthBonus;

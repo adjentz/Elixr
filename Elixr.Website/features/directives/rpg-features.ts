@@ -46,7 +46,7 @@ export class RPGFeaturesController {
 
         this.availableStats = [Stat.AbilityPool, Stat.Acrobatics, Stat.AgilityMisc, Stat.AnimalHandling, Stat.Athletics,
         Stat.CharmMisc, Stat.Climb, Stat.Concentration, Stat.Deception, Stat.Defense, Stat.Diplomacy,
-        Stat.Engineer, Stat.EscapeArtist, Stat.FocusMisc, Stat.Initiative, Stat.Insight, Stat.Intimidation,
+        Stat.Engineer, Stat.EscapeArtist, Stat.FeaturePool, Stat.FocusMisc, Stat.Initiative, Stat.Insight, Stat.Intimidation,
         Stat.MaxEnergy, Stat.Medicine, Stat.Perception, Stat.Perform, Stat.Recall, Stat.SkillPool, Stat.SleightOfHand,
         Stat.Speed, Stat.Stealth, Stat.StrengthMisc, Stat.Survival, Stat.Swim, Stat.Wealth, Stat.WeaponAttackIncrease, Stat.WeaponDamageIncrease];
 
